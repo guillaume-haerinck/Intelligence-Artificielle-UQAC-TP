@@ -5,8 +5,6 @@
 #include "misc/ConsoleUtils.h"
 #include "EntityNames.h"
 
-
-
 std::ofstream os;
 
 int main()
