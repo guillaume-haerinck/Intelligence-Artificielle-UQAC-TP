@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{c7479901-f0b7-43ff-b6ea-5ac019783c63}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{3b33353e-e51c-45b9-a7fb-2c190510871e}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+    <Filter Include="misc">
+      <UniqueIdentifier>{99c94296-3349-42b3-a368-3d562afe8d5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{7793fc99-0e61-4d75-945f-9ed6fd42c32c}</UniqueIdentifier>
+      <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="BaseGameEntity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MessageDispatcher.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Miner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MinerOwnedStates.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MinersWife.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MinersWifeOwnedStates.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\Time\CrudeTimer.cpp">
+      <Filter>misc</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BaseGameEntity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityNames.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Locations.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MessageDispatcher.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MessageTypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Miner.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MinerOwnedStates.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MinersWife.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MinersWifeOwnedStates.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\FSM\State.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\FSM\StateMachine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\Messaging\Telegram.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\misc\ConsoleUtils.h">
+      <Filter>misc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\ConsoleUtils.h">
+      <Filter>misc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\Time\CrudeTimer.h">
+      <Filter>misc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\2D\SVector2D.h">
+      <Filter>misc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\utils.h">
+      <Filter>misc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\misc\utils.h">
+      <Filter>misc</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
