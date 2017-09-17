@@ -45,12 +45,6 @@
     <ClCompile Include="..\..\Common\Time\CrudeTimer.cpp">
       <Filter>misc</Filter>
     </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="BarFly.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="BarFlyOwnedStates.cpp">
-=======
     <ClCompile Include="GUI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -58,7 +52,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Swain.cpp">
->>>>>>> d341c00eb7513f5747b21c39d6387271d1b9ab91
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -120,17 +113,10 @@
     <ClInclude Include="..\..\Common\misc\utils.h">
       <Filter>misc</Filter>
     </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="BarFly.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BarFlyOwnedStates.h">
-=======
     <ClInclude Include="Swain.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SwainOwnedStated.h">
->>>>>>> d341c00eb7513f5747b21c39d6387271d1b9ab91
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
