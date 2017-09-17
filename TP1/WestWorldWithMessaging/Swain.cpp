@@ -8,7 +8,7 @@ bool Swain::HandleMessage(const Telegram& msg)
 
 void Swain::Update()
 {
-	SetTextColor(FOREGROUND_RED | FOREGROUND_INTENSITY);
+	SetTextColor(FOREGROUND_BLUE | FOREGROUND_INTENSITY);
 
 	m_Horny+= 1;
 

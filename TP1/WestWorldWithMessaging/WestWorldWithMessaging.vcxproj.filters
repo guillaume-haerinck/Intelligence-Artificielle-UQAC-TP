@@ -45,10 +45,13 @@
     <ClCompile Include="..\..\Common\Time\CrudeTimer.cpp">
       <Filter>misc</Filter>
     </ClCompile>
-    <ClCompile Include="Swain.cpp">
+    <ClCompile Include="GUI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SwainOwnedStates.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Swain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -110,19 +113,11 @@
     <ClInclude Include="..\..\Common\misc\utils.h">
       <Filter>misc</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Swain.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SwainOwnedStated.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="WestWorldWithMessaging.rc">
-      <Filter>Source Files</Filter>
-    </ResourceCompile>
   </ItemGroup>
 </Project>
