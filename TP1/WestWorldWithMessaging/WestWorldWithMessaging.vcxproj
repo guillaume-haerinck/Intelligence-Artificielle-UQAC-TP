@@ -135,6 +135,7 @@
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <ClCompile Include="GUI.cpp" />
     <ClCompile Include="main.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -163,6 +164,8 @@
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <ClCompile Include="Swain.cpp" />
+    <ClCompile Include="SwainOwnedStates.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BarFly.h" />
@@ -186,6 +189,8 @@
     <ClInclude Include="..\..\Common\2D\SVector2D.h" />
     <ClInclude Include="..\..\Common\utils.h" />
     <ClInclude Include="..\..\Common\misc\utils.h" />
+    <ClInclude Include="Swain.h" />
+    <ClInclude Include="SwainOwnedStated.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
