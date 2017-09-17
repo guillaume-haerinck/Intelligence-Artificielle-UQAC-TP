@@ -2,7 +2,7 @@
 #define BARFLY_OWNED_STATES_H
 
 
-#include "FSM/State.h"
+#include "fsm/State.h"
 
 class BarFly;
 struct Telegram;
@@ -10,8 +10,8 @@ struct Telegram;
 class DrinkingAtBar : public State<BarFly>
 {
 private:
-	
-	DrinkingAtBar(){}
+
+	DrinkingAtBar() {}
 
 	DrinkingAtBar(const DrinkingAtBar&);
 	DrinkingAtBar& operator=(const DrinkingAtBar&);
@@ -98,9 +98,5 @@ public:
 
 	virtual bool OnMessage(BarFly* agent, const Telegram& msg);
 };
-
-
-
-
 
 #endif

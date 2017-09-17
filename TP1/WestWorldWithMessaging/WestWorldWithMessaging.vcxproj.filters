@@ -54,6 +54,12 @@
     <ClCompile Include="Swain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BarFly.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BarFlyOwnedStates.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseGameEntity.h">
@@ -117,6 +123,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SwainOwnedStated.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BarFly.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BarFlyOwnedStates.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

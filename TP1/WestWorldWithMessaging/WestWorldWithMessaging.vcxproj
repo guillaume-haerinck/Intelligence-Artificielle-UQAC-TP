@@ -125,6 +125,8 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BarFly.cpp" />
+    <ClCompile Include="BarFlyOwnedStates.cpp" />
     <ClCompile Include="BaseGameEntity.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -166,6 +168,8 @@
     <ClCompile Include="SwainOwnedStates.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BarFly.h" />
+    <ClInclude Include="BarFlyOwnedStates.h" />
     <ClInclude Include="BaseGameEntity.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="EntityNames.h" />

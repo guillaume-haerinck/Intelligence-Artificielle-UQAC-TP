@@ -45,6 +45,11 @@ void RestAtBarFlyHome::Exit(BarFly* pBarFly)
 	cout << "\n" << GetNameOfEntity(pBarFly->ID()) << ": Gonna drink Them all";
 }
 
+bool RestAtBarFlyHome::OnMessage(BarFly* pBarFly, const Telegram& msg)
+{
+	return false;
+}
+
 DrinkingAtBar* DrinkingAtBar::Instance()
 {
 	static DrinkingAtBar instance;
@@ -59,17 +64,17 @@ void DrinkingAtBar::Enter(BarFly* pBarFly)
 	if (pBarFly->Location() != saloon)
 	{
 		cout << "\n" << GetNameOfEntity(pBarFly->ID()) << ": Goin' ta drank all maah ballast";
-		
+
 		pBarFly->ChangeLocation(saloon);
 	}
 }
 
 void DrinkingAtBar::Execute(BarFly* pBarFly)
 {
-	pBarFly->BuyAndDrinkAbsinth;
+	pBarFly->BuyAndDrinkAbsinth();
 
 	//Include a case where he is beaten by bob here
-	if(pBarFly->Beaten())
+	if (pBarFly->Beaten())
 	{
 		pBarFly->GetFSM()->ChangeState(Hospital::Instance());
 	}
@@ -82,4 +87,65 @@ void DrinkingAtBar::Execute(BarFly* pBarFly)
 void DrinkingAtBar::Exit(BarFly* pBarFly)
 {
 	cout << "\n" << GetNameOfEntity(pBarFly->ID()) << ": Arh !!! will cam' back";
+}
+
+bool DrinkingAtBar::OnMessage(BarFly* pBarFly, const Telegram& msg)
+{
+	return false;
+}
+
+AggressiveDrunk* AggressiveDrunk::Instance()
+{
+	static AggressiveDrunk instance;
+
+	return &instance;
+}
+
+void AggressiveDrunk::Enter(BarFly* pBarFly)
+{
+
+}
+
+void AggressiveDrunk::Execute(BarFly* pBarFly)
+{
+
+
+}
+
+void AggressiveDrunk::Exit(BarFly* pBarFly)
+{
+
+}
+
+bool AggressiveDrunk::OnMessage(BarFly* pBarFly, const Telegram& msg)
+{
+	return false;
+}
+
+Hospital* Hospital::Instance()
+{
+	static Hospital instance;
+
+	return &instance;
+}
+
+void Hospital::Enter(BarFly* pBarFly)
+{
+
+}
+
+void Hospital::Execute(BarFly* pBarFly)
+{
+
+
+}
+
+void Hospital::Exit(BarFly* pBarFly)
+{
+
+}
+
+bool Hospital::OnMessage(BarFly* pBarFly, const Telegram& msg)
+{
+	return false;
 }

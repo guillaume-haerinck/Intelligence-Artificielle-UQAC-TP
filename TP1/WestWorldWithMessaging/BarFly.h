@@ -15,8 +15,8 @@ template <class entity_type> class State; //pre-fixed with "template <class enti
 
 struct Telegram;
 
-const int ThirstLevel		= 3;
-const int MaxCoinFounded	= 9;
+const int ThirstLevel = 3;
+const int MaxCoinFounded = 9;
 
 class BarFly : public BaseGameEntity
 {
@@ -38,24 +38,25 @@ public:
 		m_bBeaten(false),
 		BaseGameEntity(id)
 	{
+		//set up state machine
 		m_pStateMachine = new StateMachine<BarFly>(this);
 
-		m_pStateMachine -> SetCurrentState(RestAtBarFlyHome::Instance());
+//		m_pStateMachine->SetCurrentState(RestAtBarFlyHome::Instance());
 	}
-	
+
 	~BarFly() { delete m_pStateMachine; }
 
 	void Update();
 
 	virtual bool HandleMessage(const Telegram& msg);
 
-	StateMachine<BarFly>* GetFSM()const {return m_pStateMachine;}
-	
-	//############ Getter / Setters ###################
-	location_type Location()const {return m_location;}
-	void	ChangeLocation(location_type loc) {m_location = loc;}
+	StateMachine<BarFly>* GetFSM()const { return m_pStateMachine; }
 
-	int		CoinFound()const { return m_iCoinInThePocket; }
+	//############ Getter / Setters ###################
+	location_type Location()const { return m_location; }
+	void	ChangeLocation(location_type loc) { m_location = loc; }
+
+	int		TotalCoinFound()const { return m_iCoinInThePocket; }
 	void	SetCoinFound(int val) { m_iCoinInThePocket; }
 	void	AddToCoin(int val);
 
@@ -63,7 +64,6 @@ public:
 	void	BuyAndDrinkAbsinth() { m_iThirst -= 1; m_iCoinInThePocket -= 3; }
 	bool	IsPoor()const; //Poor if less than 3 coin to buy absinth
 	bool	HaveEnoughtMoney()const;
-	bool	HaveMaxMoney()const;
 	bool	Beaten()const;
 	bool	CoinUnderSofa()const;
 };
