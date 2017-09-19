@@ -9,12 +9,13 @@
 #include "MessageDispatcher.h"
 #include "misc/ConsoleUtils.h"
 #include "EntityNames.h"
-
+#include "GUI.h"
 
 std::ofstream os;
 
 int main()
 {
+
 //define this to send output to a text file (see locations.h)
 #ifdef TEXTOUTPUT
   os.open("output.txt");
@@ -37,10 +38,14 @@ int main()
   EntityMgr->RegisterEntity(Elsa);
   EntityMgr->RegisterEntity(JeanErnestain);
 
+  //####### Create the window and all the graphical entities
+  // Without threads, lock the program while open
+  GUI::StartSFML();
+
   //run Bob and Elsa through a few Update calls
   for (int i=0; i<30; ++i)
   { 
-    Bob->Update();
+	Bob->Update();
     Elsa->Update();
 	JeanErnestain->Update();
     //dispatch any delayed messages
@@ -55,8 +60,7 @@ int main()
   delete JeanErnestain;
   //wait for a keypress before exiting
   PressAnyKeyToContinue();
-
-
+ 
   return 0;
 }
 
