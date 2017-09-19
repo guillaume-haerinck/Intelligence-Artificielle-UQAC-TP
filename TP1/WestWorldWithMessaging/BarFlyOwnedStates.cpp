@@ -73,12 +73,7 @@ void DrinkingAtBar::Execute(BarFly* pBarFly)
 {
 	pBarFly->BuyAndDrinkAbsinth();
 
-	//Include a case where he is beaten by bob here
-	if (pBarFly->Beaten())
-	{
-		pBarFly->GetFSM()->ChangeState(Hospital::Instance());
-	}
-	else if (pBarFly->IsPoor())
+	if (pBarFly->IsPoor())
 	{
 		pBarFly->GetFSM()->ChangeState(RestAtBarFlyHome::Instance());
 	}
@@ -86,7 +81,14 @@ void DrinkingAtBar::Execute(BarFly* pBarFly)
 
 void DrinkingAtBar::Exit(BarFly* pBarFly)
 {
-	cout << "\n" << GetNameOfEntity(pBarFly->ID()) << ": Arh !!! will cam' back";
+	if (pBarFly->IsPoor())
+	{
+		cout << "\n" << GetNameOfEntity(pBarFly->ID()) << ": Arh !!! will cam' back";
+	}
+	else
+	{
+		cout << "\n" << GetNameOfEntity(pBarFly->ID()) << ": Don't tou'ch my beer i panch ya";
+	}
 }
 
 bool DrinkingAtBar::OnMessage(BarFly* pBarFly, const Telegram& msg)
@@ -103,18 +105,27 @@ AggressiveDrunk* AggressiveDrunk::Instance()
 
 void AggressiveDrunk::Enter(BarFly* pBarFly)
 {
+	cout << "\n" << GetNameOfEntity(pBarFly->ID()) << ": Goin' ta panch ya face in da face";
 
 }
 
 void AggressiveDrunk::Execute(BarFly* pBarFly)
 {
 
+	//Include a case where he is beaten by bob here
+	if (pBarFly->Beaten())
+	{
+		pBarFly->GetFSM()->ChangeState(Hospital::Instance());
+	}
 
 }
 
 void AggressiveDrunk::Exit(BarFly* pBarFly)
 {
-
+	if (pBarFly->Beaten())
+	{
+		cout << "\n" << GetNameOfEntity(pBarFly->ID()) << ": Goin' ta drank all maah ballast";
+	}
 }
 
 bool AggressiveDrunk::OnMessage(BarFly* pBarFly, const Telegram& msg)
