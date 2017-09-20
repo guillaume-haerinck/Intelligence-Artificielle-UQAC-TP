@@ -9,7 +9,8 @@ enum location_type
   bank,
   saloon,
   swainHome,
-  barFlyHome
+  barFlyHome,
+  hospital
 };
 
 

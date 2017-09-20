@@ -57,7 +57,7 @@ public:
 	void	ChangeLocation(location_type loc) { m_location = loc; }
 
 	int		TotalCoinFound()const { return m_iCoinInThePocket; }
-	void	SetCoinFound(int val) { m_iCoinInThePocket; }
+	void	SetCoinFound(int val) { m_iCoinInThePocket = val; }
 	void	AddToCoin(int val);
 
 	bool	NeedingAlcohol()const;

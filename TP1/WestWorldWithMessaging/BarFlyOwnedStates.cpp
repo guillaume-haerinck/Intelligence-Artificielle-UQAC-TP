@@ -27,7 +27,11 @@ RestAtBarFlyHome* RestAtBarFlyHome::Instance()
 
 void RestAtBarFlyHome::Enter(BarFly* pBarFly)
 {
-	cout << "\n" << GetNameOfEntity(pBarFly->ID()) << ": Need more alcohol !";
+	if(pBarFly->Location() != barFlyHome)
+	{
+		cout << "\n" << GetNameOfEntity(pBarFly->ID()) << ": Need more alcohol !";
+		pBarFly->ChangeLocation(barFlyHome);
+	}
 }
 
 void RestAtBarFlyHome::Execute(BarFly* pBarFly)
@@ -73,7 +77,11 @@ void DrinkingAtBar::Execute(BarFly* pBarFly)
 {
 	pBarFly->BuyAndDrinkAbsinth();
 
-	if (pBarFly->IsPoor())
+	/*if(message by bob || bob in saloon)
+	{
+		pBarFly->GetFSM()->ChangeState(AggressiveDrunk::Instance());
+	}
+	else */if (pBarFly->IsPoor())
 	{
 		pBarFly->GetFSM()->ChangeState(RestAtBarFlyHome::Instance());
 	}
@@ -142,7 +150,12 @@ Hospital* Hospital::Instance()
 
 void Hospital::Enter(BarFly* pBarFly)
 {
-
+	if (pBarFly->Location() != hospital)
+	{
+		cout << "\n" << GetNameOfEntity(pBarFly->ID()) << ": I have no money for this, don't ya dare healin' me !";
+		pBarFly->ChangeLocation(hospital);
+		pBarFly->SetCoinFound(0);
+	}
 }
 
 void Hospital::Execute(BarFly* pBarFly)
