@@ -9,9 +9,7 @@ bool BarFly::HandleMessage(const Telegram& msg)
 
 void BarFly::Update()
 {
-	SetTextColor(RGB(0, 255, 255));
-
-	m_iThirst += 1;
+	SetTextColor(FOREGROUND_RED | FOREGROUND_GREEN);
 
 	m_pStateMachine->Update();
 }
@@ -24,7 +22,7 @@ void BarFly::AddToCoin(int val)
 
 bool BarFly::NeedingAlcohol()const
 {
-	if (m_iThirst > ThirstLevel) { return true; }
+	if (m_iThirst > ThirstLevelBF) { return true; }
 	return false;
 }
 
