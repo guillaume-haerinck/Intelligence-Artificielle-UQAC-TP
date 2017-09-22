@@ -10,6 +10,7 @@
 #include "misc/ConsoleUtils.h"
 #include "MinerOwnedStates.h"
 #include "FSM/StateMachine.h"
+#include "misc/Utils.h"
 
 template <class entity_type> class State; //pre-fixed with "template <class entity_type> " for vs8 compatibility
 
