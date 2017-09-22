@@ -264,7 +264,7 @@ bool QuenchThirst::OnMessage(Miner* pMiner, const Telegram& msg)
 			cout << "\nMessage handled by " << GetNameOfEntity(pMiner->ID()) << " at time: "
 			<< Clock->GetCurrentTime();
 			SetTextColor(FOREGROUND_RED | FOREGROUND_INTENSITY);
-			cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": Swain !!! Told ya not to cam' back !!";
+			cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": Arh how are yout his strong ?!!";
 
 		case Msg_YouBeatMe:
 			cout << "\nMessage handled by " << GetNameOfEntity(pMiner->ID()) << " at time: "
