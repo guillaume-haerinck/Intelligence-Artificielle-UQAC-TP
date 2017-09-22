@@ -38,9 +38,11 @@ int main()
   EntityMgr->RegisterEntity(Elsa);
   EntityMgr->RegisterEntity(JeanErnestain);
 
-  //####### Create the window and all the graphical entities
-  // Without threads, lock the program while open
-  GUI::StartSFML();
+  //Create the threads objects
+  sf::Thread GUIThread(&GUI::LoopSFML);
+
+  //Launch the threads
+  GUIThread.launch();
 
   //run Bob and Elsa through a few Update calls
   for (int i=0; i<30; ++i)
