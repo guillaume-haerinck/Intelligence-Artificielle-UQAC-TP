@@ -5,6 +5,7 @@
 #include "Miner.h"
 #include "MinersWife.h"
 #include "Swain.h"
+#include "BarFly.h"
 #include "EntityManager.h"
 #include "MessageDispatcher.h"
 #include "misc/ConsoleUtils.h"
@@ -33,10 +34,14 @@ int main()
   //create a swain
   Swain* JeanErnestain = new Swain(ent_Swain);
 
+  //create a BarFly
+  BarFly* Bernard = new BarFly(ent_BarFly);
+
   //register them with the entity manager
   EntityMgr->RegisterEntity(Bob);
   EntityMgr->RegisterEntity(Elsa);
   EntityMgr->RegisterEntity(JeanErnestain);
+  EntityMgr->RegisterEntity(Bernard);
 
   //Create the threads objects
   sf::Thread GUIThread(&GUI::LoopSFML);
@@ -50,6 +55,7 @@ int main()
 	Bob->Update();
     Elsa->Update();
 	JeanErnestain->Update();
+	Bernard->Update();
     //dispatch any delayed messages
     Dispatch->DispatchDelayedMessages();
 
@@ -60,6 +66,7 @@ int main()
   delete Bob;
   delete Elsa;
   delete JeanErnestain;
+  delete Bernard;
   //wait for a keypress before exiting
   PressAnyKeyToContinue();
  

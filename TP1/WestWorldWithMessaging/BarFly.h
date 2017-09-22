@@ -1,5 +1,5 @@
-#ifndef MINER_H
-#define MINER_H
+#ifndef BARFLY_H
+#define BARFLY_H
 
 #include <string>
 #include <cassert>
@@ -8,7 +8,7 @@
 #include "BaseGameEntity.h"
 #include "Locations.h"
 #include "misc/ConsoleUtils.h"
-#include "MinerOwnedStates.h"
+#include "BarFlyOwnedStates.h"
 #include "FSM/StateMachine.h"
 #include "misc/Utils.h"
 
@@ -16,7 +16,7 @@ template <class entity_type> class State; //pre-fixed with "template <class enti
 
 struct Telegram;
 
-const int ThirstLevel = 3;
+const int ThirstLevelBF = 3;
 const int MaxCoinFounded = 9;
 
 class BarFly : public BaseGameEntity
@@ -34,14 +34,15 @@ private:
 
 public:
 	BarFly(int id) :m_location(shack),
-		m_iCoinInThePocket(0),
-		m_iThirst(0),
+		m_iCoinInThePocket(7),
+		m_iThirst(3),
 		m_bBeaten(false),
 		BaseGameEntity(id)
 	{
 		//set up state machine
 		m_pStateMachine = new StateMachine<BarFly>(this);
 
+		m_pStateMachine->SetCurrentState(RestAtBarFlyHome::Instance());
 //		m_pStateMachine->SetCurrentState(RestAtBarFlyHome::Instance());
 	}
 

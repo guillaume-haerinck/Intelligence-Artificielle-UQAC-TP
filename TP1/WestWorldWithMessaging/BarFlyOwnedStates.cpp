@@ -38,6 +38,7 @@ void RestAtBarFlyHome::Execute(BarFly* pBarFly)
 {
 	//############ seek for money
 	pBarFly->AddToCoin(1);
+	cout << "\n" << GetNameOfEntity(pBarFly->ID()) << ": Haa a coin ! gettin' close to my absinth ";
 	if (pBarFly->HaveEnoughtMoney())
 	{
 		pBarFly->GetFSM()->ChangeState(DrinkingAtBar::Instance());
@@ -76,7 +77,7 @@ void DrinkingAtBar::Enter(BarFly* pBarFly)
 void DrinkingAtBar::Execute(BarFly* pBarFly)
 {
 	pBarFly->BuyAndDrinkAbsinth();
-
+	cout << "\n" << GetNameOfEntity(pBarFly->ID()) << ": One more Absinth for me !!!";
 	if (pBarFly->IsPoor())
 	{
 		pBarFly->GetFSM()->ChangeState(RestAtBarFlyHome::Instance());
@@ -99,7 +100,7 @@ bool DrinkingAtBar::OnMessage(BarFly* pBarFly, const Telegram& msg)
 		case Msg_HiBarFly:
 			cout << "\nMessage handled by " << GetNameOfEntity(pBarFly->ID()) << " at time: "
 			<< Clock->GetCurrentTime();
-			SetTextColor(RGB(0, 255, 255));
+			SetTextColor(FOREGROUND_RED | FOREGROUND_GREEN);
 			cout << "\n" << GetNameOfEntity(pBarFly->ID()) << ": Bob !!! Told ya not to cam' back !!";
 			pBarFly->GetFSM()->ChangeState(AggressiveDrunk::Instance());
 	}
@@ -134,8 +135,6 @@ void AggressiveDrunk::Enter(BarFly* pBarFly)
 			Msg_YouBeatMe,				 //the message
 			NO_ADDITIONAL_INFO);
 	}
-	
-	
 
 }
 
@@ -154,7 +153,7 @@ void AggressiveDrunk::Exit(BarFly* pBarFly)
 {
 	if (pBarFly->Beaten())
 	{
-		cout << "\n" << GetNameOfEntity(pBarFly->ID()) << ": Arh the alcool got me not you ...";
+		cout << "\n" << GetNameOfEntity(pBarFly->ID()) << ": Arh the alcool got me, not you ...";
 	}
 	else
 	{
