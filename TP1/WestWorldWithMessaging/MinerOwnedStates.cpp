@@ -156,11 +156,19 @@ void GoHomeAndSleepTilRested::Enter(Miner* pMiner)
     pMiner->ChangeLocation(shack); 
 
     //let the wife know I'm home
-    Dispatch->DispatchMessage(SEND_MSG_IMMEDIATELY, //time delay
-                              pMiner->ID(),        //ID of sender
-                              ent_Elsa,            //ID of recipient
-                              Msg_HiHoneyImHome,   //the message
-                              NO_ADDITIONAL_INFO);    
+	if (!pMiner->Beaten())
+	{
+		Dispatch->DispatchMessage(SEND_MSG_IMMEDIATELY, //time delay
+			pMiner->ID(),        //ID of sender
+			ent_Elsa,            //ID of recipient
+			Msg_HiHoneyImHome,   //the message
+			NO_ADDITIONAL_INFO);
+	}
+	else
+	{
+		pMiner->SetBeaten(false);
+		cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "Healin' myself ...";
+	}
   }
 }
 
@@ -244,14 +252,21 @@ void QuenchThirst::Execute(Miner* pMiner)
 	  ent_BarFly,				//ID of recipient
 	  Msg_HiBarFly,				//the message
 	  NO_ADDITIONAL_INFO);
-
+  SetTextColor(FOREGROUND_RED | FOREGROUND_INTENSITY);
   pMiner->GetFSM()->ChangeState(EnterMineAndDigForNugget::Instance());  
 }
 
 
 void QuenchThirst::Exit(Miner* pMiner)
 { 
-  cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "Leaving the saloon, feelin' good";
+	if (!pMiner->Beaten())
+	{
+		cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "Leaving the saloon, feelin' good";
+	}
+	else
+	{
+		cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "needin' some rest now";
+	}
 }
 
 
@@ -264,14 +279,16 @@ bool QuenchThirst::OnMessage(Miner* pMiner, const Telegram& msg)
 			cout << "\nMessage handled by " << GetNameOfEntity(pMiner->ID()) << " at time: "
 			<< Clock->GetCurrentTime();
 			SetTextColor(FOREGROUND_RED | FOREGROUND_INTENSITY);
-			cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": Arh how are yout his strong ?!!";
+			pMiner->SetBeaten(true);
+			cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": Arh di'nt see ya !!! Why are yout this strong ?!!";
+			pMiner->GetFSM()->ChangeState(GoHomeAndSleepTilRested::Instance());
 
 		case Msg_YouBeatMe:
 			cout << "\nMessage handled by " << GetNameOfEntity(pMiner->ID()) << " at time: "
 			<< Clock->GetCurrentTime();
 			SetTextColor(FOREGROUND_RED | FOREGROUND_INTENSITY);
-			cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": Bob !!! Told ya not to cam' back !!";
-
+			cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": Take This!!! And never came back !!";
+			pMiner->GetFSM()->ChangeState(EnterMineAndDigForNugget::Instance());
 	}
   return false;
 }

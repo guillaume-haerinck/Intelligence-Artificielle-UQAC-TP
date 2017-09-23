@@ -34,7 +34,7 @@ private:
 
 public:
 	BarFly(int id) :m_location(shack),
-		m_iCoinInThePocket(7),
+		m_iCoinInThePocket(8),
 		m_iThirst(3),
 		m_bBeaten(false),
 		BaseGameEntity(id)
@@ -63,7 +63,7 @@ public:
 	void	AddToCoin(int val);
 
 	bool	NeedingAlcohol()const;
-	void	BuyAndDrinkAbsinth() { m_iThirst -= 1; m_iCoinInThePocket -= 3; }
+	void	BuyAndDrinkAbsinth() { m_iThirst -= 1; m_iCoinInThePocket -= 1; }
 	bool	IsPoor()const; //Poor if less than 3 coin to buy absinth
 	bool	HaveEnoughtMoney()const;
 	bool	Beaten()const;

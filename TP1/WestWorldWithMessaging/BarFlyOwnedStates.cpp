@@ -102,7 +102,30 @@ bool DrinkingAtBar::OnMessage(BarFly* pBarFly, const Telegram& msg)
 			<< Clock->GetCurrentTime();
 			SetTextColor(FOREGROUND_RED | FOREGROUND_GREEN);
 			cout << "\n" << GetNameOfEntity(pBarFly->ID()) << ": Bob !!! Told ya not to cam' back !!";
-			pBarFly->GetFSM()->ChangeState(AggressiveDrunk::Instance());
+			cout << "\n" << GetNameOfEntity(pBarFly->ID()) << ": Goin' ta panch ya face in da face";
+			if (RandFloat() > .5)
+			{
+				Dispatch->DispatchMessage(SEND_MSG_IMMEDIATELY, //time delay
+					pBarFly->ID(),				//ID of sender
+					ent_Miner_Bob,				//ID of recipient
+					Msg_IBeatYou,				//the message
+					NO_ADDITIONAL_INFO);
+				SetTextColor(FOREGROUND_RED | FOREGROUND_GREEN);
+				cout << "\n" << GetNameOfEntity(pBarFly->ID()) << ": The absinth is my strenth !!";
+				pBarFly->GetFSM()->ChangeState(DrinkingAtBar::Instance());
+			}
+			else
+			{
+				cout << "\n" << GetNameOfEntity(pBarFly->ID()) << ": ARHH !!! How did ya do this not drunk !!";
+				Dispatch->DispatchMessage(SEND_MSG_IMMEDIATELY, //time delay
+					pBarFly->ID(),				 //ID of sender
+					ent_Miner_Bob,				 //ID of recipient
+					Msg_YouBeatMe,				 //the message
+					NO_ADDITIONAL_INFO);
+				SetTextColor(FOREGROUND_RED | FOREGROUND_GREEN);
+				pBarFly->GetFSM()->ChangeState(Hospital::Instance());
+			}
+			
 	}
 	
 
@@ -118,23 +141,8 @@ AggressiveDrunk* AggressiveDrunk::Instance()
 
 void AggressiveDrunk::Enter(BarFly* pBarFly)
 {
-	cout << "\n" << GetNameOfEntity(pBarFly->ID()) << ": Goin' ta panch ya face in da face";
-	if (RandFloat() > .5)
-	{
-		Dispatch->DispatchMessage(SEND_MSG_IMMEDIATELY, //time delay
-			pBarFly->ID(),				//ID of sender
-			ent_Miner_Bob,				//ID of recipient
-			Msg_IBeatYou,				//the message
-			NO_ADDITIONAL_INFO);
-	}
-	else
-	{
-		Dispatch->DispatchMessage(SEND_MSG_IMMEDIATELY, //time delay
-			pBarFly->ID(),				 //ID of sender
-			ent_Miner_Bob,				 //ID of recipient
-			Msg_YouBeatMe,				 //the message
-			NO_ADDITIONAL_INFO);
-	}
+	
+	
 
 }
 

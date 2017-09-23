@@ -53,6 +53,7 @@ private:
 
   //the higher the value, the more tired the miner
   int                   m_iFatigue;
+  bool					m_bBeaten;
 
 public:
 
@@ -61,6 +62,7 @@ public:
                           m_iMoneyInBank(0),
                           m_iThirst(0),
                           m_iFatigue(0),
+						  m_bBeaten(false),
                           BaseGameEntity(id)
                                
   {
@@ -102,8 +104,10 @@ public:
   void          SetWealth(int val){m_iMoneyInBank = val;}
   void          AddToWealth(int val);
 
-  bool          Thirsty()const; 
+  bool          Thirsty()const;
+  bool          Beaten() { return m_bBeaten; };
   void          BuyAndDrinkAWhiskey(){m_iThirst = 0; m_iMoneyInBank-=2;}
+  void			SetBeaten(bool beat) { m_bBeaten = beat; }
 
 };
 
