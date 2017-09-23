@@ -2,5 +2,5 @@
 
 namespace GUI
 {
-	void StartSFML();
-}
+	void LoopSFML();
+};
