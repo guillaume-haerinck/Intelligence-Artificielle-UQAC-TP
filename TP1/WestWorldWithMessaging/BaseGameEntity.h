@@ -10,6 +10,8 @@
 //
 //------------------------------------------------------------------------
 #include <string>
+#include <fstream>
+#include "GUI.h"
 
 #include "messaging/Telegram.h"
 
@@ -19,9 +21,11 @@ class BaseGameEntity
 
 private:
 
+  
+
   //every entity must have a unique identifying number
   int          m_ID;
-
+  
   //this is the next valid ID. Each time a BaseGameEntity is instantiated
   //this value is updated
   static int  m_iNextValidID;
@@ -33,6 +37,8 @@ private:
   void SetID(int val);
 
 public:
+
+	sf::Mutex protector;
 
   BaseGameEntity(int id)
   {

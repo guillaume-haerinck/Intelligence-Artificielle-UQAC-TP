@@ -42,12 +42,15 @@ int main()
   EntityMgr->RegisterEntity(Elsa);
   EntityMgr->RegisterEntity(JeanErnestain);
   EntityMgr->RegisterEntity(Bernard);
+
+
   
   //Create one thread for each entity
   sf::Thread BobThread(&Miner::HandleThread, Bob);
   sf::Thread ElsaThread(&MinersWife::HandleThread, Elsa);
   sf::Thread JeanThread(&Swain::HandleThread, JeanErnestain);
   sf::Thread BernardThread(&BarFly::HandleThread, Bernard);
+  
 
   //Launch the threads
   BobThread.launch();

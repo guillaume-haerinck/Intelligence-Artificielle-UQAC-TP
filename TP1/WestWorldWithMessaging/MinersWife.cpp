@@ -10,7 +10,9 @@ void MinersWife::HandleThread()
 {
 	for (int i = 0; i < 30; ++i)
 	{
+		protector.lock();
 		MinersWife::Update();
+		protector.unlock();
 		Sleep(800);
 	}
 }

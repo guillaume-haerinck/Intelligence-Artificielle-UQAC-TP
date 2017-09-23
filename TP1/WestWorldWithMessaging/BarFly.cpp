@@ -10,7 +10,9 @@ void BarFly::HandleThread()
 {
 	for (int i = 0; i < 30; ++i)
 	{
+		protector.lock();
 		BarFly::Update();
+		protector.unlock();
 		Sleep(800);
 	}
 }

@@ -9,7 +9,9 @@ void Swain::HandleThread()
 {
 	for (int i = 0; i < 30; ++i)
 	{
+		protector.lock();
 		Swain::Update();
+		protector.unlock();
 		Sleep(800);
 	}
 }
