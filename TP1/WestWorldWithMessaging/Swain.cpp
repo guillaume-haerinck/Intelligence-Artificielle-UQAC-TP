@@ -5,6 +5,14 @@ bool Swain::HandleMessage(const Telegram& msg)
 	return m_pStateMachine->HandleMessage(msg);
 }
 
+void Swain::HandleThread()
+{
+	for (int i = 0; i < 30; ++i)
+	{
+		Swain::Update();
+		Sleep(800);
+	}
+}
 
 void Swain::Update()
 {

@@ -82,6 +82,8 @@ public:
   //so must this
   virtual bool  HandleMessage(const Telegram& msg);
 
+  //and this
+  void HandleThread();
   
   StateMachine<Miner>* GetFSM()const{return m_pStateMachine;}
 

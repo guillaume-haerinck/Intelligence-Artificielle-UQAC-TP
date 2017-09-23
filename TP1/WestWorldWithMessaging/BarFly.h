@@ -52,6 +52,8 @@ public:
 
 	virtual bool HandleMessage(const Telegram& msg);
 
+	void HandleThread();
+
 	StateMachine<BarFly>* GetFSM()const { return m_pStateMachine; }
 
 	//############ Getter / Setters ###################

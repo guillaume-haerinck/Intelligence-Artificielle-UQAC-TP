@@ -72,6 +72,7 @@ public:
 	//so must this
 	virtual bool  HandleMessage(const Telegram& msg);
 
+	void HandleThread();
 
 	StateMachine<Swain>* GetFSM()const { return m_pStateMachine; }
 

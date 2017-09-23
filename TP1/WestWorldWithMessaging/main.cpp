@@ -42,39 +42,38 @@ int main()
   EntityMgr->RegisterEntity(Elsa);
   EntityMgr->RegisterEntity(JeanErnestain);
   EntityMgr->RegisterEntity(Bernard);
-
-  /*
+  
   //Create one thread for each entity
-  sf::Thread BobThread(&Miner::Update, Bob);
-  sf::Thread ElsaThread(&MinersWife::Update, Elsa);
-  sf::Thread JeanThread(&Swain::Update, JeanErnestain);
-  sf::Thread BernardThread(&BarFly::Update, Bernard);
+  sf::Thread BobThread(&Miner::HandleThread, Bob);
+  sf::Thread ElsaThread(&MinersWife::HandleThread, Elsa);
+  sf::Thread JeanThread(&Swain::HandleThread, JeanErnestain);
+  sf::Thread BernardThread(&BarFly::HandleThread, Bernard);
 
   //Launch the threads
   BobThread.launch();
   ElsaThread.launch();
   JeanThread.launch();
   BernardThread.launch();
-  */
-
-  //run Bob and Elsa through a few Update calls
+  
+  //Take care of the messages
   for (int i=0; i<30; ++i)
   { 
-	Bob->Update();
-    Elsa->Update();
-	JeanErnestain->Update();
-	Bernard->Update();
-    //dispatch any delayed messages
     Dispatch->DispatchDelayedMessages();
-
     Sleep(800);
   }
+
+  //Wait for all of the threads to finish
+  BobThread.wait();
+  ElsaThread.wait();
+  JeanThread.wait();
+  BernardThread.wait();
 
   //tidy up
   delete Bob;
   delete Elsa;
   delete JeanErnestain;
   delete Bernard;
+
   //wait for a keypress before exiting
   PressAnyKeyToContinue();
  

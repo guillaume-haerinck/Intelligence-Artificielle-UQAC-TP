@@ -6,6 +6,16 @@ bool MinersWife::HandleMessage(const Telegram& msg)
 }
 
 
+void MinersWife::HandleThread()
+{
+	for (int i = 0; i < 30; ++i)
+	{
+		MinersWife::Update();
+		Sleep(800);
+	}
+}
+
+
 void MinersWife::Update()
 {
   //set text color to green

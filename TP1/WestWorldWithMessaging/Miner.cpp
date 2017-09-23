@@ -6,6 +6,16 @@ bool Miner::HandleMessage(const Telegram& msg)
 }
 
 
+void Miner::HandleThread()
+{
+	for (int i = 0; i < 30; ++i)
+	{
+		Miner::Update();
+		Sleep(800);
+	}
+}
+
+
 void Miner::Update()
 {
   SetTextColor(FOREGROUND_RED| FOREGROUND_INTENSITY);
