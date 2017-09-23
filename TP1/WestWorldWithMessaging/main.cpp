@@ -43,11 +43,19 @@ int main()
   EntityMgr->RegisterEntity(JeanErnestain);
   EntityMgr->RegisterEntity(Bernard);
 
-  //Create the threads objects
-  sf::Thread GUIThread(&GUI::LoopSFML);
+  /*
+  //Create one thread for each entity
+  sf::Thread BobThread(&Miner::Update, Bob);
+  sf::Thread ElsaThread(&MinersWife::Update, Elsa);
+  sf::Thread JeanThread(&Swain::Update, JeanErnestain);
+  sf::Thread BernardThread(&BarFly::Update, Bernard);
 
   //Launch the threads
-  GUIThread.launch();
+  BobThread.launch();
+  ElsaThread.launch();
+  JeanThread.launch();
+  BernardThread.launch();
+  */
 
   //run Bob and Elsa through a few Update calls
   for (int i=0; i<30; ++i)
