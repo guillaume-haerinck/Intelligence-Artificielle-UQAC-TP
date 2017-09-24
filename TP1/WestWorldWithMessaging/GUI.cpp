@@ -1,14 +1,4 @@
-#include <SFML/Graphics.hpp>
-
-#include "StateMachine.h"
-#include "State.h"
-#include "EntityManager.h"
-#include "BaseGameEntity.h"
-#include "Locations.h"
-#include "MinersWife.h"
-#include "Miner.h"
-#include "FSM/StateMachine.h"
-
+#include "GUI.h"
 
 namespace GUI
 {
