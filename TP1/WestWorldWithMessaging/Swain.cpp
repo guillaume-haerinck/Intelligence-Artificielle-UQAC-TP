@@ -9,9 +9,10 @@ void Swain::HandleThread()
 {
 	for (int i = 0; i < 30; ++i)
 	{
-		std::cout << "Troisieme thread le swain" << std::endl;
-		//Swain::Update();
+		mutex.lock();
+		Swain::Update();
 		Sleep(800);
+		mutex.unlock();
 	}
 }
 

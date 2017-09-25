@@ -10,9 +10,9 @@ void Miner::HandleThread()
 {
 	for (int i = 0; i < 30; ++i)
 	{
-		protector.lock();
+		mutex.lock();
 		Miner::Update();
-		protector.unlock();
+		mutex.unlock();
 		Sleep(800);
 	}
 }

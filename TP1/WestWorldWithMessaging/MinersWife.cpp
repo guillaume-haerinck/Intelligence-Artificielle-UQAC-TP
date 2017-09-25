@@ -10,10 +10,10 @@ void MinersWife::HandleThread()
 {
 	for (int i = 0; i < 30; ++i)
 	{
-		protector.lock();
+		mutex.lock();
 		MinersWife::Update();
-		protector.unlock();
 		Sleep(800);
+		mutex.unlock();
 	}
 }
 

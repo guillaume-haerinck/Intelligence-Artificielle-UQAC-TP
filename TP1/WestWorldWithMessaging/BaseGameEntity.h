@@ -11,17 +11,15 @@
 //------------------------------------------------------------------------
 #include <string>
 #include <fstream>
-#include "GUI.h"
 
 #include "messaging/Telegram.h"
-
+#include <boost/thread/mutex.hpp>
+#include <boost/thread/thread.hpp>
 
 class BaseGameEntity
 {
 
 private:
-
-  
 
   //every entity must have a unique identifying number
   int          m_ID;
@@ -38,8 +36,6 @@ private:
 
 public:
 
-	sf::Mutex protector;
-
   BaseGameEntity(int id)
   {
     SetID(id);
@@ -55,6 +51,9 @@ public:
   virtual bool  HandleMessage(const Telegram& msg)=0;
 
   int           ID()const{return m_ID;}  
+
+  boost::mutex mutex;
+
 };
 
 

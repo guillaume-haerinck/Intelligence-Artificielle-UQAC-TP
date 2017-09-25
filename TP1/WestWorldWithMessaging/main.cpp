@@ -10,7 +10,8 @@
 #include "MessageDispatcher.h"
 #include "misc/ConsoleUtils.h"
 #include "EntityNames.h"
-#include "GUI.h"
+
+#include <boost/thread.hpp>
 
 std::ofstream os;
 
@@ -45,18 +46,13 @@ int main()
 
 
   
-  //Create one thread for each entity
-  sf::Thread BobThread(&Miner::HandleThread, Bob);
-  sf::Thread ElsaThread(&MinersWife::HandleThread, Elsa);
-  sf::Thread JeanThread(&Swain::HandleThread, JeanErnestain);
-  sf::Thread BernardThread(&BarFly::HandleThread, Bernard);
+  //Create and launch one thread for each entity
+  boost::thread BobThread(boost::bind(&Miner::HandleThread, Bob));
+  boost::thread ElsaThread(boost::bind(&MinersWife::HandleThread, Elsa));
+  boost::thread JeanThread(boost::bind(&Swain::HandleThread, JeanErnestain));
+  boost::thread BernardThread(boost::bind(&BarFly::HandleThread, Bernard));
   
 
-  //Launch the threads
-  BobThread.launch();
-  ElsaThread.launch();
-  JeanThread.launch();
-  BernardThread.launch();
   
   //Take care of the messages
   for (int i=0; i<30; ++i)
@@ -66,10 +62,10 @@ int main()
   }
 
   //Wait for all of the threads to finish
-  BobThread.wait();
-  ElsaThread.wait();
-  JeanThread.wait();
-  BernardThread.wait();
+  BobThread.join();
+  ElsaThread.join();
+  JeanThread.join();
+  BernardThread.join();
 
   //tidy up
   delete Bob;
