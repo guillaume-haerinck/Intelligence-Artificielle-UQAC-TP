@@ -174,6 +174,14 @@ void GoHomeAndSleepTilRested::Enter(Miner* pMiner)
 
 void GoHomeAndSleepTilRested::Execute(Miner* pMiner)
 { 
+	//looks for the swain
+	Dispatch->DispatchMessage(SEND_MSG_IMMEDIATELY, //time delay
+		pMiner->ID(),				//ID of sender
+		ent_Swain,				//ID of recipient
+		Msg_IsThereSomeoneInTheCloset,				//the message
+		NO_ADDITIONAL_INFO);
+	SetTextColor(FOREGROUND_RED | FOREGROUND_INTENSITY);
+
   //if miner is not fatigued start to dig for nuggets again.
   if (!pMiner->Fatigued())
   {
@@ -216,6 +224,18 @@ bool GoHomeAndSleepTilRested::OnMessage(Miner* pMiner, const Telegram& msg)
      pMiner->GetFSM()->ChangeState(EatStew::Instance());
       
      return true;
+
+   case Msg_YesThereIsSwain:
+
+	   cout << "\nMessage handled by " << GetNameOfEntity(pMiner->ID())
+		   << " at time: " << Clock->GetCurrentTime();
+
+	   SetTextColor(FOREGROUND_RED | FOREGROUND_INTENSITY);
+
+	   cout << "\n" << GetNameOfEntity(pMiner->ID())
+		   << ": I'll kill you swain !";
+
+	   return true;
 
    }//end switch
 

@@ -116,7 +116,32 @@ void CheatingAtMinerHome::Exit(Swain* pSwain)
 
 bool CheatingAtMinerHome::OnMessage(Swain* pSwain, const Telegram& msg)
 {
-	//send msg to global message handler
+   SetTextColor(BACKGROUND_RED|FOREGROUND_RED|FOREGROUND_GREEN|FOREGROUND_BLUE);
+
+	switch (msg.Msg)
+	{
+	case Msg_IsThereSomeoneInTheCloset:
+
+		cout << "\nMessage handled by " << GetNameOfEntity(pSwain->ID())
+			<< " at time: " << Clock->GetCurrentTime();
+
+		cout << "\n" << GetNameOfEntity(pSwain->ID())
+			<< ": They said to make love not war !";
+
+		Dispatch->DispatchMessage(SEND_MSG_IMMEDIATELY, //time delay
+			pSwain->ID(),				//ID of sender
+			ent_Miner_Bob,				//ID of recipient
+			Msg_YesThereIsSwain,				//the message
+			NO_ADDITIONAL_INFO);
+		SetTextColor(FOREGROUND_RED | FOREGROUND_INTENSITY);
+
+		pSwain->GetFSM()->ChangeState(Dead::Instance());
+
+		return true;
+	}
+
+
+
 	return false;
 }
 
