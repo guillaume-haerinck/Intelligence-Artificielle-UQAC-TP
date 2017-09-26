@@ -5,7 +5,8 @@ bool Miner::HandleMessage(const Telegram& msg)
   return m_pStateMachine->HandleMessage(msg);
 }
 
-
+//Not working
+/*
 void Miner::HandleThread(sf::Mutex protector)
 {
 	for (int i = 0; i < 30; ++i)
@@ -16,6 +17,7 @@ void Miner::HandleThread(sf::Mutex protector)
 		protector.unlock();
 	}
 }
+*/
 
 
 void Miner::Update()

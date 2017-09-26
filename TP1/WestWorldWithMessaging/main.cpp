@@ -43,6 +43,7 @@ int main()
   EntityMgr->RegisterEntity(JeanErnestain);
   EntityMgr->RegisterEntity(Bernard);
 
+  //Create a mutex shared between the threads
   sf::Mutex protector;
   
   //Create one thread for each entity
@@ -51,6 +52,7 @@ int main()
 	  {
 			protector.lock();
 			Bob->Update();
+			Dispatch->DispatchDelayedMessages();
 			protector.unlock();
 			Sleep(800);
 	  }
@@ -89,13 +91,6 @@ int main()
   ElsaThread.launch();
   JeanThread.launch();
   BernardThread.launch();
-  
-  //Take care of the messages
-  for (int i=0; i<30; ++i)
-  { 
-    Dispatch->DispatchDelayedMessages();
-    Sleep(800);
-  }
 
   //Wait for all of the threads to finish
   BobThread.wait();

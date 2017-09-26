@@ -6,6 +6,9 @@ bool BarFly::HandleMessage(const Telegram& msg)
 	return m_pStateMachine->HandleMessage(msg);
 }
 
+
+//Not working
+/*
 void BarFly::HandleThread(sf::Mutex protector)
 {
 	for (int i = 0; i < 30; ++i)
@@ -16,6 +19,7 @@ void BarFly::HandleThread(sf::Mutex protector)
 		protector.unlock();
 	}
 }
+*/
 
 
 void BarFly::Update()

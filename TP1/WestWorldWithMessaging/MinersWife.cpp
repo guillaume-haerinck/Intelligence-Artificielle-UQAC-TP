@@ -6,6 +6,8 @@ bool MinersWife::HandleMessage(const Telegram& msg)
 }
 
 
+//Not working
+/*
 void MinersWife::HandleThread(sf::Mutex protector)
 {
 	for (int i = 0; i < 30; ++i)
@@ -16,6 +18,7 @@ void MinersWife::HandleThread(sf::Mutex protector)
 		protector.unlock();
 	}
 }
+*/
 
 
 void MinersWife::Update()
