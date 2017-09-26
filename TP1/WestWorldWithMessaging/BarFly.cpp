@@ -6,14 +6,14 @@ bool BarFly::HandleMessage(const Telegram& msg)
 	return m_pStateMachine->HandleMessage(msg);
 }
 
-void BarFly::HandleThread()
+void BarFly::HandleThread(sf::Mutex protector)
 {
 	for (int i = 0; i < 30; ++i)
 	{
-		mutex.lock();
+		protector.lock(); 
 		BarFly::Update();
 		Sleep(800);
-		mutex.unlock();
+		protector.unlock();
 	}
 }
 
@@ -23,6 +23,7 @@ void BarFly::Update()
 	SetTextColor(FOREGROUND_RED | FOREGROUND_GREEN);
 
 	m_pStateMachine->Update();
+	Sleep(800);
 }
 
 void BarFly::AddToCoin(int val)

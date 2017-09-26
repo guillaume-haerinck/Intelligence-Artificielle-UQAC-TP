@@ -5,14 +5,14 @@ bool Swain::HandleMessage(const Telegram& msg)
 	return m_pStateMachine->HandleMessage(msg);
 }
 
-void Swain::HandleThread()
+void Swain::HandleThread(sf::Mutex protector)
 {
 	for (int i = 0; i < 30; ++i)
 	{
-		mutex.lock();
+		protector.lock(); 
 		Swain::Update();
 		Sleep(800);
-		mutex.unlock();
+		protector.unlock();
 	}
 }
 
@@ -20,9 +20,10 @@ void Swain::Update()
 {
 	SetTextColor(FOREGROUND_BLUE | FOREGROUND_INTENSITY);
 
-	m_Horny+= 1;
+	m_Horny += 1;
 
 	m_pStateMachine->Update();
+	Sleep(800);
 }
 
 void Swain::HornyUp(const int val)

@@ -72,7 +72,7 @@ public:
 	//so must this
 	virtual bool  HandleMessage(const Telegram& msg);
 
-	void HandleThread();
+	void HandleThread(sf::Mutex protector);
 
 	StateMachine<Swain>* GetFSM()const { return m_pStateMachine; }
 

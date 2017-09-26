@@ -6,22 +6,23 @@ bool MinersWife::HandleMessage(const Telegram& msg)
 }
 
 
-void MinersWife::HandleThread()
+void MinersWife::HandleThread(sf::Mutex protector)
 {
 	for (int i = 0; i < 30; ++i)
 	{
-		mutex.lock();
+		protector.lock();
 		MinersWife::Update();
 		Sleep(800);
-		mutex.unlock();
+		protector.unlock();
 	}
 }
 
 
 void MinersWife::Update()
 {
-  //set text color to green
-  SetTextColor(FOREGROUND_GREEN | FOREGROUND_INTENSITY);
- 
-  m_pStateMachine->Update();
+	//set text color to green
+	SetTextColor(FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+
+	m_pStateMachine->Update();
+	Sleep(800);
 }

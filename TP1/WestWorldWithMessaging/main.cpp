@@ -10,8 +10,7 @@
 #include "MessageDispatcher.h"
 #include "misc/ConsoleUtils.h"
 #include "EntityNames.h"
-
-#include <boost/thread.hpp>
+#include "GUI.h"
 
 std::ofstream os;
 
@@ -44,15 +43,52 @@ int main()
   EntityMgr->RegisterEntity(JeanErnestain);
   EntityMgr->RegisterEntity(Bernard);
 
-
+  sf::Mutex protector;
   
-  //Create and launch one thread for each entity
-  boost::thread BobThread(boost::bind(&Miner::HandleThread, Bob));
-  boost::thread ElsaThread(boost::bind(&MinersWife::HandleThread, Elsa));
-  boost::thread JeanThread(boost::bind(&Swain::HandleThread, JeanErnestain));
-  boost::thread BernardThread(boost::bind(&BarFly::HandleThread, Bernard));
+  //Create one thread for each entity
+  sf::Thread BobThread([&] {
+	  for (int i = 0; i < 30; ++i)
+	  {
+			protector.lock();
+			Bob->Update();
+			protector.unlock();
+			Sleep(800);
+	  }
+  });
+  sf::Thread ElsaThread([&] {
+	  for (int i = 0; i < 30; ++i)
+	  {
+		  protector.lock();
+		  Elsa->Update();
+		  protector.unlock();
+		  Sleep(800);
+	  }
+  });
+  sf::Thread JeanThread([&] {
+	  for (int i = 0; i < 30; ++i)
+	  {
+		  protector.lock();
+		  JeanErnestain->Update();
+		  protector.unlock();
+		  Sleep(800);
+	  }
+  });
+  sf::Thread BernardThread([&]{ 
+	  for (int i = 0; i < 30; ++i)
+	  {
+		  protector.lock();
+		  Bernard->Update();
+		  protector.unlock();
+		  Sleep(800);
+	  }
+  });
   
 
+  //Launch the threads
+  BobThread.launch();
+  ElsaThread.launch();
+  JeanThread.launch();
+  BernardThread.launch();
   
   //Take care of the messages
   for (int i=0; i<30; ++i)
@@ -62,10 +98,10 @@ int main()
   }
 
   //Wait for all of the threads to finish
-  BobThread.join();
-  ElsaThread.join();
-  JeanThread.join();
-  BernardThread.join();
+  BobThread.wait();
+  ElsaThread.wait();
+  JeanThread.wait();
+  BernardThread.wait();
 
   //tidy up
   delete Bob;

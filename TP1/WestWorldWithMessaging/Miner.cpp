@@ -6,25 +6,26 @@ bool Miner::HandleMessage(const Telegram& msg)
 }
 
 
-void Miner::HandleThread()
+void Miner::HandleThread(sf::Mutex protector)
 {
 	for (int i = 0; i < 30; ++i)
 	{
-		mutex.lock();
+		protector.lock();
 		Miner::Update();
-		mutex.unlock();
 		Sleep(800);
+		protector.unlock();
 	}
 }
 
 
 void Miner::Update()
 {
-  SetTextColor(FOREGROUND_RED| FOREGROUND_INTENSITY);
+	SetTextColor(FOREGROUND_RED | FOREGROUND_INTENSITY);
 
-  m_iThirst += 1;
-  
-  m_pStateMachine->Update();
+	m_iThirst += 1;
+
+	m_pStateMachine->Update();
+	Sleep(800);
 }
 
 

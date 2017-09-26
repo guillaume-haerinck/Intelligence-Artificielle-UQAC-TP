@@ -52,7 +52,7 @@ public:
 
 	virtual bool HandleMessage(const Telegram& msg);
 
-	void HandleThread();
+	void HandleThread(sf::Mutex protector);
 
 	StateMachine<BarFly>* GetFSM()const { return m_pStateMachine; }
 

@@ -61,7 +61,7 @@ public:
   virtual bool  HandleMessage(const Telegram& msg);
 
   //and this
-  void HandleThread();
+  void HandleThread(sf::Mutex protector);
 
   StateMachine<MinersWife>* GetFSM()const{return m_pStateMachine;}
 
