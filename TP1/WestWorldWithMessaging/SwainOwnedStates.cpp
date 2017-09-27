@@ -94,23 +94,14 @@ void CheatingAtMinerHome::Execute(Swain* pSwain)
 
 	pSwain->SetHorny(0);
 
-	if (pSwain->GetDead() == true)
-	{
-		cout << "\n" << GetNameOfEntity(pSwain->ID()) << ": "
-			<< "Oops ahm lively no mo-wr";
-
-		pSwain->GetFSM()->ChangeState(Dead::Instance());
-	}
-	else
-	{
-		pSwain->GetFSM()->ChangeState(AtSwainHome::Instance());
-	}
+	pSwain->GetFSM()->ChangeState(AtSwainHome::Instance());
+	cout << "\n" << GetNameOfEntity(pSwain->ID()) << ": " << "Ah need t' flee, so her button won't sees me";
 }
 
 
 void CheatingAtMinerHome::Exit(Swain* pSwain)
 {
-	cout << "\n" << GetNameOfEntity(pSwain->ID()) << ": " << "Ah need t' flee, so her button won't sees me";
+
 }
 
 
@@ -125,6 +116,7 @@ bool CheatingAtMinerHome::OnMessage(Swain* pSwain, const Telegram& msg)
 		cout << "\nMessage handled by " << GetNameOfEntity(pSwain->ID())
 			<< " at time: " << Clock->GetCurrentTime();
 
+	SetTextColor(FOREGROUND_BLUE | FOREGROUND_INTENSITY);
 		cout << "\n" << GetNameOfEntity(pSwain->ID())
 			<< ": They said to make love not war !";
 
@@ -159,12 +151,14 @@ void Dead::Enter(Swain* pSwain)
 	{
 		pSwain->ChangeLocation(shack);
 	}
+	SetTextColor(FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+	cout << "\n" << GetNameOfEntity(pSwain->ID())
+		<< ": Look like am alive no-mwr";
 }
 
 void Dead::Execute(Swain* pSwain)
 {
-	//if miner is not fatigued start to dig for nuggets again.
-
+	//Loop as dead
 		pSwain->GetFSM()->ChangeState(Dead::Instance());
 }
 
