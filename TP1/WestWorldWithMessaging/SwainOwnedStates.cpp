@@ -159,7 +159,6 @@ void Dead::Enter(Swain* pSwain)
 void Dead::Execute(Swain* pSwain)
 {
 	//Loop as dead
-		pSwain->GetFSM()->ChangeState(Dead::Instance());
 }
 
 void Dead::Exit(Swain* pSwain)

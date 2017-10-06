@@ -98,7 +98,7 @@ void Vehicle::Update(double time_elapsed)
 
   //EnforceNonPenetrationConstraint(this, World()->Agents());
 
-  //treat the screen as a toroid
+  //treat the screen as a toroid (when a element go out of the screen on one side he go out from the other side)
   WrapAround(m_vPos, m_pWorld->cxClient(), m_pWorld->cyClient());
 
   //update the vehicle's current cell if space partitioning is turned on
