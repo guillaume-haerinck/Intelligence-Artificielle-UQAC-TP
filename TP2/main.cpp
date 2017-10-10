@@ -22,9 +22,42 @@ char*	g_szWindowClassName = "MyWindowClass";
 GameWorld* g_GameWorld;
 
 // Added for the TP
+// Put instance in a global scope to access it
 HINSTANCE instance;
+
+// Prototype of event handlers
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
-BOOL APIENTRY setAgents_procedure(HWND boiteDeDialogue, UINT message, WPARAM wParam, LPARAM lParam);
+BOOL APIENTRY setAgentsProc(HWND boiteDeDialogue, UINT message, WPARAM wParam, LPARAM lParam);
+
+// handle of dialog boxes
+HWND hwndDialog = NULL;
+
+//---------------------------- setAgentsProc ---------------------------------
+//	
+//	This is the callback function which handles all the dialog box messages
+//-------------------------------------------------------------------------
+
+BOOL APIENTRY setAgentsProc(HWND dialogBox, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	switch (message)
+	{
+	case WM_INITDIALOG:
+
+		return TRUE;
+
+	case WM_COMMAND:
+		if (LOWORD(wParam) == IDCANCEL || LOWORD(wParam) == IDOK)
+		{
+			EndDialog(dialogBox, 0);
+			hwndDialog = NULL;
+			return TRUE;
+		}
+		return 0;
+
+	default:
+		return FALSE;
+	}
+}
 
 //---------------------------- WindowProc ---------------------------------
 //	
@@ -104,8 +137,20 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 		{
 			// Added for the TP
 			case ID_B_SET_AGENTS:
-				DialogBox(instance, "SET_AGENTS", hwnd, (DLGPROC)setAgents_procedure);
-				break;
+			{
+				//Prevent to open multiple instance at the same time
+				if (!IsWindow(hwndDialog))
+				{
+					hwndDialog = CreateDialog(instance,
+											"SET_AGENTS",
+											hwnd,
+											(DLGPROC)setAgentsProc);
+
+					ShowWindow(hwndDialog, SW_SHOW);
+				}
+			}
+
+			break;
 		}
       g_GameWorld->HandleMenuItems(wParam, hwnd); 
     }
@@ -331,27 +376,4 @@ int WINAPI WinMain (HINSTANCE hInstance,
   UnregisterClass( g_szWindowClassName, winclass.hInstance );
 
   return msg.wParam;
-}
-
-// Added for the TP
-// DEBUG need to modify the values of ParamLoader and update the scene
-BOOL APIENTRY setAgents_procedure(HWND boiteDeDialogue, UINT message, WPARAM wParam, LPARAM lParam)
-{
-	switch (message)
-	{
-	case WM_INITDIALOG:
-
-		return TRUE;
-
-	case WM_COMMAND:
-		if (LOWORD(wParam) == IDCANCEL || LOWORD(wParam) == IDOK)
-		{
-			EndDialog(boiteDeDialogue, 0);
-			return TRUE;
-		}
-		return 0;
-
-	default:
-		return FALSE;
-	}
 }
