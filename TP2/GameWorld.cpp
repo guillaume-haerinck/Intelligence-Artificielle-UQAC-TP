@@ -553,27 +553,6 @@ void GameWorld::HandleMenuItems(WPARAM wParam, HWND hwnd)
 	  }
 
 	  break;
-
-	  case ID_SET_FOLLOWERS:
-	  {
-
-	  }
-
-	  break;
-
-	  case ID_SET_LEADERS:
-	  {
-
-	  }
-
-	  break;
-
-	  case ID_SET_OFFSET:
-	  {
-
-	  }
-
-	  break;
       
   }//end switch
 }

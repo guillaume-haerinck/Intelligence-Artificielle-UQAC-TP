@@ -33,9 +33,7 @@
 #define IDR_FLOCKING					40018
 #define IDR_PURSUIT						40019
 #define IDR_BIRD_V						40020
-#define ID_SET_FOLLOWERS				40021
-#define ID_SET_LEADERS					40022
-#define ID_SET_OFFSET					40023
+#define ID_B_SET_AGENTS					40021
 
 // Next default values for new objects
 // 

@@ -21,6 +21,10 @@ char*	g_szWindowClassName = "MyWindowClass";
 
 GameWorld* g_GameWorld;
 
+// Added for the TP
+HINSTANCE instance;
+LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
+BOOL APIENTRY setAgents_procedure(HWND boiteDeDialogue, UINT message, WPARAM wParam, LPARAM lParam);
 
 //---------------------------- WindowProc ---------------------------------
 //	
@@ -33,7 +37,7 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
                              LPARAM lParam)
 {
    //these hold the dimensions of the client window area
-	 static int cxClient, cyClient; 
+	static int cxClient, cyClient; 
 
 	 //used to create the back buffer
    static HDC		hdcBackBuffer;
@@ -96,6 +100,13 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 
     case WM_COMMAND:
     {
+		switch (LOWORD(wParam))
+		{
+			// Added for the TP
+			case ID_B_SET_AGENTS:
+				DialogBox(instance, "SET_AGENTS", hwnd, (DLGPROC)setAgents_procedure);
+				break;
+		}
       g_GameWorld->HandleMenuItems(wParam, hwnd); 
     }
 
@@ -197,9 +208,9 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 
      }//end switch
 
-     //this is where all the messages not specifically handled by our 
-		 //winproc are sent to be processed
-		 return DefWindowProc (hwnd, msg, wParam, lParam);
+    //this is where all the messages not specifically handled by our 
+	//winproc are sent to be processed
+	return DefWindowProc (hwnd, msg, wParam, lParam);
 }
 
 //-------------------------------- WinMain -------------------------------
@@ -211,12 +222,18 @@ int WINAPI WinMain (HINSTANCE hInstance,
                     LPSTR     szCmdLine, 
                     int       iCmdShow)
 {
-  //handle to our window
+  //handle to our main window
   HWND						hWnd;
     
+  //handle events
+  MSG						msg;
+
   //our window class structure
-  WNDCLASSEX     winclass;
+  WNDCLASSEX				winclass;
 		 
+  // Added for the TP
+  instance = hInstance;
+
   // first fill in the window class stucture
   winclass.cbSize        = sizeof(WNDCLASSEX);
   winclass.style         = CS_HREDRAW | CS_VREDRAW;
@@ -276,8 +293,6 @@ int WINAPI WinMain (HINSTANCE hInstance,
   //start the timer
   timer.Start();
 
-  MSG msg;
-
   while(!bDone)
   {		
     while( PeekMessage( &msg, NULL, 0, 0, PM_REMOVE ) ) 
@@ -318,4 +333,25 @@ int WINAPI WinMain (HINSTANCE hInstance,
   return msg.wParam;
 }
 
+// Added for the TP
+// DEBUG need to modify the values of ParamLoader and update the scene
+BOOL APIENTRY setAgents_procedure(HWND boiteDeDialogue, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	switch (message)
+	{
+	case WM_INITDIALOG:
 
+		return TRUE;
+
+	case WM_COMMAND:
+		if (LOWORD(wParam) == IDCANCEL || LOWORD(wParam) == IDOK)
+		{
+			EndDialog(boiteDeDialogue, 0);
+			return TRUE;
+		}
+		return 0;
+
+	default:
+		return FALSE;
+	}
+}

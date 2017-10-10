@@ -66,10 +66,17 @@ BEGIN
 	END
 	POPUP "Modify Variables"
 	BEGIN
-		MENUITEM "Set followers",				ID_SET_FOLLOWERS
-		MENUITEM "Set leaders",					ID_SET_LEADERS
-		MENUITEM "Set offset distance",			ID_SET_OFFSET
+		MENUITEM "Agents",						ID_B_SET_AGENTS
 	END
+END
+
+SET_AGENTS DIALOG
+	0, 0, 200, 150
+	STYLE WS_OVERLAPPEDWINDOW
+		CAPTION "Set the number of agents"
+BEGIN
+	DEFPUSHBUTTON "Ok", IDOK, 96, 90, 42, 12
+	LTEXT "Coming soon...", -1, 100, 58, 100, 10
 END
 
 
