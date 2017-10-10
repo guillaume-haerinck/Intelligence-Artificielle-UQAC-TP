@@ -3,7 +3,7 @@
 
 //change these values at your peril!
 const int constWindowWidth  = 1000;
-const int constWindowHeight = 1000;
+const int constWindowHeight = 800;
 
 
 #endif

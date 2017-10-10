@@ -7,8 +7,7 @@
 //
 // Generated from the TEXTINCLUDE 2 resource.
 //
-#include "WinResrc.h"
-#define IDC_STATIC -1
+#include "Windows.h"
 
 /////////////////////////////////////////////////////////////////////////////
 #undef APSTUDIO_READONLY_SYMBOLS
@@ -54,6 +53,23 @@ BEGIN
     BEGIN
         MENUITEM "On/Off",                      ID_MENU_SMOOTHING
     END
+	// Added for the TP
+	POPUP "Leader Manual Control"
+	BEGIN
+		MENUITEM "On/Off",						ID_MANUAL_CONTROL
+	END
+	POPUP "Game Mode"
+	BEGIN
+		MENUITEM "Flocking",					IDR_FLOCKING
+		MENUITEM "Pursuit",						IDR_PURSUIT
+		MENUITEM "Bird V",						IDR_BIRD_V
+	END
+	POPUP "Modify Variables"
+	BEGIN
+		MENUITEM "Set followers",				ID_SET_FOLLOWERS
+		MENUITEM "Set leaders",					ID_SET_LEADERS
+		MENUITEM "Set offset distance",			ID_SET_OFFSET
+	END
 END
 
 
@@ -70,10 +86,8 @@ END
 
 2 TEXTINCLUDE DISCARDABLE 
 BEGIN
-    "#include ""WinResrc.h""\r\n"
+    "#include ""Windows.h""\r\n"
     "\0"
-	"#define "IDC_STATIC - 1"\r\n"
-	"\0"
 END
 
 3 TEXTINCLUDE DISCARDABLE 
