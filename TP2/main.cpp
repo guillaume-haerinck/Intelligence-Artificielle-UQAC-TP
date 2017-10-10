@@ -27,7 +27,7 @@ HINSTANCE instance;
 
 // Prototype of event handlers
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
-BOOL APIENTRY setAgentsProc(HWND boiteDeDialogue, UINT message, WPARAM wParam, LPARAM lParam);
+BOOL APIENTRY setAgentsProc(HWND hwndInst, UINT message, WPARAM wParam, LPARAM lParam);
 
 // handle of dialog boxes
 HWND hwndDialog = NULL;
@@ -37,25 +37,28 @@ HWND hwndDialog = NULL;
 //	This is the callback function which handles all the dialog box messages
 //-------------------------------------------------------------------------
 
-BOOL APIENTRY setAgentsProc(HWND dialogBox, UINT message, WPARAM wParam, LPARAM lParam)
+BOOL APIENTRY setAgentsProc(HWND hwndInst, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
 	{
-	case WM_INITDIALOG:
-
-		return TRUE;
-
-	case WM_COMMAND:
-		if (LOWORD(wParam) == IDCANCEL || LOWORD(wParam) == IDOK)
+		case WM_INITDIALOG:
 		{
-			EndDialog(dialogBox, 0);
-			hwndDialog = NULL;
 			return TRUE;
 		}
-		return 0;
 
-	default:
-		return FALSE;
+		case WM_COMMAND:
+		{
+			if (LOWORD(wParam) == IDCANCEL || LOWORD(wParam) == IDOK)
+			{
+				EndDialog(hwndInst, 0);
+				hwndDialog = NULL;
+				return TRUE;
+			}
+			return 0;
+		}
+
+		default:
+			return FALSE;
 	}
 }
 
