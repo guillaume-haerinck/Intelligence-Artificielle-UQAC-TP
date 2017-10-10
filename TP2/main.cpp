@@ -83,8 +83,12 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
          
          g_GameWorld = new GameWorld(cxClient, cyClient);
 
+
+		 //Set the already checked menus
          ChangeMenuState(hwnd, IDR_PRIORITIZED, MFS_CHECKED);
          ChangeMenuState(hwnd, ID_VIEW_FPS, MFS_CHECKED);
+		 // Added for the TP
+		 ChangeMenuState(hwnd, IDR_FLOCKING, MFS_CHECKED);
          
       }
 

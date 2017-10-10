@@ -74,6 +74,8 @@ private:
   bool  m_bRenderNeighbors;
   bool  m_bViewKeys;
   bool  m_bShowCellSpaceInfo;
+  //  Added for the TP
+  bool	m_bManualControl;
 
 
   void CreateObstacles();

@@ -29,13 +29,13 @@
 #define ID_MENU_SMOOTHING               40014
 #define IDM_PARTITION_VIEW_NEIGHBORS    40015
 // Added for the TP
-#define ID_MANUAL_CONTROL				40016
-#define IDR_FLOCKING					40017
-#define IDR_PURSUIT						40018
-#define IDR_BIRD_V						40019
-#define ID_SET_FOLLOWERS				40020
-#define ID_SET_LEADERS					40021
-#define ID_SET_OFFSET					40022
+#define ID_MANUAL_CONTROL				40017
+#define IDR_FLOCKING					40018
+#define IDR_PURSUIT						40019
+#define IDR_BIRD_V						40020
+#define ID_SET_FOLLOWERS				40021
+#define ID_SET_LEADERS					40022
+#define ID_SET_OFFSET					40023
 
 // Next default values for new objects
 // 

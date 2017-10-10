@@ -39,7 +39,9 @@ GameWorld::GameWorld(int cx, int cy):
             m_pPath(NULL),
             m_bRenderNeighbors(false),
             m_bViewKeys(false),
-            m_bShowCellSpaceInfo(false)
+            m_bShowCellSpaceInfo(false),
+			// Added for the TP
+			m_bManualControl(false)
 {
 
   //setup the spatial subdivision class
@@ -506,7 +508,72 @@ void GameWorld::HandleMenuItems(WPARAM wParam, HWND hwnd)
         CheckMenuItemAppropriately(hwnd, ID_MENU_SMOOTHING, m_Vehicles[0]->isSmoothingOn());
       }
 
+	  break;
+
+	  // Added for the TP
+	  case ID_MANUAL_CONTROL:
+	  {
+		  m_bManualControl = !m_bManualControl;
+
+		  if (!m_bManualControl)
+		  {
+			  ChangeMenuState(hwnd, ID_MANUAL_CONTROL, MFS_UNCHECKED);
+		  }
+		  else
+		  {
+			  ChangeMenuState(hwnd, ID_MANUAL_CONTROL, MFS_CHECKED);
+		  }
+	  }
+
       break;
+
+	  case IDR_FLOCKING:
+	  {
+		  ChangeMenuState(hwnd, IDR_FLOCKING, MFS_CHECKED);
+		  ChangeMenuState(hwnd, IDR_PURSUIT, MFS_UNCHECKED);
+		  ChangeMenuState(hwnd, IDR_BIRD_V, MFS_UNCHECKED);
+	  }
+
+	  break;
+
+	  case IDR_PURSUIT:
+	  {
+		  ChangeMenuState(hwnd, IDR_FLOCKING, MFS_UNCHECKED);
+		  ChangeMenuState(hwnd, IDR_PURSUIT, MFS_CHECKED);
+		  ChangeMenuState(hwnd, IDR_BIRD_V, MFS_UNCHECKED);
+	  }
+
+	  break;
+
+	  case IDR_BIRD_V:
+	  {
+		  ChangeMenuState(hwnd, IDR_FLOCKING, MFS_UNCHECKED);
+		  ChangeMenuState(hwnd, IDR_PURSUIT, MFS_UNCHECKED);
+		  ChangeMenuState(hwnd, IDR_BIRD_V, MFS_CHECKED);
+	  }
+
+	  break;
+
+	  case ID_SET_FOLLOWERS:
+	  {
+
+	  }
+
+	  break;
+
+	  case ID_SET_LEADERS:
+	  {
+
+	  }
+
+	  break;
+
+	  case ID_SET_OFFSET:
+	  {
+
+	  }
+
+	  break;
       
   }//end switch
 }
