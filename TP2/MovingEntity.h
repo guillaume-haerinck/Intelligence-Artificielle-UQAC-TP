@@ -44,7 +44,7 @@ protected:
 
 public:
 
-
+	//MovingEntity inherit of BaseGameEntity
   MovingEntity(Vector2D position,
                double    radius,
                Vector2D velocity,
