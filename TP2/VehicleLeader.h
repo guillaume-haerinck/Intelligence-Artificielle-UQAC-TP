@@ -7,7 +7,7 @@
 
 
 
-class VehicleLeader : public Vehicle
+class VehicleLeader //: public Vehicle
 {
 public:
 	VehicleLeader();
