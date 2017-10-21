@@ -29,7 +29,7 @@ VehicleLeader::VehicleLeader(GameWorld* world,
 															max_turn_rate,
 															scale)
 {
-	
+	this->Steering()->WanderOn();
 }
 
 
