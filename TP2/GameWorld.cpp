@@ -56,8 +56,9 @@ GameWorld::GameWorld(int cx, int cy):
   //determine a random starting position
   Vector2D SpawnPos = Vector2D(cx / 2.0 + RandomClamped()*cx / 2.0,
 								cy / 2.0 + RandomClamped()*cy / 2.0);
+
   // Create a leader
-  VehicleLeader* leader = new VehicleLeader(this,
+  VehicleLeader* pLeader = new VehicleLeader(this,
 										  SpawnPos,                 //initial position
 										  RandFloat()*TwoPi,        //start rotation
 										  Vector2D(0, 0),            //velocity
@@ -69,7 +70,7 @@ GameWorld::GameWorld(int cx, int cy):
 										  false);					//define if the Leader is controlled by a player  
 
   //determine the first cible to follow
-  Vehicle* cible = leader;
+  Vehicle* pCible = pLeader;
 
   //detemine the offset distance between each agents
   Vector2D offset = Vector2D(2, 2);
@@ -77,12 +78,12 @@ GameWorld::GameWorld(int cx, int cy):
   // Create the agents
   for (int a=0; a<Prm.NumAgents; ++a)
   {
-	  //Redo the random position for each agent
+	  //Redo the random starting position for each agent
 	  SpawnPos = Vector2D(cx / 2.0 + RandomClamped()*cx / 2.0,
 							cy / 2.0 + RandomClamped()*cy / 2.0);
 
 
-	  VehicleChaser* chase = new VehicleChaser(this,
+	  VehicleChaser* pChaser = new VehicleChaser(this,
 											  SpawnPos,                 //initial position
 											  RandFloat()*TwoPi,        //start rotation
 											  Vector2D(0, 0),            //velocity
@@ -91,20 +92,23 @@ GameWorld::GameWorld(int cx, int cy):
 											  Prm.MaxSpeed,             //max velocity
 											  Prm.MaxTurnRatePerSecond, //max turn rate
 											  Prm.VehicleScale,
-											  cible,						//cible to follow
-											  offset);
+											  pCible,					//cible to follow
+											  offset);					//offset distance
 
-	//add it to the list
-	m_Vehicles.push_back(chase);
+	//add it to the container
+	m_Vehicles.push_back(pChaser);
 
 	//add it to the cell subdivision
-	m_pCellSpace->AddEntity(chase);
+	m_pCellSpace->AddEntity(pChaser);
 
 	//Activate behaviors needeed other than offset pursuit
-	chase->Steering()->SeparationOn();
+	pChaser->Steering()->SeparationOn();
 
-	//use it as a cible for the new agent
-	//cible = m_Vehicles[a];
+	//---------------- NOT WORKING -----------------
+	//----------------------------------------------
+
+	//use the agent created as a cible for the next agent
+	pCible = pChaser;
 
   //-------------------------- ORIGINAL BEHAVIOR ---------------
   //-----------------------------------------------------------
