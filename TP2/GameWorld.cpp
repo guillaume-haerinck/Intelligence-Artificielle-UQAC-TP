@@ -53,10 +53,10 @@ GameWorld::GameWorld(int cx, int cy):
   m_pPath = new Path(5, border, border, cx-border, cy-border, true); 
 
 
-  //setup the agents
+  //determine a random starting position
   Vector2D SpawnPos = Vector2D(cx / 2.0 + RandomClamped()*cx / 2.0,
 								cy / 2.0 + RandomClamped()*cy / 2.0);
-
+  // Create a leader
   VehicleLeader* lead = new VehicleLeader(this,
 										  SpawnPos,                 //initial position
 										  RandFloat()*TwoPi,        //start rotation
@@ -71,10 +71,10 @@ GameWorld::GameWorld(int cx, int cy):
   // Create the agents
   for (int a=0; a<Prm.NumAgents; ++a)
   {
+	  //Redo the random position for each agent
+	  SpawnPos = Vector2D(cx / 2.0 + RandomClamped()*cx / 2.0,
+							cy / 2.0 + RandomClamped()*cy / 2.0);
 
-    //determine a random starting position
-    Vector2D SpawnPos = Vector2D(cx/2.0+RandomClamped()*cx/2.0,
-                                 cy/2.0+RandomClamped()*cy/2.0);
 
 	VehicleChaser* chase = new VehicleChaser(this,
 											SpawnPos,                 //initial position
@@ -85,10 +85,10 @@ GameWorld::GameWorld(int cx, int cy):
 											Prm.MaxSpeed,             //max velocity
 											Prm.MaxTurnRatePerSecond, //max turn rate
 											Prm.VehicleScale,
-											lead);
+											lead);						//cible
 
-	//chase->Steering()->AlignmentOn();
-	//chase->Steering()->SeparationOn();
+	chase->Steering()->AlignmentOn();
+	chase->Steering()->SeparationOn();
 
   m_Vehicles.push_back(chase);
 

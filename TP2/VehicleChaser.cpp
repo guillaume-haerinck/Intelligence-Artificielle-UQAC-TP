@@ -34,7 +34,6 @@ VehicleChaser::VehicleChaser(GameWorld* world,
 {
 	m_offset = Vector2D(2, 0);
 	this->Steering()->OffsetPursuitOn(this->m_target, m_offset);
-
 }
 
 

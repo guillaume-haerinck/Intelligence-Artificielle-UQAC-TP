@@ -29,6 +29,8 @@ private:
 
 	//the target to chase
 	Vehicle* m_target;
+
+	//the offset
 	Vector2D m_offset;
 
 public:
