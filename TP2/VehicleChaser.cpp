@@ -11,6 +11,7 @@
 using std::vector;
 using std::list;
 
+//Inherit from vehicle
 VehicleChaser::VehicleChaser(GameWorld* world,
 							Vector2D position,
 							double    rotation,
@@ -20,7 +21,8 @@ VehicleChaser::VehicleChaser(GameWorld* world,
 							double    max_speed,
 							double    max_turn_rate,
 							double    scale,
-							Vehicle* target):		Vehicle(world,
+							Vehicle* target,
+							Vector2D offset):		Vehicle(world,
 															position,
 															rotation,
 															velocity,
@@ -28,11 +30,11 @@ VehicleChaser::VehicleChaser(GameWorld* world,
 															max_force,
 															max_speed,
 															max_turn_rate,
-															scale),
-													m_target(target)
+															scale)
 													
 {
-	m_offset = Vector2D(2, 0);
+	m_target = target;
+	m_offset = offset;
 	this->Steering()->OffsetPursuitOn(this->m_target, m_offset);
 }
 

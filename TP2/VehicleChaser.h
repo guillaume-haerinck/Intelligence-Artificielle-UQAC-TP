@@ -30,7 +30,7 @@ private:
 	//the target to chase
 	Vehicle* m_target;
 
-	//the offset
+	//the offset distance
 	Vector2D m_offset;
 
 public:
@@ -44,7 +44,8 @@ public:
 					double    max_speed,
 					double    max_turn_rate,
 					double    scale,
-					Vehicle* target);
+					Vehicle* target,
+					Vector2D offset);
 
 		~VehicleChaser();
 };
