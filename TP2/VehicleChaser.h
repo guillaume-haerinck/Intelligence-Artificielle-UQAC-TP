@@ -27,8 +27,13 @@ class Vehicle;
 
 class VehicleChaser : public Vehicle
 {
+private:
 
-	public:
+	//the target to chase
+	Vehicle* m_target;
+
+public:
+
 		VehicleChaser(GameWorld* world,
 					Vector2D position,
 					double    rotation,
@@ -37,7 +42,8 @@ class VehicleChaser : public Vehicle
 					double    max_force,
 					double    max_speed,
 					double    max_turn_rate,
-					double    scale);
+					double    scale,
+					Vehicle* target);
 
 		~VehicleChaser();
 };

@@ -1,7 +1,16 @@
-#ifndef VEHICLECHASER_H
-#define VEHICLECHASER_H
+#ifndef VEHICLELEADER_H
+#define VEHICLELEADER_H
 #pragma once
 
+//------------------------------------------------------------------------
+//
+//  Name:   VehicleLeader.h
+//
+//  Desc:   Definition of a simple vehicle that uses steering behaviors
+//
+//  Author: Mat Buckland 2002 (fup@ai-junkie.com)
+//
+//------------------------------------------------------------------------
 
 #include "Vehicle.h"
 #include "2d/Vector2D.h"

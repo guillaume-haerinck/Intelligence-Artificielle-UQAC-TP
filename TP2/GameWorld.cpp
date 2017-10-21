@@ -1,5 +1,7 @@
 #include "GameWorld.h"
 #include "Vehicle.h"
+#include "VehicleLeader.h"
+#include "VehicleChaser.h"
 #include "constants.h"
 #include "Obstacle.h"
 #include "2d/Geometry.h"
@@ -50,7 +52,41 @@ GameWorld::GameWorld(int cx, int cy):
   double border = 30;
   m_pPath = new Path(5, border, border, cx-border, cy-border, true); 
 
+
   //setup the agents
+  Vector2D SpawnPos = Vector2D(cx / 2.0 + RandomClamped()*cx / 2.0,
+								cy / 2.0 + RandomClamped()*cy / 2.0);
+  VehicleLeader* lead = new VehicleLeader(this,
+										  SpawnPos,                 //initial position
+										  RandFloat()*TwoPi,        //start rotation
+										  Vector2D(0, 0),            //velocity
+										  Prm.VehicleMass,          //mass
+										  Prm.MaxSteeringForce,     //max force
+										  Prm.MaxSpeed,             //max velocity
+										  Prm.MaxTurnRatePerSecond, //max turn rate
+										  Prm.VehicleScale,
+										  false);					//define if the Leader is controlled by a player
+  VehicleLeader* lead1 = new VehicleLeader(this,
+	  SpawnPos,                 //initial position
+	  RandFloat()*TwoPi,        //start rotation
+	  Vector2D(0, 0),            //velocity
+	  Prm.VehicleMass,          //mass
+	  Prm.MaxSteeringForce,     //max force
+	  Prm.MaxSpeed,             //max velocity
+	  Prm.MaxTurnRatePerSecond, //max turn rate
+	  Prm.VehicleScale,
+	  false);					//define if the Leader is controlled by a player
+  VehicleLeader* lead2 = new VehicleLeader(this,
+	  SpawnPos,                 //initial position
+	  RandFloat()*TwoPi,        //start rotation
+	  Vector2D(0, 0),            //velocity
+	  Prm.VehicleMass,          //mass
+	  Prm.MaxSteeringForce,     //max force
+	  Prm.MaxSpeed,             //max velocity
+	  Prm.MaxTurnRatePerSecond, //max turn rate
+	  Prm.VehicleScale,
+	  false);					//define if the Leader is controlled by a player
+  
   for (int a=0; a<Prm.NumAgents; ++a)
   {
 
@@ -58,8 +94,26 @@ GameWorld::GameWorld(int cx, int cy):
     Vector2D SpawnPos = Vector2D(cx/2.0+RandomClamped()*cx/2.0,
                                  cy/2.0+RandomClamped()*cy/2.0);
 
+	VehicleChaser* chase = new VehicleChaser(this,
+											SpawnPos,                 //initial position
+											RandFloat()*TwoPi,        //start rotation
+											Vector2D(0, 0),            //velocity
+											Prm.VehicleMass,          //mass
+											Prm.MaxSteeringForce,     //max force
+											Prm.MaxSpeed,             //max velocity
+											Prm.MaxTurnRatePerSecond, //max turn rate
+											Prm.VehicleScale,
+											lead2);
 
-    Vehicle* pVehicle = new Vehicle(this,
+	chase->Steering()->AlignmentOn();
+	//chase->Steering()->SeparationOn();
+
+  m_Vehicles.push_back(chase);
+
+  //add it to the cell subdivision
+  m_pCellSpace->AddEntity(chase);
+
+    /*Vehicle* pVehicle = new Vehicle(this,
                                     SpawnPos,                 //initial position
                                     RandFloat()*TwoPi,        //start rotation
                                     Vector2D(0,0),            //velocity
@@ -74,7 +128,7 @@ GameWorld::GameWorld(int cx, int cy):
     m_Vehicles.push_back(pVehicle);
 
     //add it to the cell subdivision
-    m_pCellSpace->AddEntity(pVehicle);
+    m_pCellSpace->AddEntity(pVehicle);*/
   }
 
 

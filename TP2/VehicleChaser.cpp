@@ -19,7 +19,8 @@ VehicleChaser::VehicleChaser(GameWorld* world,
 							double    max_force,
 							double    max_speed,
 							double    max_turn_rate,
-							double    scale):		Vehicle(world,
+							double    scale,
+							Vehicle* target):		Vehicle(world,
 															position,
 															rotation,
 															velocity,
@@ -27,9 +28,10 @@ VehicleChaser::VehicleChaser(GameWorld* world,
 															max_force,
 															max_speed,
 															max_turn_rate,
-															scale)
+															scale),
+													m_target(target)
 {
-
+	this->Steering()->PursuitOn(this->m_target);
 }
 
 
