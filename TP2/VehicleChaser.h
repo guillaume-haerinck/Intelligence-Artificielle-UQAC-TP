@@ -6,9 +6,7 @@
 //
 //  Name:   VehicleChaser.h
 //
-//  Desc:   Definition of a simple vehicle that uses steering behaviors
-//
-//  Author: Mat Buckland 2002 (fup@ai-junkie.com)
+//  Desc:   Definition of a simple vehicle that uses steering behavior
 //
 //------------------------------------------------------------------------
 
@@ -31,6 +29,7 @@ private:
 
 	//the target to chase
 	Vehicle* m_target;
+	Vector2D m_offset;
 
 public:
 

@@ -30,8 +30,11 @@ VehicleChaser::VehicleChaser(GameWorld* world,
 															max_turn_rate,
 															scale),
 													m_target(target)
+													
 {
-	this->Steering()->PursuitOn(this->m_target);
+	m_offset = Vector2D(2, 0);
+	this->Steering()->OffsetPursuitOn(this->m_target, m_offset);
+
 }
 
 

@@ -56,6 +56,7 @@ GameWorld::GameWorld(int cx, int cy):
   //setup the agents
   Vector2D SpawnPos = Vector2D(cx / 2.0 + RandomClamped()*cx / 2.0,
 								cy / 2.0 + RandomClamped()*cy / 2.0);
+
   VehicleLeader* lead = new VehicleLeader(this,
 										  SpawnPos,                 //initial position
 										  RandFloat()*TwoPi,        //start rotation
@@ -65,28 +66,9 @@ GameWorld::GameWorld(int cx, int cy):
 										  Prm.MaxSpeed,             //max velocity
 										  Prm.MaxTurnRatePerSecond, //max turn rate
 										  Prm.VehicleScale,
-										  false);					//define if the Leader is controlled by a player
-  VehicleLeader* lead1 = new VehicleLeader(this,
-	  SpawnPos,                 //initial position
-	  RandFloat()*TwoPi,        //start rotation
-	  Vector2D(0, 0),            //velocity
-	  Prm.VehicleMass,          //mass
-	  Prm.MaxSteeringForce,     //max force
-	  Prm.MaxSpeed,             //max velocity
-	  Prm.MaxTurnRatePerSecond, //max turn rate
-	  Prm.VehicleScale,
-	  false);					//define if the Leader is controlled by a player
-  VehicleLeader* lead2 = new VehicleLeader(this,
-	  SpawnPos,                 //initial position
-	  RandFloat()*TwoPi,        //start rotation
-	  Vector2D(0, 0),            //velocity
-	  Prm.VehicleMass,          //mass
-	  Prm.MaxSteeringForce,     //max force
-	  Prm.MaxSpeed,             //max velocity
-	  Prm.MaxTurnRatePerSecond, //max turn rate
-	  Prm.VehicleScale,
-	  false);					//define if the Leader is controlled by a player
-  
+										  false);					//define if the Leader is controlled by a player  
+
+  // Create the agents
   for (int a=0; a<Prm.NumAgents; ++a)
   {
 
@@ -103,9 +85,9 @@ GameWorld::GameWorld(int cx, int cy):
 											Prm.MaxSpeed,             //max velocity
 											Prm.MaxTurnRatePerSecond, //max turn rate
 											Prm.VehicleScale,
-											lead2);
+											lead);
 
-	chase->Steering()->AlignmentOn();
+	//chase->Steering()->AlignmentOn();
 	//chase->Steering()->SeparationOn();
 
   m_Vehicles.push_back(chase);
@@ -113,6 +95,9 @@ GameWorld::GameWorld(int cx, int cy):
   //add it to the cell subdivision
   m_pCellSpace->AddEntity(chase);
 
+
+  //-------------------------- ORIGINAL BEHAVIOR ---------------
+  //-----------------------------------------------------------
     /*Vehicle* pVehicle = new Vehicle(this,
                                     SpawnPos,                 //initial position
                                     RandFloat()*TwoPi,        //start rotation
