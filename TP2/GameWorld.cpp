@@ -46,84 +46,141 @@ GameWorld::GameWorld(int cx, int cy):
 			m_bManualControl(false)
 {
 
-  //setup the spatial subdivision class
-  m_pCellSpace = new CellSpacePartition<Vehicle*>((double)cx, (double)cy, Prm.NumCellsX, Prm.NumCellsY, Prm.NumAgents);
+	//setup the spatial subdivision class
+	m_pCellSpace = new CellSpacePartition<Vehicle*>((double)cx, (double)cy, Prm.NumCellsX, Prm.NumCellsY, Prm.NumAgents);
 
-  double border = 30;
-  m_pPath = new Path(5, border, border, cx-border, cy-border, true); 
-
-
-  //determine a random starting position
-  Vector2D SpawnPos = Vector2D(cx / 2.0 + RandomClamped()*cx / 2.0,
-								cy / 2.0 + RandomClamped()*cy / 2.0);
-
-  // Create a leader
-  VehicleLeader* pLeader = new VehicleLeader(this,
-										  SpawnPos,                 //initial position
-										  RandFloat()*TwoPi,        //start rotation
-										  Vector2D(0, 0),            //velocity
-										  Prm.VehicleMass,          //mass
-										  Prm.MaxSteeringForce,     //max force
-										  Prm.MaxSpeed,             //max velocity
-										  Prm.MaxTurnRatePerSecond, //max turn rate
-										  Prm.VehicleScale,
-										  false);					//define if the Leader is controlled by a player  
-
-  //add it to the container
-  m_Vehicles.push_back(pLeader);
-  m_VehiclesLeader.push_back(pLeader);
-
-  //add it to the cell subdivision
-  m_pCellSpace->AddEntity(pLeader);
-
-  //Modify the leader
-	#define SHOAL
-	#ifdef SHOAL
-
-		pLeader->SetScale(Vector2D(10, 10));
-		pLeader->SetMaxSpeed(70);
-
-	#endif
-
-  //determine the cible to follow
-  Vehicle* pCible = pLeader;
-
-  //determine the offset distance behind each agents
-  Vector2D offset = Vector2D(-10, 0);
-
-  // Create the agents
-  for (int a=0; a<Prm.NumAgents; ++a)
-  {
-	  //Redo the random starting position for each agent
-	  SpawnPos = Vector2D(cx / 2.0 + RandomClamped()*cx / 2.0,
-							cy / 2.0 + RandomClamped()*cy / 2.0);
+	double border = 30;
+	m_pPath = new Path(5, border, border, cx - border, cy - border, true);
 
 
-	  VehicleChaser* pChaser = new VehicleChaser(this,
-											  SpawnPos,                 //initial position
-											  RandFloat()*TwoPi,        //start rotation
-											  Vector2D(0, 0),            //velocity
-											  Prm.VehicleMass,          //mass
-											  Prm.MaxSteeringForce,     //max force
-											  Prm.MaxSpeed,             //max velocity
-											  Prm.MaxTurnRatePerSecond, //max turn rate
-											  Prm.VehicleScale,
-											  pCible,					//cible to follow
-											  offset);					//offset distance
+	//determine a random starting position
+	Vector2D SpawnPos = Vector2D(cx / 2.0 + RandomClamped()*cx / 2.0,
+		cy / 2.0 + RandomClamped()*cy / 2.0);
 
-	//add it to the container
-	m_Vehicles.push_back(pChaser);
+	// Create a leader
+	VehicleLeader* pLeader = new VehicleLeader(this,
+		SpawnPos,                 //initial position
+		RandFloat()*TwoPi,        //start rotation
+		Vector2D(0, 0),            //velocity
+		Prm.VehicleMass,          //mass
+		Prm.MaxSteeringForce,     //max force
+		Prm.MaxSpeed,             //max velocity
+		Prm.MaxTurnRatePerSecond, //max turn rate
+		Prm.VehicleScale,
+		false);					//define if the Leader is controlled by a player  
+
+	VehicleLeader* pLeader2 = new VehicleLeader(this,
+		SpawnPos,                 //initial position
+		RandFloat()*TwoPi,        //start rotation
+		Vector2D(0, 0),            //velocity
+		Prm.VehicleMass,          //mass
+		Prm.MaxSteeringForce,     //max force
+		Prm.MaxSpeed,             //max velocity
+		Prm.MaxTurnRatePerSecond, //max turn rate
+		Prm.VehicleScale,
+		false);					//define if the Leader is controlled by a player  
+
+
+								//add it to the container
+	m_Vehicles.push_back(pLeader);
+	m_Vehicles.push_back(pLeader2);
+	m_VehiclesLeader.push_back(pLeader);
+	m_VehiclesLeader.push_back(pLeader2);
 
 	//add it to the cell subdivision
-	m_pCellSpace->AddEntity(pChaser);
+	m_pCellSpace->AddEntity(pLeader);
+	m_pCellSpace->AddEntity(pLeader2);
 
-	//Activate behaviors needeed other than offset pursuit and Separation
-	//pChaser->Steering()->...;
+	//Modify the leader
+#define SHOAL
+#ifdef SHOAL
 
-	//use the agent created as a cible for the next agent
-	pCible = pChaser;
+	pLeader->SetScale(Vector2D(10, 10));
+	pLeader->SetMaxSpeed(70);
+	pLeader2->SetScale(Vector2D(10, 10));
+	pLeader2->SetMaxSpeed(70);
 
-  }
+#endif
+
+	//determine the cible to follow
+	Vehicle* pCible = pLeader;
+	Vehicle* pCible2Left = pLeader2;
+	Vehicle* pCible2Right = pLeader2;
+
+	//determine the offset distance behind each agents
+	Vector2D offset = Vector2D(-10, 0);
+	Vector2D offsetL = Vector2D(-10, -10);
+	Vector2D offsetR = Vector2D(-10, 10);
+
+	// Create the agents
+	for (int a = 0; a<Prm.NumAgents / 3; ++a)
+	{
+		//Redo the random starting position for each agent
+		SpawnPos = Vector2D(cx / 2.0 + RandomClamped()*cx / 2.0,
+			cy / 2.0 + RandomClamped()*cy / 2.0);
+
+
+		VehicleChaser* pChaser = new VehicleChaser(this,
+			SpawnPos,                 //initial position
+			RandFloat()*TwoPi,        //start rotation
+			Vector2D(0, 0),            //velocity
+			Prm.VehicleMass,          //mass
+			Prm.MaxSteeringForce,     //max force
+			Prm.MaxSpeed,             //max velocity
+			Prm.MaxTurnRatePerSecond, //max turn rate
+			Prm.VehicleScale,
+			pCible,					//cible to follow
+			offset);					//offset distance
+
+		SpawnPos = Vector2D(cx / 2.0 + RandomClamped()*cx / 2.0,
+			cy / 2.0 + RandomClamped()*cy / 2.0);
+
+		VehicleChaser* pChaserL = new VehicleChaser(this,
+			SpawnPos,                 //initial position
+			RandFloat()*TwoPi,        //start rotation
+			Vector2D(0, 0),            //velocity
+			Prm.VehicleMass,          //mass
+			Prm.MaxSteeringForce,     //max force
+			Prm.MaxSpeed,             //max velocity
+			Prm.MaxTurnRatePerSecond, //max turn rate
+			Prm.VehicleScale,
+			pCible2Left,					//cible to follow
+			offsetL);					//offset distance
+
+		SpawnPos = Vector2D(cx / 2.0 + RandomClamped()*cx / 2.0,
+			cy / 2.0 + RandomClamped()*cy / 2.0);
+
+		VehicleChaser* pChaserR = new VehicleChaser(this,
+			SpawnPos,                 //initial position
+			RandFloat()*TwoPi,        //start rotation
+			Vector2D(0, 0),            //velocity
+			Prm.VehicleMass,          //mass
+			Prm.MaxSteeringForce,     //max force
+			Prm.MaxSpeed,             //max velocity
+			Prm.MaxTurnRatePerSecond, //max turn rate
+			Prm.VehicleScale,
+			pCible2Right,					//cible to follow
+			offsetR);					//offset distance
+
+										//add it to the container
+		m_Vehicles.push_back(pChaser);
+		m_Vehicles.push_back(pChaserR);
+		m_Vehicles.push_back(pChaserL);
+
+		//add it to the cell subdivision
+		m_pCellSpace->AddEntity(pChaser);
+		m_pCellSpace->AddEntity(pChaserR);
+		m_pCellSpace->AddEntity(pChaserL);
+
+		//Activate behaviors needeed other than offset pursuit and Separation
+		//pChaser->Steering()->...;
+
+		//use the agent created as a cible for the next agent
+		pCible = pChaser;
+		pCible2Right = pChaserR;
+		pCible2Left = pChaserL;
+
+	}
 }
 
 
