@@ -29,9 +29,41 @@ VehicleLeader::VehicleLeader(GameWorld* world,
 															max_turn_rate,
 															scale)
 {
+	m_isManuallyControlled = isControlled;
 	this->Steering()->WanderOn();
 }
 
+void VehicleLeader::MoveLeft()
+{
+	if (m_isManuallyControlled)
+	{
+		this->Steering()->WanderOff();
+	}
+}
+
+void VehicleLeader::MoveUp()
+{
+	if (m_isManuallyControlled)
+	{
+		this->Steering()->WanderOff();
+	}
+}
+
+void VehicleLeader::MoveRight()
+{
+	if (m_isManuallyControlled)
+	{
+		this->Steering()->WanderOff();
+	}
+}
+
+void VehicleLeader::MoveDown()
+{
+	if (m_isManuallyControlled)
+	{
+		this->Steering()->WanderOff();
+	}
+}
 
 VehicleLeader::~VehicleLeader()
 {

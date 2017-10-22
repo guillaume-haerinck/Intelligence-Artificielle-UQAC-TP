@@ -343,7 +343,37 @@ void GameWorld::HandleKeyPresses(WPARAM wParam)
   }//end switch
 }
 
+//-------------------------- HandleMovements -----------------------------
+void GameWorld::HandleManualMovements(WPARAM wParam)
+{
+	switch (wParam)
+	{
+		case VK_LEFT:
+		{
+			TogglePause();
+		}
 
+		break;
+
+		case VK_UP:
+		{
+		}
+
+		break;
+
+		case VK_RIGHT:
+		{
+		}
+
+		break;
+
+		case VK_DOWN:
+		{
+		}
+
+		break;
+	}
+}
 
 //-------------------------- HandleMenuItems -----------------------------
 void GameWorld::HandleMenuItems(WPARAM wParam, HWND hwnd)

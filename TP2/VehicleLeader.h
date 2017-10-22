@@ -30,7 +30,7 @@ class VehicleLeader : public Vehicle
 private: 
 
 	//define if the vehicle is controlled or not
-	bool		m_isManuallyControled;
+	bool		m_isManuallyControlled;
 
 
 public:
@@ -46,10 +46,16 @@ public:
 		double    scale,
 		bool isManuallyControled);
 
+	//Manual Control
+	void MoveLeft();
+	void MoveUp();
+	void MoveRight();
+	void MoveDown();
+
 	~VehicleLeader();
 
 	//-------------------------------------------accessor methods
-	bool Controlled() { return m_isManuallyControled; }
+	bool isControlled() { return m_isManuallyControlled; }
 
 };
 

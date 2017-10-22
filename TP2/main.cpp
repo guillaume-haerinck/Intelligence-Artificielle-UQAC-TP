@@ -145,6 +145,14 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
     
     break;
 
+	case WM_KEYDOWN:
+	{
+		//Agent Leader Manual Control
+		g_GameWorld->HandleManualMovements(wParam);
+	}
+
+	break;
+
     case WM_KEYUP:
       {
         switch(wParam)
