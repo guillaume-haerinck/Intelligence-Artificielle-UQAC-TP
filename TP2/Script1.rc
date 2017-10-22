@@ -61,8 +61,8 @@ BEGIN
 	POPUP "Game Mode"
 	BEGIN
 		MENUITEM "Flocking",					IDR_FLOCKING
-		MENUITEM "Pursuit",						IDR_PURSUIT
-		MENUITEM "Bird V",						IDR_BIRD_V
+		MENUITEM "Queue",						IDR_QUEUE
+		MENUITEM "Flocking V",					IDR_FLOCKING_V
 	END
 	POPUP "Modify Variables"
 	BEGIN

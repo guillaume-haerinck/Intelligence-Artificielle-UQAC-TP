@@ -582,8 +582,8 @@ void GameWorld::HandleMenuItems(WPARAM wParam, HWND hwnd)
 
 	  case IDR_FLOCKING:
 	  {
-		  ChangeMenuState(hwnd, IDR_PURSUIT, MFS_UNCHECKED);
-		  ChangeMenuState(hwnd, IDR_BIRD_V, MFS_UNCHECKED);
+		  ChangeMenuState(hwnd, IDR_QUEUE, MFS_UNCHECKED);
+		  ChangeMenuState(hwnd, IDR_FLOCKING_V, MFS_UNCHECKED);
 
 		  for (int i = 0; i<Prm.NumAgents - 1; ++i)
 		  {
@@ -596,20 +596,20 @@ void GameWorld::HandleMenuItems(WPARAM wParam, HWND hwnd)
 
 	  break;
 
-	  case IDR_PURSUIT:
+	  case IDR_QUEUE:
 	  {
 		  ChangeMenuState(hwnd, IDR_FLOCKING, MFS_UNCHECKED);
-		  ChangeMenuState(hwnd, IDR_PURSUIT, MFS_CHECKED);
-		  ChangeMenuState(hwnd, IDR_BIRD_V, MFS_UNCHECKED);
+		  ChangeMenuState(hwnd, IDR_QUEUE, MFS_CHECKED);
+		  ChangeMenuState(hwnd, IDR_FLOCKING_V, MFS_UNCHECKED);
 	  }
 
 	  break;
 
-	  case IDR_BIRD_V:
+	  case IDR_FLOCKING_V:
 	  {
 		  ChangeMenuState(hwnd, IDR_FLOCKING, MFS_UNCHECKED);
-		  ChangeMenuState(hwnd, IDR_PURSUIT, MFS_UNCHECKED);
-		  ChangeMenuState(hwnd, IDR_BIRD_V, MFS_CHECKED);
+		  ChangeMenuState(hwnd, IDR_QUEUE, MFS_UNCHECKED);
+		  ChangeMenuState(hwnd, IDR_FLOCKING_V, MFS_CHECKED);
 	  }
 
 	  break;

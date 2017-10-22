@@ -31,8 +31,8 @@
 // Added for the TP
 #define ID_MANUAL_CONTROL				40017
 #define IDR_FLOCKING					40018
-#define IDR_PURSUIT						40019
-#define IDR_BIRD_V						40020
+#define IDR_QUEUE						40019
+#define IDR_FLOCKING_V					40020
 #define ID_B_SET_AGENTS					40021
 
 // Next default values for new objects
