@@ -582,9 +582,16 @@ void GameWorld::HandleMenuItems(WPARAM wParam, HWND hwnd)
 
 	  case IDR_FLOCKING:
 	  {
-		  ChangeMenuState(hwnd, IDR_FLOCKING, MFS_CHECKED);
 		  ChangeMenuState(hwnd, IDR_PURSUIT, MFS_UNCHECKED);
 		  ChangeMenuState(hwnd, IDR_BIRD_V, MFS_UNCHECKED);
+
+		  for (int i = 0; i<Prm.NumAgents - 1; ++i)
+		  {
+			  m_Vehicles[i]->Steering()->OffsetPursuitOff();
+			  m_Vehicles[i]->Steering()->FlockingOn();
+		  }
+
+		  ChangeMenuState(hwnd, IDR_FLOCKING, MFS_CHECKED);
 	  }
 
 	  break;
