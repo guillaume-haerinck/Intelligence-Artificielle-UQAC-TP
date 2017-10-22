@@ -100,7 +100,10 @@ GameWorld::GameWorld(int cx, int cy):
 	pLeader2->SetScale(Vector2D(10, 10));
 	pLeader2->SetMaxSpeed(70);
 
+<<<<<<< HEAD
 #endif
+=======
+>>>>>>> Fix
 
 	//determine the cible to follow
 	Vehicle* pCible = pLeader;
@@ -703,6 +706,8 @@ void GameWorld::HandleMenuItems(WPARAM wParam, HWND hwnd)
 	  {
 		  ChangeMenuState(hwnd, IDR_FLOCKING, MFS_UNCHECKED);
 		  ChangeMenuState(hwnd, IDR_QUEUE, MFS_UNCHECKED);
+
+
 		  ChangeMenuState(hwnd, IDR_FLOCKING_V, MFS_CHECKED);
 	  }
 
