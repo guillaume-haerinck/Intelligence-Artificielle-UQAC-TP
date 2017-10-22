@@ -36,6 +36,7 @@ VehicleChaser::VehicleChaser(GameWorld* world,
 	m_target = target;
 	m_offset = offset;
 	this->Steering()->OffsetPursuitOn(this->m_target, this->m_offset);
+	this->Steering()->SeparationOn();
 }
 
 

@@ -101,8 +101,8 @@ GameWorld::GameWorld(int cx, int cy):
 	//add it to the cell subdivision
 	m_pCellSpace->AddEntity(pChaser);
 
-	//Activate behaviors needeed other than offset pursuit
-	pChaser->Steering()->SeparationOn();
+	//Activate behaviors needeed other than offset pursuit and Separation
+	//pChaser->Steering()->...;
 
 	//---------------- NOT WORKING -----------------
 	//----------------------------------------------
