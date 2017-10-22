@@ -43,8 +43,7 @@ GameWorld::GameWorld(int cx, int cy):
             m_bViewKeys(false),
             m_bShowCellSpaceInfo(false),
 			// Added for the TP
-			m_bManualControl(false),
-			m_LeaderCount(0)
+			m_bManualControl(false)
 {
 
   //setup the spatial subdivision class
@@ -72,7 +71,7 @@ GameWorld::GameWorld(int cx, int cy):
 
   //add it to the container
   m_Vehicles.push_back(pLeader);
-  m_LeaderCount++;
+  m_VehiclesLeader.push_back(pLeader);
 
   //add it to the cell subdivision
   m_pCellSpace->AddEntity(pLeader);
@@ -593,11 +592,11 @@ void GameWorld::HandleMenuItems(WPARAM wParam, HWND hwnd)
 		  ChangeMenuState(hwnd, IDR_FLOCKING_V, MFS_UNCHECKED);
 
 		  //Leaders are added first to m_Vehicles, they will be ignored
-		  for (int i = m_LeaderCount; i<Prm.NumAgents - 1; ++i)
+		  for (int i = (int)m_VehiclesLeader.size(); i<Prm.NumAgents - 1; ++i)
 		  {
 			  m_Vehicles[i]->Steering()->OffsetPursuitOff();
 			  m_Vehicles[i]->Steering()->FlockingOn();
-			  m_Vehicles[i]->Steering()->EvadeOn(m_Vehicles[0]);
+			  m_Vehicles[i]->Steering()->EvadeOn(m_VehiclesLeader[0]);
 		  }
 
 		  ChangeMenuState(hwnd, IDR_FLOCKING, MFS_CHECKED);
@@ -614,7 +613,7 @@ void GameWorld::HandleMenuItems(WPARAM wParam, HWND hwnd)
 		  ChangeMenuState(hwnd, IDR_DITHERED, MFS_UNCHECKED);
 
 		  //Leaders are added first to m_Vehicles, they will be ignored
-		  for (int i = m_LeaderCount; i<Prm.NumAgents - 1; ++i)
+		  for (int i = (int)m_VehiclesLeader.size(); i<Prm.NumAgents - 1; ++i)
 		  {
 			  m_Vehicles[i]->Steering()->FlockingOff();
 			  m_Vehicles[i]->Steering()->OffsetPursuitOn(m_Vehicles[i-1], Vector2D(-10, 0));

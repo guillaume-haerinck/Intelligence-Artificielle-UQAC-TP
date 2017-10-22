@@ -21,6 +21,7 @@
 #include "BaseGameEntity.h"
 #include "EntityFunctionTemplates.h"
 #include "vehicle.h"
+#include "VehicleLeader.h"
 
 
 class Obstacle;
@@ -37,6 +38,9 @@ private:
 
   //a container of all the moving entities
   std::vector<Vehicle*>         m_Vehicles;
+
+  //a container of all the leader entities
+  std::vector<VehicleLeader*>   m_VehiclesLeader;
 
   //a counter for the number of leader agents
   int							m_LeaderCount;
