@@ -98,7 +98,6 @@ GameWorld::GameWorld(int cx, int cy):
 	  SpawnPos = Vector2D(cx / 2.0 + RandomClamped()*cx / 2.0,
 							cy / 2.0 + RandomClamped()*cy / 2.0);
 
-
 	  VehicleChaser* pChaser = new VehicleChaser(this,
 											  SpawnPos,                 //initial position
 											  RandFloat()*TwoPi,        //start rotation
@@ -646,6 +645,34 @@ void GameWorld::HandleMenuItems(WPARAM wParam, HWND hwnd)
 	  {
 		  ChangeMenuState(hwnd, IDR_FLOCKING, MFS_UNCHECKED);
 		  ChangeMenuState(hwnd, IDR_QUEUE, MFS_UNCHECKED);
+
+		  Vector2D offsetLeft = Vector2D(-10, -10);
+		  Vector2D offsetRight = Vector2D(-10, 10);
+
+		  int secondAgent = 0;
+
+		  //Leaders are added first to m_Vehicles, they will be ignored
+		  for (int i = (int)m_VehiclesLeader.size(); i < Prm.NumAgents - 1; ++i)
+		  {
+			  m_Vehicles[i]->Steering()->FlockingOff();
+
+			  m_Vehicles[i]->Steering()->OffsetPursuitOn(m_VehiclesLeader[0], Vector2D(-10, 0));
+
+			  //starts from the second agent
+			  if (i > (int)m_VehiclesLeader.size())
+			  {
+				  //happens once on twice
+				  if ((i % 2) != 0)
+				  {
+					  m_Vehicles[i]->Steering()->OffsetPursuitOn(m_Vehicles[i - 2], offsetLeft);
+				  }
+				  else
+				  {
+					  m_Vehicles[i]->Steering()->OffsetPursuitOn(m_Vehicles[i - 2], offsetRight);
+				  }
+			  }
+		  }
+
 		  ChangeMenuState(hwnd, IDR_FLOCKING_V, MFS_CHECKED);
 	  }
 
