@@ -349,25 +349,40 @@ void GameWorld::HandleManualMovements(WPARAM wParam)
 	{
 		case VK_LEFT:
 		{
-			TogglePause();
+			for (int i = 0; i < (int)m_VehiclesLeader.size(); ++i)
+			{
+				m_VehiclesLeader[i]->MoveLeft();
+			}
 		}
 
 		break;
 
 		case VK_UP:
 		{
+			for (int i = 0; i < (int)m_VehiclesLeader.size(); ++i)
+			{
+				m_VehiclesLeader[i]->MoveUp();
+			}
 		}
 
 		break;
 
 		case VK_RIGHT:
 		{
+			for (int i = 0; i < (int)m_VehiclesLeader.size(); ++i)
+			{
+				m_VehiclesLeader[i]->MoveRight();
+			}
 		}
 
 		break;
 
 		case VK_DOWN:
 		{
+			for (int i = 0; i < (int)m_VehiclesLeader.size(); ++i)
+			{
+				m_VehiclesLeader[i]->MoveDown();
+			}
 		}
 
 		break;
