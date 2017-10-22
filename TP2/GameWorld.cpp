@@ -73,18 +73,19 @@ GameWorld::GameWorld(int cx, int cy):
   m_Vehicles.push_back(pLeader);
 
   //Modify the leader
-#define SHOAL
-#ifdef SHOAL
-  pLeader->SetScale(Vector2D(10, 10));
-  pLeader->SetMaxSpeed(70);
+	#define SHOAL
+	#ifdef SHOAL
 
-#endif
+		pLeader->SetScale(Vector2D(10, 10));
+		pLeader->SetMaxSpeed(70);
+
+	#endif
 
   //determine the cible to follow
   Vehicle* pCible = pLeader;
 
-  //detemine the offset distance between each agents
-  Vector2D offset = Vector2D(-100, 0);
+  //determine the offset distance behind each agents
+  Vector2D offset = Vector2D(-10, 0);
 
   // Create the agents
   for (int a=0; a<Prm.NumAgents; ++a)
@@ -115,11 +116,8 @@ GameWorld::GameWorld(int cx, int cy):
 	//Activate behaviors needeed other than offset pursuit and Separation
 	//pChaser->Steering()->...;
 
-	//---------------- NOT WORKING -----------------
-	//----------------------------------------------
-
 	//use the agent created as a cible for the next agent
-	//pCible = pChaser;
+	pCible = pChaser;
 
   }
 }

@@ -125,7 +125,7 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 
 
 		 //Set the already checked menus
-         ChangeMenuState(hwnd, IDR_PRIORITIZED, MFS_CHECKED);
+         ChangeMenuState(hwnd, IDR_WEIGHTED_SUM, MFS_CHECKED);
          ChangeMenuState(hwnd, ID_VIEW_FPS, MFS_CHECKED);
 		 // Added for the TP
 		 ChangeMenuState(hwnd, IDR_QUEUE, MFS_CHECKED);
