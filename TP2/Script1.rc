@@ -66,17 +66,13 @@ BEGIN
 	END
 	POPUP "Modify Variables"
 	BEGIN
-		MENUITEM "Agents",						ID_B_SET_AGENTS
+		MENUITEM "Add 50 Agents",				IDR_ADD_AGENTS
+		MENUITEM "Delete 50 Agents",			IDR_DELETE_AGENTS
+		MENUITEM "Add a Leader",				IDR_ADD_LEADER
+		MENUITEM "Delete a Leader",				IDR_DELETE_LEADER
+		MENUITEM "Augment Offset",				IDR_AUGMENT_OFFSET
+		MENUITEM "Reduce Offset",				IDR_REDUCE_OFFSET
 	END
-END
-
-SET_AGENTS DIALOG
-	0, 0, 200, 150
-	STYLE WS_OVERLAPPEDWINDOW
-		CAPTION "Set the number of agents"
-BEGIN
-	DEFPUSHBUTTON "Ok", IDOK, 96, 90, 42, 12
-	LTEXT "Coming soon...", -1, 100, 58, 100, 10
 END
 
 

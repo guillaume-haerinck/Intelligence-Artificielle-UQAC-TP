@@ -29,9 +29,6 @@ HINSTANCE instance;
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 BOOL APIENTRY setAgentsProc(HWND hwndInst, UINT message, WPARAM wParam, LPARAM lParam);
 
-// handle of dialog boxes
-HWND hwndDialog = NULL;
-
 //---------------------------- setAgentsProc ---------------------------------
 //	
 //	This is the callback function which handles all the dialog box messages
@@ -51,7 +48,6 @@ BOOL APIENTRY setAgentsProc(HWND hwndInst, UINT message, WPARAM wParam, LPARAM l
 			if (LOWORD(wParam) == IDCANCEL || LOWORD(wParam) == IDOK)
 			{
 				EndDialog(hwndInst, 0);
-				hwndDialog = NULL;
 				return TRUE;
 			}
 			return 0;
@@ -136,25 +132,6 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 
     case WM_COMMAND:
     {
-		switch (LOWORD(wParam))
-		{
-			// Added for the TP
-			case ID_B_SET_AGENTS:
-			{
-				//Prevent to open multiple instance at the same time
-				if (!IsWindow(hwndDialog))
-				{
-					hwndDialog = CreateDialog(instance,
-											"SET_AGENTS",
-											hwnd,
-											(DLGPROC)setAgentsProc);
-
-					ShowWindow(hwndDialog, SW_SHOW);
-				}
-			}
-
-			break;
-		}
       g_GameWorld->HandleMenuItems(wParam, hwnd); 
     }
 

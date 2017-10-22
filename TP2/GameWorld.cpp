@@ -74,6 +74,9 @@ GameWorld::GameWorld(int cx, int cy):
   m_Vehicles.push_back(pLeader);
   m_LeaderCount++;
 
+  //add it to the cell subdivision
+  m_pCellSpace->AddEntity(pLeader);
+
   //Modify the leader
 	#define SHOAL
 	#ifdef SHOAL
@@ -564,6 +567,7 @@ void GameWorld::HandleMenuItems(WPARAM wParam, HWND hwnd)
 		  {
 			  m_Vehicles[i]->Steering()->OffsetPursuitOff();
 			  m_Vehicles[i]->Steering()->FlockingOn();
+			  m_Vehicles[i]->Steering()->EvadeOn(m_Vehicles[0]);
 		  }
 
 		  ChangeMenuState(hwnd, IDR_FLOCKING, MFS_CHECKED);
@@ -601,6 +605,41 @@ void GameWorld::HandleMenuItems(WPARAM wParam, HWND hwnd)
 		  ChangeMenuState(hwnd, IDR_FLOCKING_V, MFS_CHECKED);
 	  }
 
+	  case IDR_ADD_AGENTS:
+	  {
+
+	  }
+
+	  break;
+
+	  case IDR_DELETE_AGENTS: 
+	  {
+	  }
+
+	  break;
+
+	  case IDR_ADD_LEADER: 
+	  {
+	  }
+
+	  break;
+
+	  case IDR_DELETE_LEADER:
+	  {
+	  }
+
+	  break;
+
+	  case IDR_AUGMENT_OFFSET:
+	  {
+	  }
+
+	  break;
+
+	  case IDR_REDUCE_OFFSET:
+	  {
+	  }
+ 			
 	  break;
       
   }//end switch

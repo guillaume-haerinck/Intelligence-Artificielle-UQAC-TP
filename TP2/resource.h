@@ -33,7 +33,12 @@
 #define IDR_FLOCKING					40018
 #define IDR_QUEUE						40019
 #define IDR_FLOCKING_V					40020
-#define ID_B_SET_AGENTS					40021
+#define IDR_ADD_AGENTS					40021
+#define IDR_DELETE_AGENTS				40022
+#define IDR_ADD_LEADER					40023
+#define IDR_DELETE_LEADER				40024
+#define IDR_AUGMENT_OFFSET				40025
+#define IDR_REDUCE_OFFSET				40026
 
 // Next default values for new objects
 // 
