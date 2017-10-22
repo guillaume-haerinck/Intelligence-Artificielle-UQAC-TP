@@ -38,6 +38,9 @@ private:
   //a container of all the moving entities
   std::vector<Vehicle*>         m_Vehicles;
 
+  //a counter for the number of leader agents
+  int							m_LeaderCount;
+
   //any obstacles
   std::vector<BaseGameEntity*>  m_Obstacles;
 

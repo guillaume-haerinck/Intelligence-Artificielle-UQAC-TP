@@ -43,7 +43,8 @@ GameWorld::GameWorld(int cx, int cy):
             m_bViewKeys(false),
             m_bShowCellSpaceInfo(false),
 			// Added for the TP
-			m_bManualControl(false)
+			m_bManualControl(false),
+			m_LeaderCount(0)
 {
 
   //setup the spatial subdivision class
@@ -71,6 +72,7 @@ GameWorld::GameWorld(int cx, int cy):
 
   //add it to the container
   m_Vehicles.push_back(pLeader);
+  m_LeaderCount++;
 
   //Modify the leader
 	#define SHOAL
@@ -534,7 +536,8 @@ void GameWorld::HandleMenuItems(WPARAM wParam, HWND hwnd)
 
 	  break;
 
-	  // Added for the TP
+	  //----------------------- Added for the TP ---------------------
+	  //--------------------------------------------------------------
 	  case ID_MANUAL_CONTROL:
 	  {
 		  m_bManualControl = !m_bManualControl;
@@ -556,7 +559,8 @@ void GameWorld::HandleMenuItems(WPARAM wParam, HWND hwnd)
 		  ChangeMenuState(hwnd, IDR_QUEUE, MFS_UNCHECKED);
 		  ChangeMenuState(hwnd, IDR_FLOCKING_V, MFS_UNCHECKED);
 
-		  for (int i = 0; i<Prm.NumAgents - 1; ++i)
+		  //Leaders are added first to m_Vehicles, they will be ignored
+		  for (int i = m_LeaderCount; i<Prm.NumAgents - 1; ++i)
 		  {
 			  m_Vehicles[i]->Steering()->OffsetPursuitOff();
 			  m_Vehicles[i]->Steering()->FlockingOn();
@@ -570,8 +574,22 @@ void GameWorld::HandleMenuItems(WPARAM wParam, HWND hwnd)
 	  case IDR_QUEUE:
 	  {
 		  ChangeMenuState(hwnd, IDR_FLOCKING, MFS_UNCHECKED);
-		  ChangeMenuState(hwnd, IDR_QUEUE, MFS_CHECKED);
 		  ChangeMenuState(hwnd, IDR_FLOCKING_V, MFS_UNCHECKED);
+
+		  ChangeMenuState(hwnd, IDR_PRIORITIZED, MFS_UNCHECKED);
+		  ChangeMenuState(hwnd, IDR_DITHERED, MFS_UNCHECKED);
+
+		  //Leaders are added first to m_Vehicles, they will be ignored
+		  for (int i = m_LeaderCount; i<Prm.NumAgents - 1; ++i)
+		  {
+			  m_Vehicles[i]->Steering()->FlockingOff();
+			  m_Vehicles[i]->Steering()->OffsetPursuitOn(m_Vehicles[i-1], Vector2D(-10, 0));
+			  m_Vehicles[i]->Steering()->SeparationOn();
+			  m_Vehicles[i]->Steering()->SetSummingMethod(SteeringBehavior::weighted_average);
+		  }
+
+		  ChangeMenuState(hwnd, IDR_QUEUE, MFS_CHECKED);
+		  ChangeMenuState(hwnd, IDR_WEIGHTED_SUM, MFS_CHECKED);
 	  }
 
 	  break;

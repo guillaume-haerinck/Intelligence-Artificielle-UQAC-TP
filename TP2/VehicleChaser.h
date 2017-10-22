@@ -47,6 +47,10 @@ public:
 					Vehicle* target,
 					Vector2D offset);
 
+		Vehicle* getTarget() { return m_target; }
+
+		Vector2D getOffset() { return m_offset; }
+
 		~VehicleChaser();
 };
 
