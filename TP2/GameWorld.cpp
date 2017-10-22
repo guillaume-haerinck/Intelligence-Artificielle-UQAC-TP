@@ -646,6 +646,9 @@ void GameWorld::HandleMenuItems(WPARAM wParam, HWND hwnd)
 		  ChangeMenuState(hwnd, IDR_FLOCKING, MFS_UNCHECKED);
 		  ChangeMenuState(hwnd, IDR_QUEUE, MFS_UNCHECKED);
 
+		  ChangeMenuState(hwnd, IDR_PRIORITIZED, MFS_UNCHECKED);
+		  ChangeMenuState(hwnd, IDR_DITHERED, MFS_UNCHECKED);
+
 		  Vector2D offsetLeft = Vector2D(-10, -10);
 		  Vector2D offsetRight = Vector2D(-10, 10);
 
@@ -655,7 +658,7 @@ void GameWorld::HandleMenuItems(WPARAM wParam, HWND hwnd)
 		  for (int i = (int)m_VehiclesLeader.size(); i < Prm.NumAgents - 1; ++i)
 		  {
 			  m_Vehicles[i]->Steering()->FlockingOff();
-
+			  m_Vehicles[i]->Steering()->SetSummingMethod(SteeringBehavior::weighted_average);
 			  m_Vehicles[i]->Steering()->OffsetPursuitOn(m_VehiclesLeader[0], Vector2D(-10, 0));
 
 			  //starts from the second agent
@@ -674,6 +677,7 @@ void GameWorld::HandleMenuItems(WPARAM wParam, HWND hwnd)
 		  }
 
 		  ChangeMenuState(hwnd, IDR_FLOCKING_V, MFS_CHECKED);
+		  ChangeMenuState(hwnd, IDR_WEIGHTED_SUM, MFS_CHECKED);
 	  }
 
 	  case IDR_ADD_AGENTS:
