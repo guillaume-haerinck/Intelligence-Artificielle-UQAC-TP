@@ -69,11 +69,22 @@ GameWorld::GameWorld(int cx, int cy):
 										  Prm.VehicleScale,
 										  false);					//define if the Leader is controlled by a player  
 
-  //determine the first cible to follow
+  //add it to the container
+  m_Vehicles.push_back(pLeader);
+
+  //Modify the leader
+#define SHOAL
+#ifdef SHOAL
+  pLeader->SetScale(Vector2D(10, 10));
+  pLeader->SetMaxSpeed(70);
+
+#endif
+
+  //determine the cible to follow
   Vehicle* pCible = pLeader;
 
   //detemine the offset distance between each agents
-  Vector2D offset = Vector2D(2, 2);
+  Vector2D offset = Vector2D(-100, 0);
 
   // Create the agents
   for (int a=0; a<Prm.NumAgents; ++a)
@@ -108,47 +119,9 @@ GameWorld::GameWorld(int cx, int cy):
 	//----------------------------------------------
 
 	//use the agent created as a cible for the next agent
-	pCible = pChaser;
-
-  //-------------------------- ORIGINAL BEHAVIOR ---------------
-  //-----------------------------------------------------------
-    /*Vehicle* pVehicle = new Vehicle(this,
-                                    SpawnPos,                 //initial position
-                                    RandFloat()*TwoPi,        //start rotation
-                                    Vector2D(0,0),            //velocity
-                                    Prm.VehicleMass,          //mass
-                                    Prm.MaxSteeringForce,     //max force
-                                    Prm.MaxSpeed,             //max velocity
-                                    Prm.MaxTurnRatePerSecond, //max turn rate
-                                    Prm.VehicleScale);        //scale
-
-    pVehicle->Steering()->FlockingOn();
-
-    m_Vehicles.push_back(pVehicle);
-
-    //add it to the cell subdivision
-    m_pCellSpace->AddEntity(pVehicle);*/
-  }
-
-
-#define SHOAL
-#ifdef SHOAL
-  m_Vehicles[Prm.NumAgents-1]->Steering()->FlockingOff();
-  m_Vehicles[Prm.NumAgents-1]->SetScale(Vector2D(10, 10));
-  m_Vehicles[Prm.NumAgents-1]->Steering()->WanderOn();
-  m_Vehicles[Prm.NumAgents-1]->SetMaxSpeed(70);
-
-
-   for (int i=0; i<Prm.NumAgents-1; ++i)
-  {
-    m_Vehicles[i]->Steering()->EvadeOn(m_Vehicles[Prm.NumAgents-1]);
+	//pCible = pChaser;
 
   }
-#endif
- 
-  //create any obstacles or walls
-  //CreateObstacles();
-  //CreateWalls();
 }
 
 
