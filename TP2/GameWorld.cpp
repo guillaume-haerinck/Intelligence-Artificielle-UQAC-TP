@@ -605,12 +605,17 @@ void GameWorld::HandleMenuItems(WPARAM wParam, HWND hwnd)
 		  ChangeMenuState(hwnd, IDR_QUEUE, MFS_UNCHECKED);
 		  ChangeMenuState(hwnd, IDR_FLOCKING_V, MFS_UNCHECKED);
 
-		  //Leaders are added first to m_Vehicles, they will be ignored
-		  for (int i = (int)m_VehiclesLeader.size(); i<Prm.NumAgents - 1; ++i)
+		  for (int i = 0; i<Prm.NumAgents - 1; ++i)
 		  {
 			  m_Vehicles[i]->Steering()->OffsetPursuitOff();
 			  m_Vehicles[i]->Steering()->FlockingOn();
 			  m_Vehicles[i]->Steering()->EvadeOn(m_VehiclesLeader[0]);
+		  }
+
+		  for (int y = 0; y < (int)m_VehiclesLeader.size(); ++y)
+		  {
+			  m_VehiclesLeader[y]->Steering()->FlockingOff();
+			  m_VehiclesLeader[y]->Steering()->WanderOn();
 		  }
 
 		  ChangeMenuState(hwnd, IDR_FLOCKING, MFS_CHECKED);
@@ -626,13 +631,18 @@ void GameWorld::HandleMenuItems(WPARAM wParam, HWND hwnd)
 		  ChangeMenuState(hwnd, IDR_PRIORITIZED, MFS_UNCHECKED);
 		  ChangeMenuState(hwnd, IDR_DITHERED, MFS_UNCHECKED);
 
-		  //Leaders are added first to m_Vehicles, they will be ignored
-		  for (int i = (int)m_VehiclesLeader.size(); i<Prm.NumAgents - 1; ++i)
+		  for (int i = 1; i < Prm.NumAgents - 1; ++i)
 		  {
 			  m_Vehicles[i]->Steering()->FlockingOff();
 			  m_Vehicles[i]->Steering()->OffsetPursuitOn(m_Vehicles[i-1], Vector2D(-10, 0));
 			  m_Vehicles[i]->Steering()->SeparationOn();
 			  m_Vehicles[i]->Steering()->SetSummingMethod(SteeringBehavior::weighted_average);
+		  }
+
+		  for (int y = 0; y < (int)m_VehiclesLeader.size(); ++y)
+		  {
+			  m_VehiclesLeader[y]->Steering()->FlockingOff();
+			  m_VehiclesLeader[y]->Steering()->WanderOn();
 		  }
 
 		  ChangeMenuState(hwnd, IDR_QUEUE, MFS_CHECKED);
@@ -652,17 +662,15 @@ void GameWorld::HandleMenuItems(WPARAM wParam, HWND hwnd)
 		  Vector2D offsetLeft = Vector2D(-10, -10);
 		  Vector2D offsetRight = Vector2D(-10, 10);
 
-		  int secondAgent = 0;
-
 		  //Leaders are added first to m_Vehicles, they will be ignored
-		  for (int i = (int)m_VehiclesLeader.size(); i < Prm.NumAgents - 1; ++i)
+		  for (int i = 0; i < Prm.NumAgents - 1; ++i)
 		  {
 			  m_Vehicles[i]->Steering()->FlockingOff();
 			  m_Vehicles[i]->Steering()->SetSummingMethod(SteeringBehavior::weighted_average);
 			  m_Vehicles[i]->Steering()->OffsetPursuitOn(m_VehiclesLeader[0], Vector2D(-10, 0));
 
 			  //starts from the second agent
-			  if (i > (int)m_VehiclesLeader.size())
+			  if (i >= 2)
 			  {
 				  //happens once on twice
 				  if ((i % 2) != 0)
@@ -674,6 +682,14 @@ void GameWorld::HandleMenuItems(WPARAM wParam, HWND hwnd)
 					  m_Vehicles[i]->Steering()->OffsetPursuitOn(m_Vehicles[i - 2], offsetRight);
 				  }
 			  }
+		  }
+
+		  //Wander the leaders
+		  for (int y = 0; y < (int)m_VehiclesLeader.size(); ++y)
+		  {
+			  m_VehiclesLeader[y]->Steering()->FlockingOff();
+			  m_VehiclesLeader[y]->Steering()->OffsetPursuitOff();
+			  m_VehiclesLeader[y]->Steering()->WanderOn();
 		  }
 
 		  ChangeMenuState(hwnd, IDR_FLOCKING_V, MFS_CHECKED);
@@ -695,12 +711,44 @@ void GameWorld::HandleMenuItems(WPARAM wParam, HWND hwnd)
 
 	  case IDR_ADD_LEADER: 
 	  {
+		  //determine a random starting position
+		  Vector2D SpawnPos = Vector2D(m_cxClient / 2.0 + RandomClamped()*m_cxClient / 2.0,
+			  m_cyClient / 2.0 + RandomClamped()*m_cyClient / 2.0);
+
+		  // Create a leader
+		  VehicleLeader* pNewLeader = new VehicleLeader(this,
+			  SpawnPos,                 //initial position
+			  RandFloat()*TwoPi,        //start rotation
+			  Vector2D(0, 0),            //velocity
+			  Prm.VehicleMass,          //mass
+			  Prm.MaxSteeringForce,     //max force
+			  Prm.MaxSpeed,             //max velocity
+			  Prm.MaxTurnRatePerSecond, //max turn rate
+			  Prm.VehicleScale,
+			  false);					//define if the Leader is controlled by a player  
+
+										//add it to the container
+		  m_Vehicles.push_back(pNewLeader);
+		  m_VehiclesLeader.push_back(pNewLeader);
+
+		  //add it to the cell subdivision
+		  m_pCellSpace->AddEntity(pNewLeader);
+
+		  //Modify the leader
+		#define SHOAL
+		#ifdef SHOAL
+
+				  pNewLeader->SetScale(Vector2D(10, 10));
+				  pNewLeader->SetMaxSpeed(70);
+
+		#endif
 	  }
 
 	  break;
 
 	  case IDR_DELETE_LEADER:
 	  {
+
 	  }
 
 	  break;
