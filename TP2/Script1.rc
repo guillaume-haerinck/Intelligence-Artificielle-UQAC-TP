@@ -66,8 +66,8 @@ BEGIN
 	END
 	POPUP "Modify Variables"
 	BEGIN
-		MENUITEM "Add 50 Agents",				IDR_ADD_AGENTS
-		MENUITEM "Delete 50 Agents",			IDR_DELETE_AGENTS
+		MENUITEM "Add 20 Agents",				IDR_ADD_AGENTS
+		MENUITEM "Delete 20 Agents",			IDR_DELETE_AGENTS
 		MENUITEM "Add a Leader",				IDR_ADD_LEADER
 		MENUITEM "Delete a Leader",				IDR_DELETE_LEADER
 		MENUITEM "Augment Offset",				IDR_AUGMENT_OFFSET

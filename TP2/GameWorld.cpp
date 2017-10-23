@@ -662,7 +662,6 @@ void GameWorld::HandleMenuItems(WPARAM wParam, HWND hwnd)
 		  Vector2D offsetLeft = Vector2D(-10, -10);
 		  Vector2D offsetRight = Vector2D(-10, 10);
 
-		  //Leaders are added first to m_Vehicles, they will be ignored
 		  for (int i = 0; i < Prm.NumAgents - 1; ++i)
 		  {
 			  m_Vehicles[i]->Steering()->FlockingOff();
@@ -696,9 +695,50 @@ void GameWorld::HandleMenuItems(WPARAM wParam, HWND hwnd)
 		  ChangeMenuState(hwnd, IDR_WEIGHTED_SUM, MFS_CHECKED);
 	  }
 
+	  break;
+
 	  case IDR_ADD_AGENTS:
 	  {
+		  //Use the last agent created as the cible
+		  Vehicle* pCible = m_Vehicles[(int)m_Vehicles.size() - 1];
 
+		  //determine the offset distance behind each agents
+		  Vector2D offset = Vector2D(-10, 0);
+		  
+		  // Create the agents
+		  for (int a = 0; a<20; ++a)
+		  {
+			  //random starting position for each agent
+			  Vector2D SpawnPos = Vector2D(m_cxClient / 2.0 + RandomClamped()*m_cxClient / 2.0,
+				  m_cyClient / 2.0 + RandomClamped()*m_cyClient / 2.0);
+
+			  VehicleChaser* pChaser = new VehicleChaser(this,
+													  SpawnPos,                 //initial position
+													  RandFloat()*TwoPi,        //start rotation
+													  Vector2D(0, 0),            //velocity
+													  Prm.VehicleMass,          //mass
+													  Prm.MaxSteeringForce,     //max force
+													  Prm.MaxSpeed,             //max velocity
+													  Prm.MaxTurnRatePerSecond, //max turn rate
+													  Prm.VehicleScale,
+													  pCible,		//cible to follow
+													  offset);		//offset distance
+
+			  //add it to the container
+			  m_Vehicles.push_back(pChaser);
+
+			  //add it to the cell subdivision
+			  m_pCellSpace->AddEntity(pChaser);
+
+			  //Add them to the counter
+			  Prm.NumAgents ++;
+
+			  //Activate behaviors needeed other than offset pursuit and Separation
+			  //pChaser->Steering()->...;
+
+			  //use the agent created as a cible for the next agent
+			  pCible = pChaser;
+		  }
 	  }
 
 	  break;
@@ -727,12 +767,15 @@ void GameWorld::HandleMenuItems(WPARAM wParam, HWND hwnd)
 			  Prm.VehicleScale,
 			  false);					//define if the Leader is controlled by a player  
 
-										//add it to the container
+		  //add it to the container
 		  m_Vehicles.push_back(pNewLeader);
 		  m_VehiclesLeader.push_back(pNewLeader);
 
 		  //add it to the cell subdivision
 		  m_pCellSpace->AddEntity(pNewLeader);
+
+		  //add it to the counter
+		  Prm.NumAgents++;
 
 		  //Modify the leader
 		#define SHOAL
