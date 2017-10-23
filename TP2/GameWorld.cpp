@@ -731,7 +731,7 @@ void GameWorld::HandleMenuItems(WPARAM wParam, HWND hwnd)
 			  m_pCellSpace->AddEntity(pChaser);
 
 			  //Add them to the counter
-			  Prm.NumAgents ++;
+			  Prm.NumAgents++;
 
 			  //Activate behaviors needeed other than offset pursuit and Separation
 			  //pChaser->Steering()->...;
@@ -743,9 +743,20 @@ void GameWorld::HandleMenuItems(WPARAM wParam, HWND hwnd)
 
 	  break;
 
+	  //DEBUG menu game mode not working after deletion
+	  /*
 	  case IDR_DELETE_AGENTS: 
 	  {
+		  if (m_Vehicles.size() > 30)
+		  {
+			  for (int a = Prm.NumAgents; a > Prm.NumAgents - 20; --a)
+			  {
+				  m_Vehicles.pop_back();
+			  }
+			  Prm.NumAgents =- 20;
+		  }
 	  }
+	  */
 
 	  break;
 
@@ -789,9 +800,14 @@ void GameWorld::HandleMenuItems(WPARAM wParam, HWND hwnd)
 
 	  break;
 
+	  //DEBUG not working still exist in m_Vehicles
 	  case IDR_DELETE_LEADER:
 	  {
-
+		  if (m_VehiclesLeader.size() > 1)
+		  {
+			  //m_VehiclesLeader.pop_back();
+			  //Prm.NumAgents--;
+		  }
 	  }
 
 	  break;
