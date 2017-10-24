@@ -66,8 +66,7 @@ GameWorld::GameWorld(int cx, int cy):
 										  Prm.MaxSteeringForce,     //max force
 										  Prm.MaxSpeed,             //max velocity
 										  Prm.MaxTurnRatePerSecond, //max turn rate
-										  Prm.VehicleScale,
-										  false);					//define if the Leader is controlled by a player  
+										  Prm.VehicleScale);					//define if the Leader is controlled by a player  
 
   //add it to the container
   m_Vehicles.push_back(pLeader);
@@ -590,10 +589,20 @@ void GameWorld::HandleMenuItems(WPARAM wParam, HWND hwnd)
 
 		  if (!m_bManualControl)
 		  {
+			  for (int i = 0; i < (int)m_VehiclesLeader.size(); i++)
+			  {
+				  m_VehiclesLeader[i]->setControlled(false);
+				  m_VehiclesLeader[i]->Steering()->WanderOn();
+			  }
 			  ChangeMenuState(hwnd, ID_MANUAL_CONTROL, MFS_UNCHECKED);
 		  }
 		  else
 		  {
+			  for (int i = 0; i < (int)m_VehiclesLeader.size(); i++)
+			  {
+				  m_VehiclesLeader[i]->setControlled(true);
+				  m_VehiclesLeader[i]->Steering()->WanderOff();
+			  }
 			  ChangeMenuState(hwnd, ID_MANUAL_CONTROL, MFS_CHECKED);
 		  }
 	  }
@@ -753,10 +762,11 @@ void GameWorld::HandleMenuItems(WPARAM wParam, HWND hwnd)
 			  {
 				  m_Vehicles.pop_back();
 			  }
-			  Prm.NumAgents =- 20;
+			 // Prm.NumAgents =- 20;
 		  }
 	  }
 	  */
+	  
 
 	  break;
 
@@ -775,8 +785,7 @@ void GameWorld::HandleMenuItems(WPARAM wParam, HWND hwnd)
 			  Prm.MaxSteeringForce,     //max force
 			  Prm.MaxSpeed,             //max velocity
 			  Prm.MaxTurnRatePerSecond, //max turn rate
-			  Prm.VehicleScale,
-			  false);					//define if the Leader is controlled by a player  
+			  Prm.VehicleScale);					//define if the Leader is controlled by a player  
 
 		  //add it to the container
 		  m_Vehicles.push_back(pNewLeader);

@@ -75,7 +75,7 @@ private:
     offset_pursuit     = 0x10000,
   };
 
-private:
+protected:
 
   
   //a pointer to the owner of this instance

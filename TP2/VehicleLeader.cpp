@@ -18,8 +18,7 @@ VehicleLeader::VehicleLeader(GameWorld* world,
 							double    max_force,
 							double    max_speed,
 							double    max_turn_rate,
-							double    scale,
-							bool isControlled):		Vehicle(world,
+							double    scale):		Vehicle(world,
 															position,
 															rotation,
 															velocity,
@@ -29,7 +28,8 @@ VehicleLeader::VehicleLeader(GameWorld* world,
 															max_turn_rate,
 															scale)
 {
-	m_isManuallyControlled = isControlled;
+	m_isManuallyControlled = false;
+	m_acceleration = 300;
 	this->Steering()->WanderOn();
 }
 
@@ -38,6 +38,7 @@ void VehicleLeader::MoveLeft()
 	if (m_isManuallyControlled)
 	{
 		this->Steering()->WanderOff();
+		this->m_vVelocity = Vector2D(-1, 0) * m_acceleration;
 	}
 }
 
@@ -46,6 +47,7 @@ void VehicleLeader::MoveUp()
 	if (m_isManuallyControlled)
 	{
 		this->Steering()->WanderOff();
+		this->m_vVelocity = Vector2D(0, -1) * m_acceleration;
 	}
 }
 
@@ -54,6 +56,8 @@ void VehicleLeader::MoveRight()
 	if (m_isManuallyControlled)
 	{
 		this->Steering()->WanderOff();
+		this->m_vVelocity = Vector2D(1, 0) * m_acceleration;
+		
 	}
 }
 
@@ -62,6 +66,8 @@ void VehicleLeader::MoveDown()
 	if (m_isManuallyControlled)
 	{
 		this->Steering()->WanderOff();
+		
+		this->m_vVelocity = Vector2D(0, 1) * m_acceleration;
 	}
 }
 

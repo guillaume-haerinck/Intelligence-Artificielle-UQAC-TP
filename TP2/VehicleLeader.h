@@ -31,6 +31,7 @@ private:
 
 	//define if the vehicle is controlled or not
 	bool		m_isManuallyControlled;
+	int			m_acceleration;
 
 
 public:
@@ -43,8 +44,7 @@ public:
 		double    max_force,
 		double    max_speed,
 		double    max_turn_rate,
-		double    scale,
-		bool isManuallyControled);
+		double    scale);
 
 	//Manual Control
 	void MoveLeft();
@@ -56,7 +56,7 @@ public:
 
 	//-------------------------------------------accessor methods
 	bool isControlled() { return m_isManuallyControlled; }
-
+	void setControlled(bool controlled) { m_isManuallyControlled = controlled; }
 };
 
 #endif
