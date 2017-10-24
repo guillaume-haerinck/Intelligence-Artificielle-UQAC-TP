@@ -598,11 +598,8 @@ void GameWorld::HandleMenuItems(WPARAM wParam, HWND hwnd)
 		  }
 		  else
 		  {
-			  for (int i = 0; i < (int)m_VehiclesLeader.size(); i++)
-			  {
-				  m_VehiclesLeader[i]->setControlled(true);
-				  m_VehiclesLeader[i]->Steering()->WanderOff();
-			  }
+				m_VehiclesLeader[0]->setControlled(true);
+				m_VehiclesLeader[0]->Steering()->WanderOff();
 			  ChangeMenuState(hwnd, ID_MANUAL_CONTROL, MFS_CHECKED);
 		  }
 	  }
