@@ -139,6 +139,11 @@ void Vehicle::Render()
     gdi->RedPen();
   }
 
+  if (Steering()->isWanderOn())
+  {
+	  gdi->RedPen();
+  }
+
   if (Steering()->isHideOn())
   {
     gdi->GreenPen();
