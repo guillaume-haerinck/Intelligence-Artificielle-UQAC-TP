@@ -16,10 +16,10 @@ extern "C"
   #include <lauxlib.h>
 }
 
-#pragma comment(lib, "lua5.1.lib")
+#pragma comment(lib, "lua53.lib")
 //#pragma comment(lib, "lualib.lib")
 
-#include "LuaHelperFunctions.h"
+#include "luahelperfunctions.h"
 
 
 
