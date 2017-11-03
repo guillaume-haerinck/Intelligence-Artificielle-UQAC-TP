@@ -300,3 +300,11 @@ __pycache__/
 
 # OpenCover UI analysis results
 OpenCover/
+
+# Special IA
+*.asm
+*.tlog
+*.exe
+*.bsc
+*.res
+*.idb
