@@ -4,6 +4,7 @@
 
 #include "Goal_TraverseEdge.h"
 #include "Goal_NegotiateDoor.h"
+#include "Goal_DodgeSideToSide.h"
 #include "misc/cgdi.h"
 
 
@@ -29,6 +30,9 @@ void Goal_FollowPath::Activate()
 
   //remove the edge from the path
   m_Path.pop_front(); 
+
+  // DEBUG Question E, seulement pour trousse de soin et munitions
+  //AddSubgoal(new Goal_DodgeSideToSide(m_pOwner));
 
   //some edges specify that the bot should use a specific behavior when
   //following them. This switch statement queries the edge behavior flag and
