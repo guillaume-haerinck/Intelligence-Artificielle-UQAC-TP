@@ -32,6 +32,8 @@ public:
   void  ShootAt(Vector2D pos);
 
   double GetDesirability(double DistToTarget);
+
+  double getPrecision(double DistToTarget, Vector2D Velocity, double ViewTime);
 };
 
 

@@ -8,7 +8,6 @@
 
 #include "Goal_Wander.h"
 #include "Goal_FollowPath.h"
-#include "Goal_DodgeSideToSide.h"
 
 
 int ItemTypeToGoalType(int gt)
@@ -49,11 +48,8 @@ void Goal_GetItem::Activate()
 
   //the bot may have to wait a few update cycles before a path is calculated
   //so for appearances sake it just wanders
-	AddSubgoal(new Goal_Wander(m_pOwner));
+  AddSubgoal(new Goal_Wander(m_pOwner));
 
-  // DEBUG Question E, seulement pour trousse de soin et munitions
-  // En alternant entre wander et dodge ??
-  // AddSubgoal(new Goal_DodgeSideToSide(m_pOwner));
 }
 
 //-------------------------- Process ------------------------------------------
@@ -92,15 +88,12 @@ bool Goal_GetItem::HandleMessage(const Telegram& msg)
       //clear any existing goals
       RemoveAllSubgoals();
 
-	  // DEBUG Question E
-	  AddSubgoal(new Goal_DodgeSideToSide(m_pOwner));
-
-	  // follow path
-      AddSubgoal(new Goal_FollowPath(m_pOwner, m_pOwner->GetPathPlanner()->GetPath()));
+      AddSubgoal(new Goal_FollowPath(m_pOwner,
+                                     m_pOwner->GetPathPlanner()->GetPath()));
 
       //get the pointer to the item
       m_pGiverTrigger = static_cast<Raven_Map::TriggerType*>(msg.ExtraInfo);
-	
+
       return true; //msg handled
 
 
