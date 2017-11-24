@@ -156,11 +156,35 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 
            break;
 
-         case 'X':
+		 case 'X':
 
-           g_pRaven->ExorciseAnyPossessedBot();
+			 g_pRaven->ExorciseAnyPossessedBot();
 
-           break;
+			 break;
+
+			 // déplacements
+		 case 'Z':
+
+			 //g_pRaven->ExorciseAnyPossessedBot();
+
+			 break;
+		 case 'Q':
+
+			 //g_pRaven->ExorciseAnyPossessedBot();
+
+			 break;
+
+		 case 'S':
+
+			 //g_pRaven->ExorciseAnyPossessedBot();
+
+			 break;
+
+		 case 'D':
+
+			 //g_pRaven->ExorciseAnyPossessedBot();
+
+			 break;
 
 
          case VK_UP:
