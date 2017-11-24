@@ -11,6 +11,7 @@ enum
   goal_arrive_at_position,
   goal_seek_to_position,
   goal_follow_path,
+  goal_dodge_path,
   goal_traverse_edge,
   goal_dodge_edge,
   goal_move_to_position,

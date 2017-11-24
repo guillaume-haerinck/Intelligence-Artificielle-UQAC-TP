@@ -225,6 +225,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="goals\Goal_DodgeEdge.cpp" />
+    <ClCompile Include="goals\Goal_DodgePath.cpp" />
     <ClCompile Include="main.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -543,6 +544,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="goals\Goal_DodgeEdge.h" />
+    <ClInclude Include="goals\Goal_DodgePath.h" />
     <ClInclude Include="Raven_Bot.h" />
     <ClInclude Include="Raven_Game.h" />
     <ClInclude Include="Raven_Map.h" />

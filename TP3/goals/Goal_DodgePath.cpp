@@ -1,19 +1,20 @@
-#include "Goal_FollowPath.h"
+#include "Goal_DodgePath.h"
 #include "../Raven_Bot.h"
 #include "../Raven_Game.h"
 
 #include "Goal_TraverseEdge.h"
 #include "Goal_NegotiateDoor.h"
 #include "Goal_DodgeEdge.h"
+#include "Goal_DodgeSideToSide.h"
 #include "misc/cgdi.h"
 
 
 
 //------------------------------ ctor -----------------------------------------
 //-----------------------------------------------------------------------------
-Goal_FollowPath::
-Goal_FollowPath(Raven_Bot*          pBot,
-                std::list<PathEdge> path):Goal_Composite<Raven_Bot>(pBot, goal_follow_path),
+Goal_DodgePath::
+Goal_DodgePath(Raven_Bot*          pBot,
+                std::list<PathEdge> path):Goal_Composite<Raven_Bot>(pBot, goal_dodge_path),
                                                   m_Path(path)
 {
 }
@@ -21,7 +22,7 @@ Goal_FollowPath(Raven_Bot*          pBot,
 
 //------------------------------ Activate -------------------------------------
 //-----------------------------------------------------------------------------
-void Goal_FollowPath::Activate()
+void Goal_DodgePath::Activate()
 {
   m_iStatus = active;
   
@@ -38,7 +39,7 @@ void Goal_FollowPath::Activate()
   {
   case NavGraphEdge::normal:
     {
-      AddSubgoal(new Goal_TraverseEdge(m_pOwner, edge, m_Path.empty()));
+	  AddSubgoal(new Goal_DodgeEdge(m_pOwner, edge, m_Path.empty()));
     }
 
     break;
@@ -47,20 +48,6 @@ void Goal_FollowPath::Activate()
     {
       //also add a goal that is able to handle opening the door
       AddSubgoal(new Goal_NegotiateDoor(m_pOwner, edge, m_Path.empty()));
-    }
-
-    break;
-
-  case NavGraphEdge::jump:
-    {
-      //add subgoal to jump along the edge
-    }
-
-    break;
-
-  case NavGraphEdge::grapple:
-    {
-      //add subgoal to grapple along the edge
     }
 
     break;
@@ -74,7 +61,7 @@ void Goal_FollowPath::Activate()
 
 //-------------------------- Process ------------------------------------------
 //-----------------------------------------------------------------------------
-int Goal_FollowPath::Process()
+int Goal_DodgePath::Process()
 {
   //if status is inactive, call Activate()
   ActivateIfInactive();
@@ -93,7 +80,7 @@ int Goal_FollowPath::Process()
  
 //---------------------------- Render -----------------------------------------
 //-----------------------------------------------------------------------------
-void Goal_FollowPath::Render()
+void Goal_DodgePath::Render()
 { 
   //render all the path waypoints remaining on the path list
   std::list<PathEdge>::iterator it;

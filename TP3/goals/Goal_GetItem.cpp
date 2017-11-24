@@ -8,6 +8,7 @@
 
 #include "Goal_Wander.h"
 #include "Goal_FollowPath.h"
+#include "Goal_DodgePath.h"
 
 
 int ItemTypeToGoalType(int gt)
@@ -89,7 +90,7 @@ bool Goal_GetItem::HandleMessage(const Telegram& msg)
       //clear any existing goals
       RemoveAllSubgoals();
 
-      AddSubgoal(new Goal_FollowPath(m_pOwner,
+      AddSubgoal(new Goal_DodgePath(m_pOwner,
                                      m_pOwner->GetPathPlanner()->GetPath()));
 
       //get the pointer to the item

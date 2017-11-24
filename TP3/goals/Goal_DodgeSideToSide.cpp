@@ -22,6 +22,7 @@ void Goal_DodgeSideToSide::Activate()
   
     if (m_bClockwise)
     {
+		// Allocate the variable m_vStrafeTarget
       if (m_pOwner->canStepRight(m_vStrafeTarget))
       {
         m_pOwner->GetSteering()->SetTarget(m_vStrafeTarget);
@@ -36,6 +37,7 @@ void Goal_DodgeSideToSide::Activate()
 
     else
     {
+		// Allocate the variable m_vStrafeTarget
       if (m_pOwner->canStepLeft(m_vStrafeTarget))
       {
         m_pOwner->GetSteering()->SetTarget(m_vStrafeTarget);
