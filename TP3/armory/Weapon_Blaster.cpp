@@ -48,7 +48,7 @@ inline void Blaster::ShootAt(Vector2D pos)
 	  double ShootTime = Clock->GetCurrentTime();
 	  double precision = getPrecision((Vec2DDistance(m_pOwner->Pos(), m_pOwner->GetTargetSys()->GetTarget()->Pos())), m_pOwner->Velocity(), ShootTime - timeTargetHasBeenVisible);
     //fire!
-    m_pOwner->GetWorld()->AddBolt(m_pOwner, pos);
+    m_pOwner->GetWorld()->AddBolt(m_pOwner, pos*(precision/100));
 
     UpdateTimeWeaponIsNextAvailable();
 
