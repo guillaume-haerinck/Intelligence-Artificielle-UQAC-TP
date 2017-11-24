@@ -148,7 +148,7 @@ void ShotGun::InitializeFuzzyModule()
 
   FuzzyVariable& Velocity = m_FuzzyModule.CreateFLV("Velocity");
   FzSet& Velocity_Low = Velocity.AddLeftShoulderSet("Velocity_Low", 0, 0.2, 0.6);
-  FzSet& Velocity_High = Velocity.AddRightShoulderSet("Velocity_High", 0.4, 0.7, 1);
+  FzSet& Velocity_High = Velocity.AddRightShoulderSet("Velocity_High", 0.4, 0.7, 2);
 
   FuzzyVariable& ViewTime = m_FuzzyModule.CreateFLV("ViewTime");
   FzSet& ViewTime_Low = ViewTime.AddLeftShoulderSet("ViewTime_Low", 0, 50, 100);
