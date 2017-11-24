@@ -163,10 +163,10 @@ void RocketLauncher::InitializeFuzzyModule()
   m_FuzzyModule.AddRule(FzAND(Target_Medium, Velocity_High, ViewTime_High), Precision_Medium);
   m_FuzzyModule.AddRule(FzAND(Target_Medium, Velocity_High, ViewTime_Low), Precision_High);
   m_FuzzyModule.AddRule(FzAND(Target_Far, Velocity_Low, ViewTime_High), Precision_Medium);
-  m_FuzzyModule.AddRule(FzAND(Target_Far, Velocity_Low, ViewTime_Low), Precision_High);
-  m_FuzzyModule.AddRule(FzAND(Target_Far, Velocity_High, ViewTime_High), Precision_High);
+  m_FuzzyModule.AddRule(FzAND(Target_Far, Velocity_Low, ViewTime_Low), Precision_Medium);
+  m_FuzzyModule.AddRule(FzAND(Target_Far, Velocity_High, ViewTime_High), Precision_Medium);
   m_FuzzyModule.AddRule(FzAND(Target_Far, Velocity_High, ViewTime_Low), Precision_High);
-  m_FuzzyModule.AddRule(FzAND(Target_VeryFar, Velocity_Low, ViewTime_High), Precision_High);
+  m_FuzzyModule.AddRule(FzAND(Target_VeryFar, Velocity_Low, ViewTime_High), Precision_Medium);
   m_FuzzyModule.AddRule(FzAND(Target_VeryFar, Velocity_Low, ViewTime_Low), Precision_High);
   m_FuzzyModule.AddRule(FzAND(Target_VeryFar, Velocity_High, ViewTime_High), Precision_High);
   m_FuzzyModule.AddRule(FzAND(Target_VeryFar, Velocity_High, ViewTime_Low), Precision_High);
