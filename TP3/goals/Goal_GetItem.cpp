@@ -43,6 +43,7 @@ void Goal_GetItem::Activate()
   
   m_pGiverTrigger = 0;
   
+  // DEBUG Question E request a certain path behavior
   //request a path to the item
   m_pOwner->GetPathPlanner()->RequestPathToItem(m_iItemToGet);
 

@@ -35,6 +35,10 @@ std::string GoalTypeToString::Convert(int gt)
 
     return "traverse_edge";
 
+  case goal_dodge_edge:
+
+	  return "dodge_edge";
+
   case goal_move_to_position:
 
     return "move_to_position";

@@ -102,8 +102,9 @@ public:
     creep             = 1 << 3,
     jump              = 1 << 3,
     fly               = 1 << 4,
-    grapple           = 1 << 5,
-    goes_through_door = 1 << 6
+    grapple			  = 1 << 5,
+    goes_through_door = 1 << 6,
+	dodge			  = 1 << 7
   };
 
 protected:

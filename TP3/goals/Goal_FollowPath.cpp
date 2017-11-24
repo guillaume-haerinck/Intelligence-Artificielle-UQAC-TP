@@ -4,6 +4,7 @@
 
 #include "Goal_TraverseEdge.h"
 #include "Goal_NegotiateDoor.h"
+#include "Goal_DodgeEdge.h"
 #include "misc/cgdi.h"
 
 
@@ -44,7 +45,6 @@ void Goal_FollowPath::Activate()
 
   case NavGraphEdge::goes_through_door:
     {
-
       //also add a goal that is able to handle opening the door
       AddSubgoal(new Goal_NegotiateDoor(m_pOwner, edge, m_Path.empty()));
     }
@@ -64,6 +64,13 @@ void Goal_FollowPath::Activate()
     }
 
     break;
+
+	// Added for TP Question E
+  case NavGraphEdge::dodge:
+  {
+	  //add subgoal to dodge along the edge
+	  AddSubgoal(new Goal_DodgeEdge(m_pOwner, edge, m_Path.empty()));
+  }
 
   default:
 
