@@ -90,10 +90,10 @@ bool Goal_GetItem::HandleMessage(const Telegram& msg)
       //clear any existing goals
       RemoveAllSubgoals();
 
-      AddSubgoal(new Goal_FollowPath(m_pOwner,
+      AddSubgoal(new Goal_DodgePath(m_pOwner,
                                      m_pOwner->GetPathPlanner()->GetPath()));
 
-	  // Dodge path for munition or health items
+	  // Dodge while moving when searching for health 
 	  if (m_iItemToGet == type_health)
 	  {
 		  //clear any existing goals
