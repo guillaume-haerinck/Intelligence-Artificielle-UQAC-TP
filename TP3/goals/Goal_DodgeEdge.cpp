@@ -67,39 +67,8 @@ void Goal_DodgeEdge::Activate()
   m_dTimeExpected += MarginOfError;
 
 
-  if (m_bClockwise)
-  {
-	  // Allocate the variable m_vStrafeTarget
-	  if (m_pOwner->canStepRight(m_vStrafeTarget))
-	  {
-		  m_pOwner->GetSteering()->SetTarget(m_vStrafeTarget);
-	  }
-	  else
-	  {
-		  //debug_con << "changing" << "";
-		  m_bClockwise = !m_bClockwise;
-		  m_iStatus = inactive;
-	  }
-  }
-
-  else
-  {
-	  // Allocate the variable m_vStrafeTarget
-	  if (m_pOwner->canStepLeft(m_vStrafeTarget))
-	  {
-		  m_pOwner->GetSteering()->SetTarget(m_vStrafeTarget);
-	  }
-	  else
-	  {
-		  // debug_con << "changing" << "";
-		  m_bClockwise = !m_bClockwise;
-		  m_iStatus = inactive;
-	  }
-  }
-
   //set the steering target
-  m_pOwner->GetSteering()->SetTarget(m_Edge.Destination() - m_vStrafeTarget);
-
+  m_pOwner->GetSteering()->SetTarget(m_Edge.Destination());
 
   //Set the appropriate steering behavior. If this is the last edge in the path
   //the bot should arrive at the position it points to, else it should seek

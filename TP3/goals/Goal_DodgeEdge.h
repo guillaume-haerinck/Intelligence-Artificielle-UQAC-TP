@@ -27,10 +27,6 @@ private:
   //returns true if the bot gets stuck
   bool      isStuck()const;
 
-  bool		m_bClockwise;
-
-  Vector2D    m_vStrafeTarget;
-
 public:
 
   Goal_DodgeEdge(Raven_Bot* pBot,
