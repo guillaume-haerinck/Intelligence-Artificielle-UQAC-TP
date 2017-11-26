@@ -53,6 +53,10 @@ protected:
   //so that we can give some feedback for debugging
   double         m_dLastDesirabilityScore;
 
+  // presision
+
+  double		 m_Precision;
+
   //this is the prefered distance from the enemy when using this weapon
   double         m_dIdealRange;
 

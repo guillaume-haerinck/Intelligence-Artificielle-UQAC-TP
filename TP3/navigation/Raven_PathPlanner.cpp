@@ -120,6 +120,7 @@ double Raven_PathPlanner::GetCostToClosestItem(unsigned int GiverType)const
 //  additional edges appropriate to the search type and returns it as a list of
 //  PathEdges.
 //-----------------------------------------------------------------------------
+// DEBUG Question E peut etre en ajoutant argument sur type de NavGraphEdge
 Raven_PathPlanner::Path Raven_PathPlanner::GetPath()
 {
   assert (m_pCurrentSearch && 

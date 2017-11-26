@@ -667,29 +667,33 @@ void GameWorld::HandleMenuItems(WPARAM wParam, HWND hwnd)
 
 		  Vector2D offsetLeft = Vector2D(-10, -10);
 		  Vector2D offsetRight = Vector2D(-10, 10);
+		  boolean bEven = true;
 
-		  for (int i = 0; i < Prm.NumAgents - 1; ++i)
+		  m_Vehicles[0]->Steering()->FlockingOff();
+		  m_Vehicles[1]->Steering()->FlockingOff();
+
+		  // Starts from the second agent to avoid list overflow
+		  for (int i = 2; i < Prm.NumAgents - 1; ++i)
 		  {
 			  m_Vehicles[i]->Steering()->FlockingOff();
 			  m_Vehicles[i]->Steering()->SetSummingMethod(SteeringBehavior::weighted_average);
-			  m_Vehicles[i]->Steering()->OffsetPursuitOn(m_VehiclesLeader[0], Vector2D(-10, 0));
-
-			  //starts from the second agent
-			  if (i >= 2)
+			  
+			  // One agent on two go to the left queue
+			  // meaning that the agent before on the queue
+			  // is 2 position before on the list
+			  if (bEven)
 			  {
-				  //happens once on twice
-				  if ((i % 2) != 0)
-				  {
-					  m_Vehicles[i]->Steering()->OffsetPursuitOn(m_Vehicles[i - 2], offsetLeft);
-				  }
-				  else
-				  {
-					  m_Vehicles[i]->Steering()->OffsetPursuitOn(m_Vehicles[i - 2], offsetRight);
-				  }
+				m_Vehicles[i]->Steering()->OffsetPursuitOn(m_Vehicles[i - 2], offsetLeft);
+				bEven = false;
+			  }
+			  else
+			  {
+				m_Vehicles[i]->Steering()->OffsetPursuitOn(m_Vehicles[i - 2], offsetRight);
+				bEven = true;
 			  }
 		  }
 
-		  //Wander the leaders
+		  // Wander the leaders
 		  for (int y = 0; y < (int)m_VehiclesLeader.size(); ++y)
 		  {
 			  m_VehiclesLeader[y]->Steering()->FlockingOff();

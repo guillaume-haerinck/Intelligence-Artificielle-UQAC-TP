@@ -268,7 +268,12 @@
     <ClCompile Include="..\Common\misc\WindowUtils.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="MultilayerPerceptron.cc" />
+    <ClCompile Include="goals\Goal_DodgeEdge.cpp">
+      <Filter>AI\goals\atomic</Filter>
+    </ClCompile>
+    <ClCompile Include="goals\Goal_DodgePath.cpp">
+      <Filter>AI\goals\composite</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Raven_Bot.h">
@@ -607,7 +612,12 @@
     <ClInclude Include="..\Common\misc\WindowUtils.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="MultilayerPerceptron.h" />
+    <ClInclude Include="goals\Goal_DodgeEdge.h">
+      <Filter>AI\goals\atomic</Filter>
+    </ClInclude>
+    <ClInclude Include="goals\Goal_DodgePath.h">
+      <Filter>AI\goals\composite</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Params.lua">
