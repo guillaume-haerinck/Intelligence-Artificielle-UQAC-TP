@@ -224,6 +224,8 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="armory\Projectile_Grenade.cpp" />
+    <ClCompile Include="armory\Weapon_Grenade.cpp" />
     <ClCompile Include="goals\Goal_DodgeEdge.cpp" />
     <ClCompile Include="goals\Goal_DodgePath.cpp" />
     <ClCompile Include="main.cpp">
@@ -543,13 +545,15 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="armory\Projectile_Grenade.h" />
+    <ClInclude Include="armory\Weapon_Blaster.h" />
+    <ClInclude Include="armory\Weapon_Grenade.h" />
     <ClInclude Include="goals\Goal_DodgeEdge.h" />
     <ClInclude Include="goals\Goal_DodgePath.h" />
     <ClInclude Include="Raven_Bot.h" />
     <ClInclude Include="Raven_Game.h" />
     <ClInclude Include="Raven_Map.h" />
     <ClInclude Include="armory\Raven_Weapon.h" />
-    <ClInclude Include="armory\Weapon_Blaster.h" />
     <ClInclude Include="armory\Weapon_RailGun.h" />
     <ClInclude Include="armory\Weapon_RocketLauncher.h" />
     <ClInclude Include="armory\Weapon_ShotGun.h" />

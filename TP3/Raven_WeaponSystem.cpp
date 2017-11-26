@@ -3,6 +3,7 @@
 #include "armory/Weapon_RailGun.h"
 #include "armory/Weapon_ShotGun.h"
 #include "armory/Weapon_Blaster.h"
+#include "armory/Weapon_Grenade.h"
 #include "Raven_Bot.h"
 #include "misc/utils.h"
 #include "lua/Raven_Scriptor.h"
@@ -57,6 +58,7 @@ void Raven_WeaponSystem::Initialize()
   m_WeaponMap[type_shotgun]         = 0;
   m_WeaponMap[type_rail_gun]        = 0;
   m_WeaponMap[type_rocket_launcher] = 0;
+  m_WeaponMap[type_grenade] = new Grenade(m_pOwner);
 }
 
 //-------------------------------- SelectWeapon -------------------------------
@@ -127,6 +129,10 @@ void  Raven_WeaponSystem::AddWeapon(unsigned int weapon_type)
   case type_rocket_launcher:
 
     w = new RocketLauncher(m_pOwner); break;
+
+  case type_grenade:
+
+	w = new Grenade(m_pOwner); break;
 
   }//end switch
   
@@ -207,9 +213,22 @@ void Raven_WeaponSystem::TakeAimAndShoot()const
         GetCurrentWeapon()->ShootAt(AimingPos);
       }
     }
+	else if (GetCurrentWeapon()->GetType() == type_grenade) {
+		AimingPos = m_pOwner->GetTargetSys()->GetLastRecordedPosition();
+
+		if (m_pOwner->RotateFacingTowardPosition(AimingPos) &&
+			(m_pOwner->GetTargetSys()->GetTimeTargetHasBeenVisible() >
+				m_dReactionTime) &&
+			m_pOwner->hasLOSto(AimingPos))
+		{
+			AddNoiseToAim(AimingPos);
+
+			GetCurrentWeapon()->ShootAt(AimingPos);
+		}
+	}
 
     //no need to predict movement, aim directly at target
-    else
+	else
     {
       //if the weapon is aimed correctly and it has been in view for a period
       //longer than the bot's reaction time, shoot the weapon

@@ -180,4 +180,17 @@ Pellet_Persistance = 0.1
 Pellet_Damage      = 1
 
 
-  
+Grenade_FiringFreq			= 1/20
+Grenade_DefaultRounds		= 1
+Grenade_MaxRoundsCarried	= 1
+Grenade_IdealRange			= 150
+Grenade_SoundRange			= 400
+
+Grenade_BlastRadius			= 40
+Grenade_MaxSpeed			= 3
+Grenade_Mass				= 1
+Grenade_MaxForce			= 10.0
+Grenade_Scale				= Bot_Scale
+Grenade_Damage				= 20
+Grenade_ExplosionDecayRate	= 2   --how fast the explosion occurs (in secs)
+Grenade_TimeBeforeExplosion = 2.5	  --(sec)
