@@ -15,8 +15,13 @@ private:
   //the edge the bot will follow
   PathEdge  m_Edge;
 
+  //The coordinates of the target
+  Vector2D    m_vStrafeTarget;
+
   //true if m_Edge is the last in the path.
   bool      m_bLastEdgeInPath;
+
+  bool        m_bEven;
 
   //the estimated time the bot should take to traverse the edge
   double     m_dTimeExpected;
@@ -31,7 +36,8 @@ public:
 
   Goal_DodgeEdge(Raven_Bot* pBot,
                     PathEdge   edge,
-                    bool       LastEdge); 
+                    bool       LastEdge,
+					bool		even); 
 
   //the usual suspects
   void Activate();

@@ -90,18 +90,9 @@ bool Goal_GetItem::HandleMessage(const Telegram& msg)
       //clear any existing goals
       RemoveAllSubgoals();
 
-      AddSubgoal(new Goal_FollowPath(m_pOwner,
+	  // Question E: Dodge path when looking for ammo or health
+      AddSubgoal(new Goal_DodgePath(m_pOwner,
                                      m_pOwner->GetPathPlanner()->GetPath()));
-
-	  // Dodge path for munition or health items
-	  if (m_iItemToGet == type_health)
-	  {
-		  //clear any existing goals
-		  RemoveAllSubgoals();
-
-		  AddSubgoal(new Goal_DodgePath(m_pOwner,
-			  m_pOwner->GetPathPlanner()->GetPath()));
-	  }
 
       //get the pointer to the item
       m_pGiverTrigger = static_cast<Raven_Map::TriggerType*>(msg.ExtraInfo);

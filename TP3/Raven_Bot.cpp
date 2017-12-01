@@ -472,6 +472,25 @@ bool Raven_Bot::canStepBackward(Vector2D& PositionOfStep)const
   return canWalkTo(PositionOfStep);
 }
 
+Vector2D Raven_Bot::getStepLeft(Vector2D& PositionOfStep)const
+{
+	static const double StepDistance = BRadius() * 2;
+
+	PositionOfStep = Pos() - Facing().Perp() * StepDistance - Facing().Perp() * BRadius();
+
+	return PositionOfStep;
+}
+
+Vector2D Raven_Bot::getStepRight(Vector2D& PositionOfStep)const
+{
+	static const double StepDistance = BRadius() * 2;
+
+	PositionOfStep = Pos() + Facing().Perp() * StepDistance + Facing().Perp() * BRadius();
+
+	return PositionOfStep;
+}
+
+
 //--------------------------- Render -------------------------------------
 //
 //------------------------------------------------------------------------
