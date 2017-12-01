@@ -27,8 +27,6 @@
 #include "goals/Goal_Think.h"
 #include "goals/Raven_Goal_Types.h"
 
-
-
 //uncomment to write object creation/deletion to debug console
 //#define  LOG_CREATIONAL_STUFF
 
@@ -40,7 +38,8 @@ Raven_Game::Raven_Game():m_pSelectedBot(NULL),
                          m_bRemoveABot(false),
                          m_pMap(NULL),
                          m_pPathManager(NULL),
-                         m_pGraveMarkers(NULL)
+                         m_pGraveMarkers(NULL),
+						 teamMode(false)
 {
   //load in the default map
   LoadMap(script->GetString("StartMap"));
@@ -245,13 +244,13 @@ bool Raven_Game::AttemptToAddBot(Raven_Bot* pBot)
 //
 //  Adds a bot and switches on the default steering behavior
 //-----------------------------------------------------------------------------
-void Raven_Game::AddBots(unsigned int NumBotsToAdd)
+void Raven_Game::AddBots(unsigned int NumBotsToAdd, int entityType)
 { 
   while (NumBotsToAdd--)
   {
     //create a bot. (its position is irrelevant at this point because it will
     //not be rendered until it is spawned)
-    Raven_Bot* rb = new Raven_Bot(this, Vector2D());
+	Raven_Bot* rb = new Raven_Bot(this, Vector2D(), entityType);
 
     //switch the default steering behaviors on
     rb->GetSteering()->WallAvoidanceOn();
@@ -261,13 +260,6 @@ void Raven_Game::AddBots(unsigned int NumBotsToAdd)
 
     //register the bot with the entity manager
     EntityMgr->RegisterEntity(rb);
-
-	Raven_Bot*solo = new Raven_Bot(this, Vector2D(), type_bot2);
-	solo->GetSteering()->WallAvoidanceIsOn();
-	solo->GetSteering()->SeparationOn();
-	m_Bots.push_back(solo);
-	EntityMgr->RegisterEntity(solo);
-
 
 #ifdef LOG_CREATIONAL_STUFF
   debug_con << "Adding bot with ID " << ttos(rb->ID()) << "";
@@ -414,9 +406,12 @@ bool Raven_Game::LoadMap(const std::string& filename)
   //load the new map data
   if (m_pMap->LoadMap(filename))
   { 
-    AddBots(script->GetInt("NumBots"));
-  
-    return true;
+	  int nbBots = script->GetInt("NumBots");
+
+	  AddBots(nbBots/2, type_bot_red_team);
+	  AddBots(nbBots/2, type_bot_blue_team);
+    
+      return true;
   }
 
   return false;

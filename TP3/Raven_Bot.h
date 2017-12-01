@@ -16,7 +16,6 @@
 #include "game/MovingEntity.h"
 #include "misc/utils.h"
 #include "Raven_TargetingSystem.h"
-#include "Raven_ObjectEnumerations.h"
 
 class Raven_PathPlanner;
 class Raven_Steering;
@@ -125,11 +124,11 @@ protected:
 
 public:
   
-  Raven_Bot(Raven_Game* world, Vector2D pos, int entityType = type_bot);
+  Raven_Bot(Raven_Game* world, Vector2D pos, int entityType);
   virtual ~Raven_Bot();
 
   //the usual suspects
-  void         Render();
+  virtual void         Render();
   void         Update();
   bool         HandleMessage(const Telegram& msg);
   void         Write(std::ostream&  os)const{/*not implemented*/}
