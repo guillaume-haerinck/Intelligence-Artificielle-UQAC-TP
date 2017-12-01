@@ -50,7 +50,7 @@ inline void RailGun::ShootAt(Vector2D pos)
 	  double ShootTime = Clock->GetCurrentTime();
 	  double precision = getPrecision((Vec2DDistance(m_pOwner->Pos(), m_pOwner->GetTargetSys()->GetTarget()->Pos())), m_pOwner->Velocity(), ShootTime - timeTargetHasBeenVisible);
     //fire a round
-    m_pOwner->GetWorld()->AddRailGunSlug(m_pOwner, pos*(precision / 100));
+    m_pOwner->GetWorld()->AddRailGunSlug(m_pOwner, pos+getVectorPrecision(precision));
 
     UpdateTimeWeaponIsNextAvailable();
 
@@ -136,22 +136,22 @@ void RailGun::InitializeFuzzyModule()
   FzSet& ViewTime_High = ViewTime.AddRightShoulderSet("ViewTime_High", 10, 350, 10000);
 
   FuzzyVariable& Precision = m_FuzzyModule.CreateFLV("Precision");
-  FzSet& Precision_Low = Precision.AddLeftShoulderSet("Precision_High", 0, 10, 30);
+  FzSet& Precision_Low = Precision.AddLeftShoulderSet("Precision_Low", 0, 10, 30);
   FzSet& Precision_Medium = Precision.AddTriangularSet("Precision_Medium", 20, 40, 60);
-  FzSet& Precision_High = Precision.AddRightShoulderSet("Precision_Low", 40, 70, 100);
+  FzSet& Precision_High = Precision.AddRightShoulderSet("Precision_High", 40, 70, 100);
 
-  m_FuzzyModule.AddRule(FzAND(Target_Close, Velocity_Low, ViewTime_High), Precision_Low);
+  m_FuzzyModule.AddRule(FzAND(Target_Close, Velocity_Low, ViewTime_High), Precision_High);
   m_FuzzyModule.AddRule(FzAND(Target_Close, Velocity_Low, ViewTime_Low), Precision_Medium);
   m_FuzzyModule.AddRule(FzAND(Target_Close, Velocity_High, ViewTime_Low), Precision_Medium);
-  m_FuzzyModule.AddRule(FzAND(Target_Close, Velocity_High, ViewTime_High), Precision_Low);
-  m_FuzzyModule.AddRule(FzAND(Target_Medium, Velocity_Low, ViewTime_High), Precision_Low);
+  m_FuzzyModule.AddRule(FzAND(Target_Close, Velocity_High, ViewTime_High), Precision_High);
+  m_FuzzyModule.AddRule(FzAND(Target_Medium, Velocity_Low, ViewTime_High), Precision_High);
   m_FuzzyModule.AddRule(FzAND(Target_Medium, Velocity_Low, ViewTime_Low), Precision_Medium);
-  m_FuzzyModule.AddRule(FzAND(Target_Medium, Velocity_High, ViewTime_High), Precision_Low);
-  m_FuzzyModule.AddRule(FzAND(Target_Medium, Velocity_High, ViewTime_Low), Precision_High);
+  m_FuzzyModule.AddRule(FzAND(Target_Medium, Velocity_High, ViewTime_High), Precision_High);
+  m_FuzzyModule.AddRule(FzAND(Target_Medium, Velocity_High, ViewTime_Low), Precision_Low);
   m_FuzzyModule.AddRule(FzAND(Target_Far, Velocity_Low, ViewTime_High), Precision_Medium);
-  m_FuzzyModule.AddRule(FzAND(Target_Far, Velocity_Low, ViewTime_Low), Precision_High);
-  m_FuzzyModule.AddRule(FzAND(Target_Far, Velocity_High, ViewTime_High), Precision_High);
-  m_FuzzyModule.AddRule(FzAND(Target_Far, Velocity_High, ViewTime_Low), Precision_High);
+  m_FuzzyModule.AddRule(FzAND(Target_Far, Velocity_Low, ViewTime_Low), Precision_Low);
+  m_FuzzyModule.AddRule(FzAND(Target_Far, Velocity_High, ViewTime_High), Precision_Low);
+  m_FuzzyModule.AddRule(FzAND(Target_Far, Velocity_High, ViewTime_Low), Precision_Low);
 
 
   m_FuzzyModule.AddRule(FzAND(Target_Close, Ammo_Loads), FzFairly(Desirable));
