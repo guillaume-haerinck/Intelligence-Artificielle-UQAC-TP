@@ -198,8 +198,12 @@ public:
   bool          canStepRight(Vector2D& PositionOfStep)const;
   bool          canStepForward(Vector2D& PositionOfStep)const;
   bool          canStepBackward(Vector2D& PositionOfStep)const;
-  Vector2D          getStepLeft(Vector2D& PositionOfStep)const;
-  Vector2D          getStepRight(Vector2D& PositionOfStep)const;
+  bool			canStepVerticalRight(Vector2D& PositionOfStep)const;
+  bool			canStepVerticalLeft(Vector2D& PositionOfStep)const;
+
+  // Getter for the can steps
+  Vector2D      getStepVerticalLeft(Vector2D& PositionOfStep)const;
+  Vector2D      getStepVerticalRight(Vector2D& PositionOfStep)const;
 
   
   Raven_Game* const                  GetWorld(){return m_pWorld;} 
