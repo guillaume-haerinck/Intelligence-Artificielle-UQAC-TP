@@ -262,7 +262,13 @@ void Raven_Game::AddBots(unsigned int NumBotsToAdd)
     //register the bot with the entity manager
     EntityMgr->RegisterEntity(rb);
 
-    
+	Raven_Bot*solo = new Raven_Bot(this, Vector2D(), type_bot2);
+	solo->GetSteering()->WallAvoidanceIsOn();
+	solo->GetSteering()->SeparationOn();
+	m_Bots.push_back(solo);
+	EntityMgr->RegisterEntity(solo);
+
+
 #ifdef LOG_CREATIONAL_STUFF
   debug_con << "Adding bot with ID " << ttos(rb->ID()) << "";
 #endif

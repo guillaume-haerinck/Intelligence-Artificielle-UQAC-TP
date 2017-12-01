@@ -16,7 +16,7 @@
 #include "game/MovingEntity.h"
 #include "misc/utils.h"
 #include "Raven_TargetingSystem.h"
-
+#include "Raven_ObjectEnumerations.h"
 
 class Raven_PathPlanner;
 class Raven_Steering;
@@ -34,11 +34,11 @@ class Raven_SensoryMemory;
 
 class Raven_Bot : public MovingEntity
 {
-private:
+protected:
 
   enum Status{alive, dead, spawning};
 
-private:
+protected:
 
   //alive, dead or spawning?
   Status                             m_Status;
@@ -125,7 +125,7 @@ private:
 
 public:
   
-  Raven_Bot(Raven_Game* world, Vector2D pos);
+  Raven_Bot(Raven_Game* world, Vector2D pos, int entityType = type_bot);
   virtual ~Raven_Bot();
 
   //the usual suspects

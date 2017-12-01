@@ -23,7 +23,7 @@
 #include "Debug/DebugConsole.h"
 
 //-------------------------- ctor ---------------------------------------------
-Raven_Bot::Raven_Bot(Raven_Game* world,Vector2D pos):
+Raven_Bot::Raven_Bot(Raven_Game* world,Vector2D pos, int entityType):
 
   MovingEntity(pos,
                script->GetDouble("Bot_Scale"),
@@ -49,7 +49,7 @@ Raven_Bot::Raven_Bot(Raven_Game* world,Vector2D pos):
                  m_dFieldOfView(DegsToRads(script->GetDouble("Bot_FOV")))
            
 {
-  SetEntityType(type_bot);
+  SetEntityType(entityType);
 
   SetUpVertexBuffer();
   
