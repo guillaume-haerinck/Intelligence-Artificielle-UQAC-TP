@@ -16,6 +16,7 @@ enum
   type_rocket_launcher,
   type_shotgun,
   type_blaster,
+  type_grenade,
   type_obstacle,
   type_sliding_door,
   type_door_trigger

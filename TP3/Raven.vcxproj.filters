@@ -274,6 +274,12 @@
     <ClCompile Include="goals\Goal_DodgePath.cpp">
       <Filter>AI\goals\composite</Filter>
     </ClCompile>
+    <ClCompile Include="armory\Weapon_Grenade.cpp">
+      <Filter>Game\weapons &amp; projectiles\weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="armory\Projectile_Grenade.cpp">
+      <Filter>Game\weapons &amp; projectiles\projectiles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Raven_Bot.h">
@@ -286,9 +292,6 @@
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="armory\Raven_Weapon.h">
-      <Filter>Game\weapons &amp; projectiles\weapons</Filter>
-    </ClInclude>
-    <ClInclude Include="armory\Weapon_Blaster.h">
       <Filter>Game\weapons &amp; projectiles\weapons</Filter>
     </ClInclude>
     <ClInclude Include="armory\Weapon_RailGun.h">
@@ -617,6 +620,15 @@
     </ClInclude>
     <ClInclude Include="goals\Goal_DodgePath.h">
       <Filter>AI\goals\composite</Filter>
+    </ClInclude>
+    <ClInclude Include="armory\Weapon_Grenade.h">
+      <Filter>Game\weapons &amp; projectiles\weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="armory\Weapon_Blaster.h">
+      <Filter>Game\weapons &amp; projectiles\weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="armory\Projectile_Grenade.h">
+      <Filter>Game\weapons &amp; projectiles\projectiles</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
