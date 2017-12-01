@@ -50,8 +50,6 @@ double GetHealthGoal_Evaluator::CalculateDesirability(Raven_Bot* pBot)
 void GetHealthGoal_Evaluator::SetGoal(Raven_Bot* pBot)
 {
   pBot->GetBrain()->AddGoal_GetItem(type_health); 
-  // pBot->GetBrain()->AddSubgoal(new Goal_DodgeSideToSide(pBot));
-  // DEBUG Question E: Peut etre en ajoutant le but / sous-but de straffer ?
 }
 
 //-------------------------- RenderInfo ---------------------------------------

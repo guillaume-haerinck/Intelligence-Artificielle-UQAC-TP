@@ -69,6 +69,7 @@ void Goal_DodgeEdge::Activate()
   m_dTimeExpected += MarginOfError;
 
   // Question E: Modify the target to left or right if possible
+  // DEBUG need to use the edge position
   if (m_bEven)
   {
 	  if (m_pOwner->canStepRight(m_Edge.Destination()))
