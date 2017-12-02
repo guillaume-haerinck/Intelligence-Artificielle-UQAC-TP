@@ -15,7 +15,7 @@
 Goal_DodgePath::
 Goal_DodgePath(Raven_Bot*          pBot,
                 std::list<PathEdge> path):Goal_Composite<Raven_Bot>(pBot, goal_dodge_path),
-                                                  m_Path(path)
+                                                  m_Path(path), m_bClockwise(true)
 {
 }
 
@@ -39,7 +39,27 @@ void Goal_DodgePath::Activate()
   {
   case NavGraphEdge::normal:
     {
-	  AddSubgoal(new Goal_DodgeEdge(m_pOwner, edge, m_Path.empty()));
+	  if (m_bEven)
+	  {
+		  // Question E : Go towards the next edge, modified on left or right
+		  if (m_bClockwise)
+		  {
+			  AddSubgoal(new Goal_DodgeEdge(m_pOwner, edge, m_Path.empty(), m_bClockwise));
+			  m_bClockwise = !m_bClockwise;
+			  m_bEven = !m_bEven;
+		  }
+		  else
+		  {
+			  AddSubgoal(new Goal_DodgeEdge(m_pOwner, edge, m_Path.empty(), m_bClockwise));
+			  m_bClockwise = !m_bClockwise;
+			  m_bEven = !m_bEven;
+		  }
+	  }
+	  else
+	  {
+		  AddSubgoal(new Goal_TraverseEdge(m_pOwner, edge, m_Path.empty()));
+		  m_bEven = !m_bEven;
+	  }
     }
 
     break;

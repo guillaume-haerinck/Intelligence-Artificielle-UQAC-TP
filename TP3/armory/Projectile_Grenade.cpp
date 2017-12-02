@@ -108,6 +108,12 @@ void Grenade_Projectile::TestForImpact()
 
 		m_vPosition = m_vImpactPoint;
 	}
+
+	const double tolerance = 5.0;
+	if (Vec2DDistanceSq(Pos(), m_vTarget) < tolerance*tolerance)
+	{
+		m_bImpacted = true;
+	}
 }
 
 //--------------- InflictDamageOnBotsWithinBlastRadius ------------------------

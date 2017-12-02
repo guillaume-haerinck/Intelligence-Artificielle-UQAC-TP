@@ -23,7 +23,7 @@
 #include "Debug/DebugConsole.h"
 
 //-------------------------- ctor ---------------------------------------------
-Raven_Bot::Raven_Bot(Raven_Game* world,Vector2D pos):
+Raven_Bot::Raven_Bot(Raven_Game* world,Vector2D pos, int entityType):
 
   MovingEntity(pos,
                script->GetDouble("Bot_Scale"),
@@ -49,7 +49,7 @@ Raven_Bot::Raven_Bot(Raven_Game* world,Vector2D pos):
                  m_dFieldOfView(DegsToRads(script->GetDouble("Bot_FOV")))
            
 {
-  SetEntityType(type_bot);
+  SetEntityType(entityType);
 
   SetUpVertexBuffer();
   
@@ -472,6 +472,82 @@ bool Raven_Bot::canStepBackward(Vector2D& PositionOfStep)const
   return canWalkTo(PositionOfStep);
 }
 
+bool Raven_Bot::canStepVerticalRight(Vector2D& PositionOfStep)const
+{
+	static const double StepDistance = BRadius() * 2;
+	Vector2D PositionOfStepForward;
+	Vector2D PositionOfStepRight;
+
+	PositionOfStepForward = Pos() + Facing() * StepDistance + Facing() * BRadius();
+	PositionOfStepRight = Pos() + Facing().Perp() * StepDistance + Facing().Perp() * BRadius();
+	PositionOfStep = PositionOfStepForward + PositionOfStepRight;
+
+	return canWalkTo(PositionOfStep);
+}
+
+bool Raven_Bot::canStepVerticalLeft(Vector2D& PositionOfStep)const
+{
+	static const double StepDistance = BRadius() * 2;
+	Vector2D PositionOfStepForward;
+	Vector2D PositionOfStepLeft;
+
+	PositionOfStepForward = Pos() + Facing() * StepDistance + Facing() * BRadius();
+	PositionOfStepLeft = Pos() - Facing().Perp() * StepDistance - Facing().Perp() * BRadius();
+	PositionOfStep = PositionOfStepForward + PositionOfStepLeft;
+
+	return canWalkTo(PositionOfStep);
+}
+
+//--------------------------- canStep Getters ---------------------------------
+//
+//  returns a 2d Vector, the same used in the canStep methods
+//  usefull when the target is a const
+//-----------------------------------------------------------------------------
+
+Vector2D Raven_Bot::getStepLeft(Vector2D& PositionOfStep)const
+{
+	static const double StepDistance = BRadius() * 2;
+
+	PositionOfStep = Pos() - Facing().Perp() * StepDistance - Facing().Perp() * BRadius();
+
+	return PositionOfStep;
+}
+
+Vector2D Raven_Bot::getStepRight(Vector2D& PositionOfStep)const
+{
+	static const double StepDistance = BRadius() * 2;
+
+	PositionOfStep = Pos() + Facing().Perp() * StepDistance + Facing().Perp() * BRadius();
+
+	return PositionOfStep;
+}
+
+Vector2D Raven_Bot::getStepVerticalRight(Vector2D& PositionOfStep)const
+{
+	static const double StepDistance = BRadius() * 2;
+	Vector2D PositionOfStepForward;
+	Vector2D PositionOfStepRight;
+
+	PositionOfStepForward = Pos() + Facing() * StepDistance + Facing() * BRadius();
+	PositionOfStepRight = Pos() + Facing().Perp() * StepDistance + Facing().Perp() * BRadius();
+	PositionOfStep = PositionOfStepForward + PositionOfStepRight;
+
+	return PositionOfStep;
+}
+
+Vector2D Raven_Bot::getStepVerticalLeft(Vector2D& PositionOfStep)const
+{
+	static const double StepDistance = BRadius() * 2;
+	Vector2D PositionOfStepForward;
+	Vector2D PositionOfStepLeft;
+
+	PositionOfStepForward = Pos() + Facing() * StepDistance + Facing() * BRadius();
+	PositionOfStepLeft = Pos() - Facing().Perp() * StepDistance - Facing().Perp() * BRadius();
+	PositionOfStep = PositionOfStepForward + PositionOfStepLeft;
+
+	return PositionOfStep;
+}
+
 //--------------------------- Render -------------------------------------
 //
 //------------------------------------------------------------------------
@@ -497,7 +573,24 @@ void Raven_Bot::Render()
   gdi->ClosedShape(m_vecBotVBTrans);
   
   //draw the head
-  gdi->BrownBrush();
+  if (m_pWorld->isTeamMode()) {
+	  switch (EntityType()) {
+	  case type_bot:
+		  gdi->BrownBrush();
+		  break;
+
+	  case type_bot_red_team:
+		  gdi->RedBrush();
+		  break;
+
+	  case type_bot_blue_team:
+		  gdi->BlueBrush();
+		  break;
+	  }
+  }
+  else {
+	  gdi->BrownBrush();
+  }
   gdi->Circle(Pos(), 6.0 * Scale().x);
 
 

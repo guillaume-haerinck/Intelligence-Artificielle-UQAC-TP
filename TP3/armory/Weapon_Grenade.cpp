@@ -44,7 +44,7 @@ inline void Grenade::ShootAt(Vector2D pos)
 		double ShootTime = Clock->GetCurrentTime();
 		double precision = getPrecision((Vec2DDistance(m_pOwner->Pos(), m_pOwner->GetTargetSys()->GetTarget()->Pos())), m_pOwner->Velocity(), ShootTime - timeTargetHasBeenVisible);
 		//fire off a rocket!
-		m_pOwner->GetWorld()->AddGrenade(m_pOwner, pos*(precision / 100));
+		m_pOwner->GetWorld()->AddGrenade(m_pOwner, pos + getVectorPrecision(precision));
 
 		UpdateTimeWeaponIsNextAvailable();
 

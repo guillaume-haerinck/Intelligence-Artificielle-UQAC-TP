@@ -17,12 +17,14 @@
 //-----------------------------------------------------------------------------
 Goal_DodgeEdge::Goal_DodgeEdge(Raven_Bot* pBot,
                                      PathEdge   edge,
-                                     bool       LastEdge):
+                                     bool       LastEdge,
+									bool clockWise):
 
                                 Goal<Raven_Bot>(pBot, goal_dodge_edge),
                                 m_Edge(edge),
                                 m_dTimeExpected(0.0),
-                                m_bLastEdgeInPath(LastEdge)
+                                m_bLastEdgeInPath(LastEdge),
+								m_bEven(clockWise)
                                 
 {}
 
@@ -66,9 +68,39 @@ void Goal_DodgeEdge::Activate()
 
   m_dTimeExpected += MarginOfError;
 
+  // Question E: Modify the target to left or right if possible
+  // DEBUG need to use the edge position
+  if (m_bEven)
+  {
+	  if (m_pOwner->canStepRight(m_vStrafeTarget))
+	  {
+		  //debug_con << "path modified to right" << "";
+		  m_Edge.SetDestination(m_vStrafeTarget);
+		  m_pOwner->GetSteering()->SetTarget(m_Edge.Destination());
+		  m_bEven = !m_bEven;
+	  }
+	  else
+	  {
+		  m_pOwner->GetSteering()->SetTarget(m_Edge.Destination());
+		  m_bEven = !m_bEven;
+	  }
+  }
 
-  //set the steering target
-  m_pOwner->GetSteering()->SetTarget(m_Edge.Destination());
+  else
+  {
+	  if (m_pOwner->canStepLeft(m_vStrafeTarget))
+	  {
+		  //debug_con << "path modified to left" << "";
+		  m_Edge.SetDestination(m_vStrafeTarget);
+		  m_pOwner->GetSteering()->SetTarget(m_Edge.Destination());
+		  m_bEven = !m_bEven;
+	  }
+	  else
+	  {
+		  m_pOwner->GetSteering()->SetTarget(m_Edge.Destination());
+		  m_bEven = !m_bEven;
+	  }
+  }
 
   //Set the appropriate steering behavior. If this is the last edge in the path
   //the bot should arrive at the position it points to, else it should seek

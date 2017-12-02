@@ -101,6 +101,7 @@ public:
     m_dTimeNextAvailable = Clock->GetCurrentTime();
   }
 
+
   virtual ~Raven_Weapon(){}
 
   //this method aims the weapon at the given target by rotating the weapon's
@@ -134,6 +135,8 @@ public:
   void          IncrementRounds(int num); 
   unsigned int  GetType()const{return m_iType;}
   double         GetIdealRange()const{return m_dIdealRange;}
+
+  Vector2D getVectorPrecision(double precision);
 };
 
 
@@ -170,7 +173,8 @@ inline void Raven_Weapon::IncrementRounds(int num)
 {
   m_iNumRoundsLeft+=num;
   Clamp(m_iNumRoundsLeft, 0, m_iMaxRoundsCarried);
-} 
+}
+
 
 
 

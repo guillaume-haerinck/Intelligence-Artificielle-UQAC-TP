@@ -186,10 +186,13 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 
 			 break;
 
+		 case 'F':
+			 g_pRaven->ChangeGameMode();
+			 break;
 
          case VK_UP:
 
-           g_pRaven->AddBots(1); break;
+           g_pRaven->AddBots(1, RandInt(type_bot_red_team, type_bot_blue_team)); break;
 
          case VK_DOWN:
 
@@ -238,7 +241,7 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 
       case IDM_GAME_ADDBOT:
 
-          g_pRaven->AddBots(1);
+          g_pRaven->AddBots(1, RandInt(type_bot_red_team, type_bot_blue_team));
           
           break;
 

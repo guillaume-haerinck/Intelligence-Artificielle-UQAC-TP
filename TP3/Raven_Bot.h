@@ -17,7 +17,6 @@
 #include "misc/utils.h"
 #include "Raven_TargetingSystem.h"
 
-
 class Raven_PathPlanner;
 class Raven_Steering;
 class Raven_Game;
@@ -34,11 +33,11 @@ class Raven_SensoryMemory;
 
 class Raven_Bot : public MovingEntity
 {
-private:
+protected:
 
   enum Status{alive, dead, spawning};
 
-private:
+protected:
 
   //alive, dead or spawning?
   Status                             m_Status;
@@ -125,11 +124,11 @@ private:
 
 public:
   
-  Raven_Bot(Raven_Game* world, Vector2D pos);
+  Raven_Bot(Raven_Game* world, Vector2D pos, int entityType);
   virtual ~Raven_Bot();
 
   //the usual suspects
-  void         Render();
+  virtual void         Render();
   void         Update();
   bool         HandleMessage(const Telegram& msg);
   void         Write(std::ostream&  os)const{/*not implemented*/}
@@ -198,6 +197,14 @@ public:
   bool          canStepRight(Vector2D& PositionOfStep)const;
   bool          canStepForward(Vector2D& PositionOfStep)const;
   bool          canStepBackward(Vector2D& PositionOfStep)const;
+  bool			canStepVerticalRight(Vector2D& PositionOfStep)const;
+  bool			canStepVerticalLeft(Vector2D& PositionOfStep)const;
+
+  // Getter for the can steps
+  Vector2D      getStepRight(Vector2D& PositionOfStep)const;
+  Vector2D      getStepLeft(Vector2D& PositionOfStep)const;
+  Vector2D      getStepVerticalLeft(Vector2D& PositionOfStep)const;
+  Vector2D      getStepVerticalRight(Vector2D& PositionOfStep)const;
 
   
   Raven_Game* const                  GetWorld(){return m_pWorld;} 
