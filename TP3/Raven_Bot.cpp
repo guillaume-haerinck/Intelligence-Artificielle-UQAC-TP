@@ -23,7 +23,7 @@
 #include "Debug/DebugConsole.h"
 
 //-------------------------- ctor ---------------------------------------------
-Raven_Bot::Raven_Bot(Raven_Game* world,Vector2D pos):
+Raven_Bot::Raven_Bot(Raven_Game* world,Vector2D pos, int entityType):
 
   MovingEntity(pos,
                script->GetDouble("Bot_Scale"),
@@ -49,7 +49,7 @@ Raven_Bot::Raven_Bot(Raven_Game* world,Vector2D pos):
                  m_dFieldOfView(DegsToRads(script->GetDouble("Bot_FOV")))
            
 {
-  SetEntityType(type_bot);
+  SetEntityType(entityType);
 
   SetUpVertexBuffer();
   
@@ -573,7 +573,24 @@ void Raven_Bot::Render()
   gdi->ClosedShape(m_vecBotVBTrans);
   
   //draw the head
-  gdi->BrownBrush();
+  if (m_pWorld->isTeamMode()) {
+	  switch (EntityType()) {
+	  case type_bot:
+		  gdi->BrownBrush();
+		  break;
+
+	  case type_bot_red_team:
+		  gdi->RedBrush();
+		  break;
+
+	  case type_bot_blue_team:
+		  gdi->BlueBrush();
+		  break;
+	  }
+  }
+  else {
+	  gdi->BrownBrush();
+  }
   gdi->Circle(Pos(), 6.0 * Scale().x);
 
 

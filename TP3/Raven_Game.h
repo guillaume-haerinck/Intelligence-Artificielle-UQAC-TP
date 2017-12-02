@@ -66,6 +66,8 @@ private:
   //class manages the graves
   GraveMarkers*                    m_pGraveMarkers;
 
+  bool teamMode;
+
   //this iterates through each trigger, testing each one against each bot
   void  UpdateTriggers();
 
@@ -93,7 +95,7 @@ public:
   //loads an environment from a file
   bool LoadMap(const std::string& FileName); 
 
-  void AddBots(unsigned int NumBotsToAdd);
+  void AddBots(unsigned int NumBotsToAdd, int entityType);
   void AddRocket(Raven_Bot* shooter, Vector2D target);
   void AddRailGunSlug(Raven_Bot* shooter, Vector2D target);
   void AddShotGunPellet(Raven_Bot* shooter, Vector2D target);
@@ -164,6 +166,12 @@ public:
   
   void  TagRaven_BotsWithinViewRange(BaseGameEntity* pRaven_Bot, double range)
               {TagNeighbors(pRaven_Bot, m_Bots, range);}  
+
+  void ChangeGameMode() {
+	  teamMode = !teamMode;
+  }
+
+  bool isTeamMode() const { return teamMode; }
 };
 
 
