@@ -115,6 +115,62 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 
       break;
 
+
+	case WM_KEYDOWN:
+	{
+		//haut
+		if (wParam == 0X68)
+		{
+			g_pRaven->Movement(Vector2D(0, -10));
+			break;
+		}
+		//bas
+		if (wParam == 0X65)
+		{
+			g_pRaven->Movement(Vector2D(0, 10));
+			//g_pRaven->Movement(Vector2D(-10, 0));
+			break;
+		}
+		//gauche
+		if (wParam == 0X64)
+		{
+			g_pRaven->Movement(Vector2D(-10, 0));
+			//g_pRaven->Movement(Vector2D(0, 10));
+			break;
+		}
+		//droite
+		if (wParam == 0X66)
+		{
+			g_pRaven->Movement(Vector2D(10, 0));
+			//g_pRaven->Movement(Vector2D(10, 0));
+			break;
+		}
+		//haut gauche
+		if (wParam == 0X67)
+		{
+			g_pRaven->Movement(Vector2D(-10, -10));
+			break;
+		}
+		//haut droite
+		if (wParam == 0X69)
+		{
+			g_pRaven->Movement(Vector2D(10, -10));
+			break;
+		}
+		//bas gauche
+		if (wParam == 0X61)
+		{
+			g_pRaven->Movement(Vector2D(-10, 10));
+			break;
+		}
+		//bas droite
+		if (wParam == 0X63)
+		{
+			g_pRaven->Movement(Vector2D(10, 10));
+			break;
+		}
+
+	}
     case WM_KEYUP:
       {
         switch(wParam)

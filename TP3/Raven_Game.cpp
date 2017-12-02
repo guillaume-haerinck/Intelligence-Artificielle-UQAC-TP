@@ -438,6 +438,17 @@ void Raven_Game::ExorciseAnyPossessedBot()
 //  if the cursor is not over a bot then any selected bot/s will attempt to
 //  move to that position.
 //-----------------------------------------------------------------------------
+void Raven_Game::Movement(Vector2D direction)
+{
+	if (m_pSelectedBot == NULL) return;
+	if (m_pSelectedBot->isPossessed())
+	{
+		Vector2D position = m_pSelectedBot->Pos();
+		m_pSelectedBot->GetBrain()->QueueGoal_MoveToPosition(position + direction);
+
+	}
+}
+
 void Raven_Game::ClickRightMouseButton(POINTS p)
 {
   Raven_Bot* pBot = GetBotAtPosition(POINTStoVector(p));
