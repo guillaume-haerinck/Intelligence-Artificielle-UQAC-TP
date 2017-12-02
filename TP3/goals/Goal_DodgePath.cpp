@@ -39,16 +39,26 @@ void Goal_DodgePath::Activate()
   {
   case NavGraphEdge::normal:
     {
-	  // Question E : Go towards the next edge, modified on left or right
-	  if (m_bClockwise)
+	  if (m_bEven)
 	  {
-		  AddSubgoal(new Goal_DodgeEdge(m_pOwner, edge, m_Path.empty(), m_bClockwise));
-		  m_bClockwise = !m_bClockwise;
+		  // Question E : Go towards the next edge, modified on left or right
+		  if (m_bClockwise)
+		  {
+			  AddSubgoal(new Goal_DodgeEdge(m_pOwner, edge, m_Path.empty(), m_bClockwise));
+			  m_bClockwise = !m_bClockwise;
+			  m_bEven = !m_bEven;
+		  }
+		  else
+		  {
+			  AddSubgoal(new Goal_DodgeEdge(m_pOwner, edge, m_Path.empty(), m_bClockwise));
+			  m_bClockwise = !m_bClockwise;
+			  m_bEven = !m_bEven;
+		  }
 	  }
 	  else
 	  {
-		  AddSubgoal(new Goal_DodgeEdge(m_pOwner, edge, m_Path.empty(), m_bClockwise));
-		  m_bClockwise = !m_bClockwise;
+		  AddSubgoal(new Goal_TraverseEdge(m_pOwner, edge, m_Path.empty()));
+		  m_bEven = !m_bEven;
 	  }
     }
 

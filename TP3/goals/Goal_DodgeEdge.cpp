@@ -72,10 +72,10 @@ void Goal_DodgeEdge::Activate()
   // DEBUG need to use the edge position
   if (m_bEven)
   {
-	  if (m_pOwner->canStepRight(m_Edge.Destination()))
+	  if (m_pOwner->canStepRight(m_vStrafeTarget))
 	  {
-		  debug_con << "path modified to right" << "";
-		  m_Edge.SetDestination(m_pOwner->getStepRight(m_Edge.Destination()));
+		  //debug_con << "path modified to right" << "";
+		  m_Edge.SetDestination(m_vStrafeTarget);
 		  m_pOwner->GetSteering()->SetTarget(m_Edge.Destination());
 		  m_bEven = !m_bEven;
 	  }
@@ -88,10 +88,10 @@ void Goal_DodgeEdge::Activate()
 
   else
   {
-	  if (m_pOwner->canStepLeft(m_Edge.Destination()))
+	  if (m_pOwner->canStepLeft(m_vStrafeTarget))
 	  {
-		  debug_con << "path modified to left" << "";
-		  m_Edge.SetDestination(m_pOwner->getStepLeft(m_Edge.Destination()));
+		  //debug_con << "path modified to left" << "";
+		  m_Edge.SetDestination(m_vStrafeTarget);
 		  m_pOwner->GetSteering()->SetTarget(m_Edge.Destination());
 		  m_bEven = !m_bEven;
 	  }

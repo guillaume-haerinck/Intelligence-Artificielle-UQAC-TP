@@ -25,6 +25,7 @@ private:
   std::list<PathEdge>  m_Path;
 
   bool        m_bClockwise;
+  bool        m_bEven;
 
 public:
 
