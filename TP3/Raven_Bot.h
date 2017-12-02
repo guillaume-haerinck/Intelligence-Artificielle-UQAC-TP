@@ -202,6 +202,8 @@ public:
   bool			canStepVerticalLeft(Vector2D& PositionOfStep)const;
 
   // Getter for the can steps
+  Vector2D      getStepRight(Vector2D& PositionOfStep)const;
+  Vector2D      getStepLeft(Vector2D& PositionOfStep)const;
   Vector2D      getStepVerticalLeft(Vector2D& PositionOfStep)const;
   Vector2D      getStepVerticalRight(Vector2D& PositionOfStep)const;
 

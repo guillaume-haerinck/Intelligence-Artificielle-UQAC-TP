@@ -474,7 +474,7 @@ bool Raven_Bot::canStepBackward(Vector2D& PositionOfStep)const
 
 bool Raven_Bot::canStepVerticalRight(Vector2D& PositionOfStep)const
 {
-	static const double StepDistance = BRadius() * 1;
+	static const double StepDistance = BRadius() * 2;
 	Vector2D PositionOfStepForward;
 	Vector2D PositionOfStepRight;
 
@@ -487,7 +487,7 @@ bool Raven_Bot::canStepVerticalRight(Vector2D& PositionOfStep)const
 
 bool Raven_Bot::canStepVerticalLeft(Vector2D& PositionOfStep)const
 {
-	static const double StepDistance = BRadius() * 1;
+	static const double StepDistance = BRadius() * 2;
 	Vector2D PositionOfStepForward;
 	Vector2D PositionOfStepLeft;
 
@@ -503,6 +503,24 @@ bool Raven_Bot::canStepVerticalLeft(Vector2D& PositionOfStep)const
 //  returns a 2d Vector, the same used in the canStep methods
 //  usefull when the target is a const
 //-----------------------------------------------------------------------------
+
+Vector2D Raven_Bot::getStepLeft(Vector2D& PositionOfStep)const
+{
+	static const double StepDistance = BRadius() * 2;
+
+	PositionOfStep = Pos() - Facing().Perp() * StepDistance - Facing().Perp() * BRadius();
+
+	return PositionOfStep;
+}
+
+Vector2D Raven_Bot::getStepRight(Vector2D& PositionOfStep)const
+{
+	static const double StepDistance = BRadius() * 2;
+
+	PositionOfStep = Pos() + Facing().Perp() * StepDistance + Facing().Perp() * BRadius();
+
+	return PositionOfStep;
+}
 
 Vector2D Raven_Bot::getStepVerticalRight(Vector2D& PositionOfStep)const
 {
