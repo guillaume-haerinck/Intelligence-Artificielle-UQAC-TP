@@ -61,16 +61,21 @@ void Raven_TargetingSystem::Update()
 				debug_con << "Leader" << (*curBot)->ID() << "demande a son équipe d'attaquer sa cible !" << "";
 				m_pCurrentTarget = *curBot;
 
-				std::list<Raven_Bot*> allBots;
-				// Send to each agent on by one
-				for (int reciever = 0; reciever < allBots.size(); reciever++)
-				{
+				std::list<Raven_Bot*> allBots = m_pOwner->GetWorld()->GetAllBots();
 
+				// Send to each agent on by one
+				for (int id = 0; id < allBots.size(); id++)
+				{
+					/*
+					if (allBots[id]->EntityType == m_pOwner->EntityType)
+					{
 						Dispatcher->DispatchMsg(SEND_MSG_IMMEDIATELY,
 												m_pOwner->ID(),
-												3,
+												allBots[id]->ID(),
 												Msg_TeamTarget,
 												m_pCurrentTarget);
+					}
+					*/
 				}
 			}
 		}
