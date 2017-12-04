@@ -167,6 +167,7 @@ public:
 
   // Question F
   void			SetTeamTarget(Raven_Bot* target) { m_pTeamTarget = target; }
+  void			SetLeader(bool bLeader) { m_bLeader = bLeader; }
 
   //returns a value indicating the time in seconds it will take the bot
   //to reach the given position at its current speed.

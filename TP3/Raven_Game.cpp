@@ -252,7 +252,7 @@ void Raven_Game::AddBots(unsigned int NumBotsToAdd, int entityType, bool isLeade
     //not be rendered until it is spawned)
 	Raven_Bot* rb = new Raven_Bot(this, Vector2D(), entityType);
 
-	rb->setLeader(isLeader);
+	rb->SetLeader(isLeader);
 
     //switch the default steering behaviors on
     rb->GetSteering()->WallAvoidanceOn();
