@@ -171,6 +171,8 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 		}
 
 	}
+	break;
+
     case WM_KEYUP:
       {
         switch(wParam)
@@ -218,42 +220,19 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 
 			 break;
 
-			 // déplacements
-		 case 'Z':
-
-			 //g_pRaven->ExorciseAnyPossessedBot();
-
-			 break;
-		 case 'Q':
-
-			 //g_pRaven->ExorciseAnyPossessedBot();
-
-			 break;
-
-		 case 'S':
-
-			 //g_pRaven->ExorciseAnyPossessedBot();
-
-			 break;
-
-		 case 'D':
-
-			 //g_pRaven->ExorciseAnyPossessedBot();
-
-			 break;
-
 		 case 'F':
 			 g_pRaven->ChangeGameMode();
 			 break;
 
          case VK_UP:
 
-           g_pRaven->AddBots(1, RandInt(type_bot_red_team, type_bot_blue_team)); break;
+           g_pRaven->AddBots(1, RandInt(type_bot_red_team, type_bot_blue_team)); 
+		   break;
 
          case VK_DOWN:
 
-           g_pRaven->RemoveBot(); break;
-           
+           g_pRaven->RemoveBot(); 
+		   break;
 
         }
       }
