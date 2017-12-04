@@ -153,7 +153,8 @@ Raven_SensoryMemory::GetListOfRecentlySensedOpponents()const
     //if this bot has been updated in the memory recently, add to list
     if ( (CurrentTime - curRecord->second.fTimeLastSensed) <= m_dMemorySpan)
 	{
-		if (!m_pOwner->GetWorld()->isTeamMode() ||
+		// Set as oponents 
+		if (!m_pOwner->GetWorld()->isTeamMode() || 
 			(m_pOwner->GetWorld()->isTeamMode() && curRecord->first->EntityType() != m_pOwner->EntityType()) ){
 			opponents.push_back(curRecord->first);
 		}

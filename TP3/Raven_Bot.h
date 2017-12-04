@@ -104,6 +104,8 @@ protected:
   //set to true when a human player takes over control of the bot
   bool                               m_bPossessed;
 
+  bool								 m_bLeader;
+
   //a vertex buffer containing the bot's geometry
   std::vector<Vector2D>              m_vecBotVB;
   //the buffer for the transformed vertices
@@ -120,6 +122,9 @@ protected:
 
   //initializes the bot's VB with its geometry
   void          SetUpVertexBuffer();
+
+  // Question F
+  Raven_Bot*						m_pTeamTarget;
 
 
 public:
@@ -160,6 +165,10 @@ public:
   void          SetDead(){m_Status = dead;}
   void          SetAlive(){m_Status = alive;}
 
+  // Question F
+  void			SetTeamTarget(Raven_Bot* target) { m_pTeamTarget = target; }
+  void			SetLeader(bool bLeader) { m_bLeader = bLeader; }
+
   //returns a value indicating the time in seconds it will take the bot
   //to reach the given position at its current speed.
   double        CalculateTimeToReachPosition(Vector2D pos)const; 
@@ -199,14 +208,15 @@ public:
   bool          canStepBackward(Vector2D& PositionOfStep)const;
   bool			canStepVerticalRight(Vector2D& PositionOfStep)const;
   bool			canStepVerticalLeft(Vector2D& PositionOfStep)const;
+  
+  bool			isLeader() { return m_bLeader; };
 
   // Getter for the can steps
-  Vector2D      getStepRight(Vector2D& PositionOfStep)const;
-  Vector2D      getStepLeft(Vector2D& PositionOfStep)const;
-  Vector2D      getStepVerticalLeft(Vector2D& PositionOfStep)const;
-  Vector2D      getStepVerticalRight(Vector2D& PositionOfStep)const;
+  Vector2D      GetStepRight(Vector2D& PositionOfStep)const;
+  Vector2D      GetStepLeft(Vector2D& PositionOfStep)const;
+  Vector2D      GetStepVerticalLeft(Vector2D& PositionOfStep)const;
+  Vector2D      GetStepVerticalRight(Vector2D& PositionOfStep)const;
 
-  
   Raven_Game* const                  GetWorld(){return m_pWorld;} 
   Raven_Steering* const              GetSteering(){return m_pSteering;}
   Raven_PathPlanner* const           GetPathPlanner(){return m_pPathPlanner;}
@@ -214,6 +224,7 @@ public:
   const Raven_TargetingSystem* const GetTargetSys()const{return m_pTargSys;}
   Raven_TargetingSystem* const       GetTargetSys(){return m_pTargSys;}
   Raven_Bot* const                   GetTargetBot()const{return m_pTargSys->GetTarget();}
+  Raven_Bot* const                   GetTeamTarget()const { return m_pTeamTarget; }
   Raven_WeaponSystem* const          GetWeaponSys()const{return m_pWeaponSys;}
   Raven_SensoryMemory* const         GetSensoryMem()const{return m_pSensoryMem;}
 

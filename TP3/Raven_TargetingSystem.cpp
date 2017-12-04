@@ -1,6 +1,12 @@
 #include "Raven_TargetingSystem.h"
 #include "Raven_Bot.h"
 #include "Raven_SensoryMemory.h"
+#include "Raven_Game.h"
+#include "debug/DebugConsole.h"
+
+#include "Messaging/Telegram.h"
+#include "Raven_Messages.h"
+#include "Messaging/MessageDispatcher.h"
 
 
 
@@ -30,13 +36,44 @@ void Raven_TargetingSystem::Update()
     //make sure the bot is alive and that it is not the owner
     if ((*curBot)->isAlive() && (*curBot != m_pOwner) )
     {
-      double dist = Vec2DDistanceSq((*curBot)->Pos(), m_pOwner->Pos());
+		double dist = Vec2DDistanceSq((*curBot)->Pos(), m_pOwner->Pos());
 
-      if (dist < ClosestDistSoFar)
-      {
-        ClosestDistSoFar = dist;
-        m_pCurrentTarget = *curBot;
-      }
+		// Question F
+		// if the cible is the one designated by the leader of the team, target it
+		if (m_pOwner->GetWorld()->isTeamMode())
+		{
+			if (*curBot == m_pOwner->GetTeamTarget())
+			{
+				debug_con << "Le bot " << m_pOwner->ID() << " à pris pour cible le TeamTarget " << (*curBot)->ID() << "";
+				m_pCurrentTarget = *curBot;
+				break;
+			}
+		}
+
+		if (dist < ClosestDistSoFar)
+		{
+			ClosestDistSoFar = dist;
+			m_pCurrentTarget = *curBot;
+
+			// Question F leader send the cible to the team
+			if (m_pOwner->GetWorld()->isTeamMode() && m_pOwner->isLeader())
+			{
+				debug_con << "Leader " << m_pOwner->ID() << " demande a son équipe d'attaquer " << (*curBot)->ID() << "";
+				m_pCurrentTarget = *curBot;
+
+				std::vector<Raven_Bot*> teamMembers = m_pOwner->GetWorld()->GetTeamMembers(m_pOwner->EntityType());
+
+				// Send to each agent on by one
+				for (int i = 0; i < teamMembers.size(); i++)
+				{
+						Dispatcher->DispatchMsg(SEND_MSG_IMMEDIATELY,
+												m_pOwner->ID(),
+												teamMembers[i]->ID(),
+												Msg_TeamTarget,
+												m_pCurrentTarget);
+				}
+			}
+		}
     }
   }
 }

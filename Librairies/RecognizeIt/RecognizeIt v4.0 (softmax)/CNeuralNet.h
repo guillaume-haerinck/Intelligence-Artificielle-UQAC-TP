@@ -103,7 +103,7 @@ private:
   //set TRUE if softmax output is required
   bool        m_bSoftMax;
 
-  //epoch counter
+  //epoch counter (nombre de situations différentes retenues?)
   int         m_iNumEpochs;
 
 	//storage for each layer of neurons including the output layer
