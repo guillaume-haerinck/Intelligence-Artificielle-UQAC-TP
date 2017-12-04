@@ -46,7 +46,9 @@ Raven_Bot::Raven_Bot(Raven_Game* world,Vector2D pos, int entityType):
                  m_iScore(0),
                  m_Status(spawning),
                  m_bPossessed(false),
-                 m_dFieldOfView(DegsToRads(script->GetDouble("Bot_FOV")))
+                 m_dFieldOfView(DegsToRads(script->GetDouble("Bot_FOV"))),
+				 m_bLeader(false),
+				 m_pTeamTarget(nullptr)
            
 {
   SetEntityType(entityType);
@@ -275,6 +277,14 @@ bool Raven_Bot::HandleMessage(const Telegram& msg)
       return true;
     }
 
+	// Question F same target for the team decided by leader
+  case Msg_TeamTarget:
+  {
+	  Raven_Bot* pTarget = (Raven_Bot*)msg.ExtraInfo;
+	  SetTeamTarget(pTarget);
+
+	  return true;
+  }
 
   default: return false;
   }
@@ -504,7 +514,7 @@ bool Raven_Bot::canStepVerticalLeft(Vector2D& PositionOfStep)const
 //  usefull when the target is a const
 //-----------------------------------------------------------------------------
 
-Vector2D Raven_Bot::getStepLeft(Vector2D& PositionOfStep)const
+Vector2D Raven_Bot::GetStepLeft(Vector2D& PositionOfStep)const
 {
 	static const double StepDistance = BRadius() * 2;
 
@@ -513,7 +523,7 @@ Vector2D Raven_Bot::getStepLeft(Vector2D& PositionOfStep)const
 	return PositionOfStep;
 }
 
-Vector2D Raven_Bot::getStepRight(Vector2D& PositionOfStep)const
+Vector2D Raven_Bot::GetStepRight(Vector2D& PositionOfStep)const
 {
 	static const double StepDistance = BRadius() * 2;
 
@@ -522,7 +532,7 @@ Vector2D Raven_Bot::getStepRight(Vector2D& PositionOfStep)const
 	return PositionOfStep;
 }
 
-Vector2D Raven_Bot::getStepVerticalRight(Vector2D& PositionOfStep)const
+Vector2D Raven_Bot::GetStepVerticalRight(Vector2D& PositionOfStep)const
 {
 	static const double StepDistance = BRadius() * 2;
 	Vector2D PositionOfStepForward;
@@ -535,7 +545,7 @@ Vector2D Raven_Bot::getStepVerticalRight(Vector2D& PositionOfStep)const
 	return PositionOfStep;
 }
 
-Vector2D Raven_Bot::getStepVerticalLeft(Vector2D& PositionOfStep)const
+Vector2D Raven_Bot::GetStepVerticalLeft(Vector2D& PositionOfStep)const
 {
 	static const double StepDistance = BRadius() * 2;
 	Vector2D PositionOfStepForward;
