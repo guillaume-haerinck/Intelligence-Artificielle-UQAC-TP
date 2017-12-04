@@ -82,6 +82,13 @@ inline std::string GetNameOfType(int w)
     
     s =  "door_trigger"; break;
 
+  case type_bot_red_team:
+
+	s = "type_bot_red_team"; break;
+
+  case type_bot_blue_team:
+
+	s = "type_bot_blue_team"; break;
   default:
 
     s = "UNKNOWN OBJECT TYPE"; break;

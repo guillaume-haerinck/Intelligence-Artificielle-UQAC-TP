@@ -203,6 +203,7 @@ public:
   bool			canStepVerticalLeft(Vector2D& PositionOfStep)const;
   
   bool			isLeader() { return m_bLeader; };
+  void			setLeader(bool lead) { m_bLeader = lead; }
 
   // Getter for the can steps
   Vector2D      getStepRight(Vector2D& PositionOfStep)const;

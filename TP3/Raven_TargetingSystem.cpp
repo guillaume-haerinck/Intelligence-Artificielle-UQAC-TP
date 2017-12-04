@@ -34,8 +34,10 @@ void Raven_TargetingSystem::Update()
     {
 		if (m_pOwner->GetWorld()->isTeamMode() && (*curBot)->isLeader())
 		{
+			debug_con << GetNameOfType(m_pOwner->EntityType()) << "";
 			debug_con << "Leader pris pour cible !" << "";
 			m_pCurrentTarget = *curBot;
+			return;
 		}
 		else
 		{
