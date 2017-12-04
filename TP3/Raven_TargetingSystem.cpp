@@ -44,7 +44,7 @@ void Raven_TargetingSystem::Update()
 		{
 			if (*curBot == m_pOwner->GetTeamTarget())
 			{
-				debug_con << "Le bot à pris pour cible le TeamTarget" << "";
+				debug_con << "Le bot" << (*curBot)->ID() << "à pris pour cible le TeamTarget" << "";
 				m_pCurrentTarget = *curBot;
 				break;
 			}
@@ -55,21 +55,24 @@ void Raven_TargetingSystem::Update()
 			ClosestDistSoFar = dist;
 			m_pCurrentTarget = *curBot;
 
-			/*
 			// Question F leader send the cible to the team
 			if (m_pOwner->GetWorld()->isTeamMode() && m_pOwner->isLeader())
 			{
-				debug_con << "Leader demande a son équipe d'attaquer sa cible !" << "";
+				debug_con << "Leader" << (*curBot)->ID() << "demande a son équipe d'attaquer sa cible !" << "";
 				m_pCurrentTarget = *curBot;
 
+				std::list<Raven_Bot*> allBots;
 				// Send to each agent on by one
-				Dispatcher->DispatchMsg(SEND_MSG_IMMEDIATELY,
-					m_pOwner->ID(),
-					1,
-					Msg_TeamTarget,
-					m_pCurrentTarget);
+				for (int reciever = 0; reciever < allBots.size(); reciever++)
+				{
+
+						Dispatcher->DispatchMsg(SEND_MSG_IMMEDIATELY,
+												m_pOwner->ID(),
+												3,
+												Msg_TeamTarget,
+												m_pCurrentTarget);
+				}
 			}
-			*/
 		}
     }
   }
