@@ -1,6 +1,8 @@
 #include "Raven_TargetingSystem.h"
 #include "Raven_Bot.h"
 #include "Raven_SensoryMemory.h"
+#include "Raven_Game.h"
+#include "debug/DebugConsole.h"
 
 
 
@@ -30,13 +32,22 @@ void Raven_TargetingSystem::Update()
     //make sure the bot is alive and that it is not the owner
     if ((*curBot)->isAlive() && (*curBot != m_pOwner) )
     {
-      double dist = Vec2DDistanceSq((*curBot)->Pos(), m_pOwner->Pos());
+		if (m_pOwner->GetWorld()->isTeamMode() && (*curBot)->isLeader())
+		{
+			debug_con << "Leader pris pour cible !" << "";
+			m_pCurrentTarget = *curBot;
+		}
+		else
+		{
+		  double dist = Vec2DDistanceSq((*curBot)->Pos(), m_pOwner->Pos());
 
-      if (dist < ClosestDistSoFar)
-      {
-        ClosestDistSoFar = dist;
-        m_pCurrentTarget = *curBot;
-      }
+		  if (dist < ClosestDistSoFar)
+		  {
+			ClosestDistSoFar = dist;
+			m_pCurrentTarget = *curBot;
+		  }
+		}
+		  
     }
   }
 }

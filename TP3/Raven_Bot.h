@@ -104,6 +104,8 @@ protected:
   //set to true when a human player takes over control of the bot
   bool                               m_bPossessed;
 
+  bool								 m_bLeader;
+
   //a vertex buffer containing the bot's geometry
   std::vector<Vector2D>              m_vecBotVB;
   //the buffer for the transformed vertices
@@ -199,6 +201,8 @@ public:
   bool          canStepBackward(Vector2D& PositionOfStep)const;
   bool			canStepVerticalRight(Vector2D& PositionOfStep)const;
   bool			canStepVerticalLeft(Vector2D& PositionOfStep)const;
+  
+  bool			isLeader() { return m_bLeader; };
 
   // Getter for the can steps
   Vector2D      getStepRight(Vector2D& PositionOfStep)const;
