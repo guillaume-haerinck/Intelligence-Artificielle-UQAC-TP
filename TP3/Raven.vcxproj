@@ -493,6 +493,7 @@
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='boundschecker|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <ClCompile Include="triggers\Trigger_WeaponCache.cpp" />
     <ClCompile Include="triggers\Trigger_WeaponGiver.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -638,6 +639,7 @@
     <ClInclude Include="triggers\Trigger_OnButtonSendMsg.h" />
     <ClInclude Include="..\Common\Triggers\Trigger_ReSpawning.h" />
     <ClInclude Include="triggers\Trigger_SoundNotify.h" />
+    <ClInclude Include="triggers\Trigger_WeaponCache.h" />
     <ClInclude Include="triggers\Trigger_WeaponGiver.h" />
     <ClInclude Include="..\Common\Triggers\TriggerRegion.h" />
     <ClInclude Include="..\Common\Triggers\TriggerSystem.h" />

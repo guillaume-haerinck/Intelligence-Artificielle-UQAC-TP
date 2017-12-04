@@ -336,6 +336,25 @@ void Raven_Bot::ReduceHealth(unsigned int val)
   if (m_iHealth <= 0)
   {
     SetDead();
+
+	if (m_pWorld->isTeamMode()) {
+		for (Trigger_WeaponCache *wc : m_pWorld->GetMap()->GetWeaponCaches()) {
+			if (wc->EntityType() == EntityType()) {
+				if (GetWeaponSys()->GetWeaponFromInventory(type_shotgun) == nullptr) {
+					wc->AddWeapon(type_shotgun);
+				}
+
+				if (GetWeaponSys()->GetWeaponFromInventory(type_rail_gun) == nullptr) {
+					wc->AddWeapon(type_rail_gun);
+				}
+
+				if (GetWeaponSys()->GetWeaponFromInventory(type_rocket_launcher) == nullptr) {
+					wc->AddWeapon(type_rocket_launcher);
+				}
+			}
+
+		}
+	}
   }
 
   m_bHit = true;

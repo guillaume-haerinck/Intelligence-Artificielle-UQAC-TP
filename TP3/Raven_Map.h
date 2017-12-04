@@ -24,6 +24,7 @@
 #include "Graph/GraphNodeTypes.h"
 #include "misc/CellSpacePartition.h"
 #include "triggers/TriggerSystem.h"
+#include "triggers\Trigger_WeaponCache.h"
 
 class BaseGameEntity;
 class Raven_Door;
@@ -76,12 +77,15 @@ private:
   //one node to any other.
   std::vector<std::vector<double> >  m_PathCosts;
 
+  std::vector<Trigger_WeaponCache *> weaponCaches;
+
 
     //stream constructors for loading from a file
   void AddWall(std::ifstream& in);
   void AddSpawnPoint(std::ifstream& in);
   void AddHealth_Giver(std::ifstream& in);
   void AddWeapon_Giver(int type_of_weapon, std::ifstream& in);
+  void AddWeapon_Cache(int entity_type);
   void AddDoor(std::ifstream& in);
   void AddDoorTrigger(std::ifstream& in);
 
@@ -122,6 +126,7 @@ public:
   int                                GetSizeY()const{return m_iSizeY;}
   int                                GetMaxDimension()const{return Maximum(m_iSizeX, m_iSizeY);}
   double                             GetCellSpaceNeighborhoodRange()const{return m_dCellSpaceNeighborhoodRange;}
+  std::vector<Trigger_WeaponCache *> GetWeaponCaches() const { return weaponCaches; }
 
 };
 

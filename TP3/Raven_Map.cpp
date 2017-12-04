@@ -163,6 +163,25 @@ void Raven_Map::AddWeapon_Giver(int type_of_weapon, std::ifstream& in)
   EntityMgr->RegisterEntity(wg);
 }
 
+//----------------------- AddWeapon__Weapon ----------------------------------
+//-----------------------------------------------------------------------------
+void Raven_Map::AddWeapon_Cache(int entity_type)
+{
+	Trigger_WeaponCache* wg = new Trigger_WeaponCache(GetRandomNodeLocation(), entity_type);
+	weaponCaches.push_back(wg);
+
+	//add it to the appropriate vectors
+	m_TriggerSystem.Register(wg);
+
+	//let the corresponding navgraph node point to this object
+	NavGraph::NodeType node(m_pNavGraph->GetNextFreeNodeIndex(), wg->Pos());
+	m_pNavGraph->AddNode(node);
+
+	node.SetExtraInfo(wg);
+
+	//register the entity 
+	EntityMgr->RegisterEntity(wg);
+}
 
 //------------------------- LoadMap ------------------------------------
 //
@@ -285,6 +304,9 @@ bool Raven_Map::LoadMap(const std::string& filename)
       
     }//end switch
   }
+
+  AddWeapon_Cache(type_bot_blue_team);
+  AddWeapon_Cache(type_bot_red_team);
 
 #ifdef LOG_CREATIONAL_STUFF
     debug_con << filename << " loaded okay" << "";

@@ -280,6 +280,9 @@
     <ClCompile Include="armory\Projectile_Grenade.cpp">
       <Filter>Game\weapons &amp; projectiles\projectiles</Filter>
     </ClCompile>
+    <ClCompile Include="triggers\Trigger_WeaponCache.cpp">
+      <Filter>AI\Triggers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Raven_Bot.h">
@@ -629,6 +632,9 @@
     </ClInclude>
     <ClInclude Include="armory\Projectile_Grenade.h">
       <Filter>Game\weapons &amp; projectiles\projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="triggers\Trigger_WeaponCache.h">
+      <Filter>AI\Triggers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
