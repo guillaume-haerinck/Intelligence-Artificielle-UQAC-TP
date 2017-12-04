@@ -44,7 +44,7 @@ void Raven_TargetingSystem::Update()
 		{
 			if (*curBot == m_pOwner->GetTeamTarget())
 			{
-				debug_con << "Le bot" << (*curBot)->ID() << "à pris pour cible le TeamTarget" << "";
+				debug_con << "Le bot " << m_pOwner->ID() << " à pris pour cible le TeamTarget " << (*curBot)->ID() << "";
 				m_pCurrentTarget = *curBot;
 				break;
 			}
@@ -58,24 +58,19 @@ void Raven_TargetingSystem::Update()
 			// Question F leader send the cible to the team
 			if (m_pOwner->GetWorld()->isTeamMode() && m_pOwner->isLeader())
 			{
-				debug_con << "Leader" << (*curBot)->ID() << "demande a son équipe d'attaquer sa cible !" << "";
+				debug_con << "Leader " << m_pOwner->ID() << " demande a son équipe d'attaquer " << (*curBot)->ID() << "";
 				m_pCurrentTarget = *curBot;
 
-				std::list<Raven_Bot*> allBots = m_pOwner->GetWorld()->GetAllBots();
+				std::vector<Raven_Bot*> teamMembers = m_pOwner->GetWorld()->GetTeamMembers(m_pOwner->EntityType());
 
 				// Send to each agent on by one
-				for (int id = 0; id < allBots.size(); id++)
+				for (int i = 0; i < teamMembers.size(); i++)
 				{
-					/*
-					if (allBots[id]->EntityType == m_pOwner->EntityType)
-					{
 						Dispatcher->DispatchMsg(SEND_MSG_IMMEDIATELY,
 												m_pOwner->ID(),
-												allBots[id]->ID(),
+												teamMembers[i]->ID(),
 												Msg_TeamTarget,
 												m_pCurrentTarget);
-					}
-					*/
 				}
 			}
 		}

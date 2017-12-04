@@ -451,6 +451,18 @@ void Raven_Game::Movement(Vector2D direction)
 	}
 }
 
+std::vector<Raven_Bot*> Raven_Game::GetTeamMembers(int entity_type)
+{
+	std::vector<Raven_Bot *> teamMembers;
+
+	for (Raven_Bot *bot : m_Bots) {
+		if (bot->EntityType() == entity_type) {
+			teamMembers.push_back(bot);
+		}
+	}
+	return teamMembers;
+}
+
 void Raven_Game::ClickRightMouseButton(POINTS p)
 {
   Raven_Bot* pBot = GetBotAtPosition(POINTStoVector(p));

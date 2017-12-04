@@ -173,6 +173,8 @@ public:
   }
 
   bool isTeamMode() const { return teamMode; }
+
+  std::vector<Raven_Bot*> GetTeamMembers(int entity_type);
 };
 
 

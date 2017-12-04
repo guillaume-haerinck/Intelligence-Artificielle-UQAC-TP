@@ -603,6 +603,10 @@ void Raven_Bot::Render()
   }
   gdi->Circle(Pos(), 6.0 * Scale().x);
 
+  if (m_bLeader) {
+	  gdi->BlackBrush();
+	  gdi->Circle(Pos(), 2.0 * Scale().x);
+  }
 
   //render the bot's weapon
   m_pWeaponSys->RenderCurrentWeapon();
