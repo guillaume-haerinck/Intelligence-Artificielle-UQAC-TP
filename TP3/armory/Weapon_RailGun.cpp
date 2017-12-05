@@ -44,22 +44,30 @@ RailGun::RailGun(Raven_Bot*   owner):
 
 inline void RailGun::ShootAt(Vector2D pos)
 { 
-  if (NumRoundsRemaining() > 0 && isReadyForNextShot())
-  {
-	  double timeTargetHasBeenVisible = m_pOwner->GetTargetSys()->GetTimeTargetHasBeenVisible(); // a modifier
-	  double ShootTime = Clock->GetCurrentTime();
-	  double precision = getPrecision((Vec2DDistance(m_pOwner->Pos(), m_pOwner->GetTargetSys()->GetTarget()->Pos())), m_pOwner->Velocity(), ShootTime - timeTargetHasBeenVisible);
-    //fire a round
-    m_pOwner->GetWorld()->AddRailGunSlug(m_pOwner, pos+getVectorPrecision(precision));
+	if (NumRoundsRemaining() > 0 && isReadyForNextShot())
+	{
+		double timeTargetHasBeenVisible = m_pOwner->GetTargetSys()->GetTimeTargetHasBeenVisible(); // a modifier
+		double ShootTime = Clock->GetCurrentTime();
 
-    UpdateTimeWeaponIsNextAvailable();
+		Vector2D target;
+		if (m_pOwner->isPossessed()) {
+			target = pos;
+		}
+		else {
+			target = m_pOwner->GetTargetSys()->GetTarget()->Pos();
+		}
+		double precision = getPrecision(Vec2DDistance(m_pOwner->Pos(), target), m_pOwner->Velocity(), ShootTime - timeTargetHasBeenVisible);
+		//fire a round
+		m_pOwner->GetWorld()->AddRailGunSlug(m_pOwner, pos+getVectorPrecision(precision));
 
-    m_iNumRoundsLeft--;
+		UpdateTimeWeaponIsNextAvailable();
 
-    //add a trigger to the game so that the other bots can hear this shot
-    //(provided they are within range)
-    m_pOwner->GetWorld()->GetMap()->AddSoundTrigger(m_pOwner, script->GetDouble("RailGun_SoundRange"));
-  }
+		m_iNumRoundsLeft--;
+
+		//add a trigger to the game so that the other bots can hear this shot
+		//(provided they are within range)
+		m_pOwner->GetWorld()->GetMap()->AddSoundTrigger(m_pOwner, script->GetDouble("RailGun_SoundRange"));
+	}
 }
 
 //---------------------------- Desirability -----------------------------------
