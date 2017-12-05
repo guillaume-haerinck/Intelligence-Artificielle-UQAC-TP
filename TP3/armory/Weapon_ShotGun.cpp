@@ -51,37 +51,45 @@ ShotGun::ShotGun(Raven_Bot*   owner):
 
 inline void ShotGun::ShootAt(Vector2D pos)
 { 
-  if (NumRoundsRemaining() > 0 && isReadyForNextShot())
-  {
-	  double timeTargetHasBeenVisible = m_pOwner->GetTargetSys()->GetTimeTargetHasBeenVisible(); // a modifier
-	  double ShootTime = Clock->GetCurrentTime();
-	  double precision = getPrecision((Vec2DDistance(m_pOwner->Pos(), m_pOwner->GetTargetSys()->GetTarget()->Pos())), m_pOwner->Velocity(), ShootTime - timeTargetHasBeenVisible);
-    //a shotgun cartridge contains lots of tiny metal balls called pellets. 
-    //Therefore, every time the shotgun is discharged we have to calculate
-    //the spread of the pellets and add one for each trajectory
-    for (int b=0; b<m_iNumBallsInShell; ++b)
-    {
-      //determine deviation from target using a bell curve type distribution
-      double deviation = RandInRange(0, m_dSpread) + RandInRange(0, m_dSpread) - m_dSpread;
+	 if (NumRoundsRemaining() > 0 && isReadyForNextShot())
+	 {
+		double timeTargetHasBeenVisible = m_pOwner->GetTargetSys()->GetTimeTargetHasBeenVisible(); // a modifier
+		double ShootTime = Clock->GetCurrentTime();
 
-      Vector2D AdjustedTarget = pos - m_pOwner->Pos();
+		Vector2D target;
+		if (m_pOwner->isPossessed()) {
+			target = pos;
+		}
+		else {
+			target = m_pOwner->GetTargetSys()->GetTarget()->Pos();
+		}
+		double precision = getPrecision(Vec2DDistance(m_pOwner->Pos(), target), m_pOwner->Velocity(), ShootTime - timeTargetHasBeenVisible);
+		//a shotgun cartridge contains lots of tiny metal balls called pellets. 
+		//Therefore, every time the shotgun is discharged we have to calculate
+		//the spread of the pellets and add one for each trajectory
+		for (int b=0; b<m_iNumBallsInShell; ++b)
+		{
+		  //determine deviation from target using a bell curve type distribution
+		  double deviation = RandInRange(0, m_dSpread) + RandInRange(0, m_dSpread) - m_dSpread;
+
+		  Vector2D AdjustedTarget = pos - m_pOwner->Pos();
  
-      //rotate the target vector by the deviation
-      Vec2DRotateAroundOrigin(AdjustedTarget, deviation);
+		  //rotate the target vector by the deviation
+		  Vec2DRotateAroundOrigin(AdjustedTarget, deviation);
  
-      //add a pellet to the game world
-      m_pOwner->GetWorld()->AddShotGunPellet(m_pOwner, (AdjustedTarget+getVectorPrecision(precision) + m_pOwner->Pos()));
+		  //add a pellet to the game world
+		  m_pOwner->GetWorld()->AddShotGunPellet(m_pOwner, (AdjustedTarget+getVectorPrecision(precision) + m_pOwner->Pos()));
 
-    }
+		}
 
-    m_iNumRoundsLeft--;
+		m_iNumRoundsLeft--;
 
-    UpdateTimeWeaponIsNextAvailable();
+		UpdateTimeWeaponIsNextAvailable();
 
-    //add a trigger to the game so that the other bots can hear this shot
-    //(provided they are within range)
-    m_pOwner->GetWorld()->GetMap()->AddSoundTrigger(m_pOwner, script->GetDouble("ShotGun_SoundRange"));
-  }
+		//add a trigger to the game so that the other bots can hear this shot
+		//(provided they are within range)
+		m_pOwner->GetWorld()->GetMap()->AddSoundTrigger(m_pOwner, script->GetDouble("ShotGun_SoundRange"));
+	  }
 }
 
 //---------------------------- Desirability -----------------------------------

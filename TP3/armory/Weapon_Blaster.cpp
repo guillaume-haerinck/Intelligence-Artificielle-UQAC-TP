@@ -42,21 +42,29 @@ Blaster::Blaster(Raven_Bot*   owner):
 
 inline void Blaster::ShootAt(Vector2D pos)
 { 
-  if (isReadyForNextShot())
-  {
-	  double timeTargetHasBeenVisible = m_pOwner->GetTargetSys()->GetTimeTargetHasBeenVisible(); // a modifier
-	  double ShootTime = Clock->GetCurrentTime();
-	  double precision = getPrecision((Vec2DDistance(m_pOwner->Pos(), m_pOwner->GetTargetSys()->GetTarget()->Pos())), m_pOwner->Velocity(), ShootTime - timeTargetHasBeenVisible);
-    //fire!
-	  
-    m_pOwner->GetWorld()->AddBolt(m_pOwner, pos+getVectorPrecision(precision));
+	if (isReadyForNextShot())
+	{
+		double timeTargetHasBeenVisible = m_pOwner->GetTargetSys()->GetTimeTargetHasBeenVisible(); // a modifier
+		double ShootTime = Clock->GetCurrentTime();
 
-    UpdateTimeWeaponIsNextAvailable();
+		Vector2D target;
+		if (m_pOwner->isPossessed()) {
+			target = pos;
+		}
+		else {
+			target = m_pOwner->GetTargetSys()->GetTarget()->Pos();
+		}
+		double precision = getPrecision(Vec2DDistance(m_pOwner->Pos(), target), m_pOwner->Velocity(), ShootTime - timeTargetHasBeenVisible);
+		//fire!
 
-    //add a trigger to the game so that the other bots can hear this shot
-    //(provided they are within range)
-    m_pOwner->GetWorld()->GetMap()->AddSoundTrigger(m_pOwner, script->GetDouble("Blaster_SoundRange"));
-  }
+		m_pOwner->GetWorld()->AddBolt(m_pOwner, pos + getVectorPrecision(precision));
+
+		UpdateTimeWeaponIsNextAvailable();
+
+		//add a trigger to the game so that the other bots can hear this shot
+		//(provided they are within range)
+		m_pOwner->GetWorld()->GetMap()->AddSoundTrigger(m_pOwner, script->GetDouble("Blaster_SoundRange"));
+	}
 }
 
 

@@ -230,11 +230,11 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 			 g_pRaven->ChangeGameMode();
 			 break;
 
-		 case 'B':
+		 case 0x6B:
 			 g_pRaven->IncreaseTeamNumber();
 			 break;
 
-		 case 'N':
+		 case 0x6D:
 			 g_pRaven->DecreaseTeamNumber();
 			 break;
 

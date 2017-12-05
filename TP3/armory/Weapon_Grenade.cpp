@@ -42,7 +42,15 @@ inline void Grenade::ShootAt(Vector2D pos)
 	{
 		double timeTargetHasBeenVisible = m_pOwner->GetTargetSys()->GetTimeTargetHasBeenVisible(); // a modifier
 		double ShootTime = Clock->GetCurrentTime();
-		double precision = getPrecision((Vec2DDistance(m_pOwner->Pos(), m_pOwner->GetTargetSys()->GetTarget()->Pos())), m_pOwner->Velocity(), ShootTime - timeTargetHasBeenVisible);
+
+		Vector2D target;
+		if (m_pOwner->isPossessed()) {
+			target = pos;
+		}
+		else {
+			target = m_pOwner->GetTargetSys()->GetTarget()->Pos();
+		}
+		double precision = getPrecision(Vec2DDistance(m_pOwner->Pos(), target), m_pOwner->Velocity(), ShootTime - timeTargetHasBeenVisible);
 		//fire off a rocket!
 		m_pOwner->GetWorld()->AddGrenade(m_pOwner, pos + getVectorPrecision(precision));
 
