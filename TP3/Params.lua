@@ -207,3 +207,4 @@ Blade_Mass        = 10
 Blade_MaxForce    = 100.0
 Blade_Scale       = Bot_Scale
 Blade_Damage      = 40
+Blade_Range		  = 20;

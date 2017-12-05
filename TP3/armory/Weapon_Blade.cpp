@@ -20,17 +20,18 @@ Blade::Blade(Raven_Bot*   owner) :
 		owner)
 {
 	//setup the vertex buffer
-	const int NumWeaponVerts = 10;
-	const Vector2D weapon[NumWeaponVerts] = {	Vector2D(0, -5),
-												Vector2D(5, -5), 
-												Vector2D(6, -1), 
-												Vector2D(7, -4), 
-												Vector2D(15, -4), 
-												Vector2D(17, -5), 
-												Vector2D(15, -6), 
-												Vector2D(7, -6), 
-												Vector2D(6, -9), 
-												Vector2D(5, -5)
+	const int NumWeaponVerts = 11;
+	const Vector2D weapon[NumWeaponVerts] = {	Vector2D(0, -6),
+												Vector2D(5, -6), 
+												Vector2D(6, 0), 
+												Vector2D(7, -3), 
+												Vector2D(18, -3), 
+												Vector2D(23, -6), 
+												Vector2D(18, -9), 
+												Vector2D(7, -9), 
+												Vector2D(6, -12), 
+												Vector2D(5, -6),
+												Vector2D(15, -6)
 	};
 	for (int vtx = 0; vtx<NumWeaponVerts; ++vtx)
 	{
@@ -49,9 +50,6 @@ inline void Blade::ShootAt(Vector2D pos)
 {
 	if (isReadyForNextShot())
 	{
-		double timeTargetHasBeenVisible = m_pOwner->GetTargetSys()->GetTimeTargetHasBeenVisible();
-		double ShootTime = Clock->GetCurrentTime();
-
 		//fire off a rocket!
 		m_pOwner->GetWorld()->AddBladeStrike(m_pOwner, pos);
 
@@ -82,12 +80,12 @@ double Blade::GetDesirability(double DistToTarget)
 void Blade::InitializeFuzzyModule()
 {
 	FuzzyVariable& DistToTarget = m_FuzzyModule.CreateFLV("DistToTarget");
-	FzSet& Target_Melee = DistToTarget.AddLeftShoulderSet("Target_Melee", 0, 10, 15);
-	FzSet& Target_Close = DistToTarget.AddTriangularSet("Target_Close", 12, 25, 40);
-	FzSet& Target_Far = DistToTarget.AddRightShoulderSet("Target_Far", 40, 300, 1000);
+	FzSet& Target_Melee = DistToTarget.AddLeftShoulderSet("Target_Melee", 0, 40, 50);
+	FzSet& Target_Close = DistToTarget.AddTriangularSet("Target_Close", 50, 75, 100);
+	FzSet& Target_Far = DistToTarget.AddRightShoulderSet("Target_Far", 100, 300, 1000);
 
 	FuzzyVariable& Desirability = m_FuzzyModule.CreateFLV("Desirability");
-	FzSet& VeryDesirable = Desirability.AddRightShoulderSet("VeryDesirable", 30, 50, 100);
+	FzSet& VeryDesirable = Desirability.AddRightShoulderSet("VeryDesirable", 80, 90, 100);
 	FzSet& Desirable = Desirability.AddTriangularSet("Desirable", 10, 25, 30);
 	FzSet& Undesirable = Desirability.AddLeftShoulderSet("Undesirable", 0, 5, 10);
 

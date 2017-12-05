@@ -23,6 +23,7 @@
 #include "armory/Projectile_Slug.h"
 #include "armory/Projectile_Bolt.h"
 #include "armory/Projectile_Grenade.h"
+#include "armory/Projectile_Blade_Strike.h"
 
 #include "goals/Goal_Think.h"
 #include "goals/Raven_Goal_Types.h"
@@ -385,10 +386,12 @@ void Raven_Game::AddGrenade(Raven_Bot* shooter, Vector2D target)
 //------------------------------ AddBladeStrike --------------------------------
 void Raven_Game::AddBladeStrike(Raven_Bot* swordsman, Vector2D target)
 {
-	//Vector2D direction = 
-	//Raven_Projectile* rp = new Blade_Strike(swordsman, Vector2D(swordsman->Pos().x - target.x, swordsman->Pos().y - target.y).Normalize() * 10);
+	Vector2D direction = target - swordsman->Pos();
+	direction.Normalize();
 
-	//m_Projectiles.push_back(rp);
+	Raven_Projectile* rp = new Blade_Strike(swordsman, script->GetDouble("Blade_Range") * direction + swordsman->Pos());
+
+	m_Projectiles.push_back(rp);
 
 #ifdef LOG_CREATIONAL_STUFF
 	debug_con << "Adding a blade strike " << rp->ID() << " at pos " << rp->Pos() << "";
@@ -603,6 +606,9 @@ void Raven_Game::ChangeWeaponOfPossessedBot(unsigned int weapon)const
 	case type_grenade:
 
 		PossessedBot()->ChangeWeapon(type_grenade); return;
+
+	case type_blade:
+		PossessedBot()->ChangeWeapon(type_blade); return;
 
     }
   }

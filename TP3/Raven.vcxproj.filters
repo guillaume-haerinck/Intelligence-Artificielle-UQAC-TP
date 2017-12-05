@@ -289,6 +289,9 @@
     <ClCompile Include="armory\Weapon_Blade.cpp">
       <Filter>Game\weapons &amp; projectiles\weapons</Filter>
     </ClCompile>
+    <ClCompile Include="armory\Projectile_Blade_Strike.cpp">
+      <Filter>Game\weapons &amp; projectiles\projectiles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Raven_Bot.h">
@@ -647,6 +650,9 @@
     </ClInclude>
     <ClInclude Include="armory\Weapon_Blade.h">
       <Filter>Game\weapons &amp; projectiles\weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="armory\Projectile_Blade_Strike.h">
+      <Filter>Game\weapons &amp; projectiles\projectiles</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
