@@ -286,6 +286,9 @@
     <ClCompile Include="goals\GetWeaponCacheGoal_Evaluator.cpp">
       <Filter>AI\goals\goal evaluation</Filter>
     </ClCompile>
+    <ClCompile Include="armory\Weapon_Blade.cpp">
+      <Filter>Game\weapons &amp; projectiles\weapons</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Raven_Bot.h">
@@ -641,6 +644,9 @@
     </ClInclude>
     <ClInclude Include="goals\GetWeaponCacheGoal_Evaluator.h">
       <Filter>AI\goals\goal evaluation</Filter>
+    </ClInclude>
+    <ClInclude Include="armory\Weapon_Blade.h">
+      <Filter>Game\weapons &amp; projectiles\weapons</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

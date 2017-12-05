@@ -381,6 +381,21 @@ void Raven_Game::AddGrenade(Raven_Bot* shooter, Vector2D target)
 #endif
 }
 
+
+//------------------------------ AddBladeStrike --------------------------------
+void Raven_Game::AddBladeStrike(Raven_Bot* swordsman, Vector2D target)
+{
+	//Vector2D direction = 
+	//Raven_Projectile* rp = new Blade_Strike(swordsman, Vector2D(swordsman->Pos().x - target.x, swordsman->Pos().y - target.y).Normalize() * 10);
+
+	//m_Projectiles.push_back(rp);
+
+#ifdef LOG_CREATIONAL_STUFF
+	debug_con << "Adding a blade strike " << rp->ID() << " at pos " << rp->Pos() << "";
+#endif
+}
+
+
 //----------------------------- GetBotAtPosition ------------------------------
 //
 //  given a position on the map this method returns the bot found with its

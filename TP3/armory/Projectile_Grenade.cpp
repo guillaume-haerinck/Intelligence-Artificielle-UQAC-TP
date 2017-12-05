@@ -86,6 +86,7 @@ void Grenade_Projectile::TestForImpact()
 	if (hit)
 	{
 		m_bImpacted = true;
+		int damageOnHit = 0;
 
 		//send a message to the bot to let it know it's been hit, and who the
 		//shot came from
@@ -93,7 +94,7 @@ void Grenade_Projectile::TestForImpact()
 			m_iShooterID,
 			hit->ID(),
 			Msg_TakeThatMF,
-			NO_ADDITIONAL_INFO);
+			(void *)&damageOnHit);
 	}
 
 	//test for impact with a wall

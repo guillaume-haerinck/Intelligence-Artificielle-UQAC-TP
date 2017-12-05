@@ -188,9 +188,22 @@ Grenade_SoundRange			= 400
 
 Grenade_BlastRadius			= 40
 Grenade_MaxSpeed			= 3
-Grenade_Mass				= 1
+Grenade_Mass				= 2
 Grenade_MaxForce			= 10.0
 Grenade_Scale				= Bot_Scale
 Grenade_Damage				= 20
 Grenade_ExplosionDecayRate	= 2   --how fast the explosion occurs (in secs)
 Grenade_TimeBeforeExplosion = 2.5	  --(sec)
+
+
+Blade_AttackFreq		= 1
+Blade_DefaultRounds		= 0 --not used, a blaster always has ammo
+Blade_MaxRoundsCarried	= 0 --as above
+Blade_IdealRange		= 10
+Blade_SoundRange	    = 0
+
+Blade_MaxSpeed    = 5
+Blade_Mass        = 10
+Blade_MaxForce    = 100.0
+Blade_Scale       = Bot_Scale
+Blade_Damage      = 40

@@ -44,7 +44,7 @@ inline void Blaster::ShootAt(Vector2D pos)
 { 
 	if (isReadyForNextShot())
 	{
-		double timeTargetHasBeenVisible = m_pOwner->GetTargetSys()->GetTimeTargetHasBeenVisible(); // a modifier
+		double timeTargetHasBeenVisible = m_pOwner->GetTargetSys()->GetTimeTargetHasBeenVisible();
 		double ShootTime = Clock->GetCurrentTime();
 
 		Vector2D target;

@@ -15,6 +15,7 @@ enum
   type_rail_gun,
   type_rocket_launcher,
   type_shotgun,
+  type_blade,
   type_blaster,
   type_grenade,
   type_obstacle,
