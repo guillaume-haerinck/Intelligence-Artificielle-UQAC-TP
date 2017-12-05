@@ -307,6 +307,8 @@ bool Raven_Map::LoadMap(const std::string& filename)
 
   AddWeapon_Cache(type_bot_blue_team);
   AddWeapon_Cache(type_bot_red_team);
+  AddWeapon_Cache(type_bot_green_team);
+  AddWeapon_Cache(type_bot_yellow_team);
 
 #ifdef LOG_CREATIONAL_STUFF
     debug_con << filename << " loaded okay" << "";

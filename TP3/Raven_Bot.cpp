@@ -349,7 +349,7 @@ void Raven_Bot::ReduceHealth(unsigned int val)
 
 	if (m_pWorld->isTeamMode()) {
 		for (Trigger_WeaponCache *wc : m_pWorld->GetMap()->GetWeaponCaches()) {
-			if (wc->EntityType() == EntityType()) {
+			if (wc->GetTeamCache() == EntityType()) {
 				if (GetWeaponSys()->GetWeaponFromInventory(type_shotgun) == nullptr) {
 					wc->AddWeapon(type_shotgun);
 				}
@@ -615,6 +615,14 @@ void Raven_Bot::Render()
 	  case type_bot_blue_team:
 		  gdi->BlueBrush();
 		  break;
+
+	  case type_bot_green_team:
+		  gdi->GreenBrush();
+		  break;
+
+	  case type_bot_yellow_team:
+		  gdi->YellowBrush();
+		  break;
 	  }
   }
   else {
@@ -622,9 +630,43 @@ void Raven_Bot::Render()
   }
   gdi->Circle(Pos(), 6.0 * Scale().x);
 
-  if (m_bLeader) {
-	  gdi->BlackBrush();
-	  gdi->Circle(Pos(), 2.0 * Scale().x);
+  if (m_pWorld->isTeamMode() && m_bLeader) {
+	  std::vector<Vector2D> flag = {Vector2D(-3, -3),
+									Vector2D(-13, -3),
+									Vector2D(-20, -3),
+									Vector2D(-20, 8),
+									Vector2D(-19, 8), Vector2D(-19, -3), 
+									Vector2D(-18, -3), Vector2D(-18, 8), 
+									Vector2D(-17, 8), Vector2D(-17, -3),
+									Vector2D(-16, -3), Vector2D(-16, -3), 
+									Vector2D(-15, 8), Vector2D(-15, 8), 
+									Vector2D(-14, -3), Vector2D(-14, 8), 
+									Vector2D(-13, 8),
+									Vector2D(-13, -3)
+	  };
+
+	  switch (EntityType()) {
+	  case type_bot_red_team:
+		  gdi->ThickRedPen();
+		  break;
+
+	  case type_bot_blue_team:
+		  gdi->ThickBluePen();
+		  break;
+
+	  case type_bot_green_team:
+		  gdi->ThickGreenPen();
+		  break;
+
+	  case type_bot_yellow_team:
+		  gdi->ThickBlackPen();
+		  break;
+	  }
+	  gdi->ClosedShape(WorldTransform(flag,
+		  Pos(),
+		  Facing(),
+		  Facing().Perp(),
+		  Scale()));
   }
 
   //render the bot's weapon

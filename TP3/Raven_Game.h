@@ -67,6 +67,8 @@ private:
   GraveMarkers*                    m_pGraveMarkers;
 
   bool teamMode;
+  int teamNumber;
+  int nextTeamToAdd;
 
   //this iterates through each trigger, testing each one against each bot
   void  UpdateTriggers();
@@ -82,6 +84,8 @@ private:
   //must be notified so that they can remove any references to that bot from
   //their memory
   void NotifyAllBotsOfRemoval(Raven_Bot* pRemovedBot)const;
+
+  void BalanceTeams();
   
 public:
   
@@ -95,7 +99,7 @@ public:
   //loads an environment from a file
   bool LoadMap(const std::string& FileName); 
 
-  void AddBots(unsigned int NumBotsToAdd, int entityType, bool isLeader);
+  void AddBots(unsigned int NumBotsToAdd, int entityType);
   void AddRocket(Raven_Bot* shooter, Vector2D target);
   void AddRailGunSlug(Raven_Bot* shooter, Vector2D target);
   void AddShotGunPellet(Raven_Bot* shooter, Vector2D target);
@@ -168,11 +172,21 @@ public:
   void  TagRaven_BotsWithinViewRange(BaseGameEntity* pRaven_Bot, double range)
               {TagNeighbors(pRaven_Bot, m_Bots, range);}  
 
-  void ChangeGameMode() {
-	  teamMode = !teamMode;
-  }
+  void ChangeGameMode();
 
   bool isTeamMode() const { return teamMode; }
+
+  int GetTeamNumber() const { return teamNumber; }
+  void DecreaseTeamNumber();
+  void IncreaseTeamNumber();
+
+  int GetNextTeam() {
+	  int nextTeam = nextTeamToAdd;
+
+	  nextTeamToAdd = type_bot_red_team + (nextTeamToAdd + 1 - type_bot_red_team)%teamNumber;
+
+	  return nextTeam;
+  }
 
   std::vector<Raven_Bot*> GetTeamMembers(int entity_type);
 };

@@ -21,7 +21,10 @@ enum
   type_sliding_door,
   type_door_trigger,
   type_bot_red_team,
-  type_bot_blue_team
+  type_bot_blue_team,
+  type_bot_green_team,
+  type_bot_yellow_team,
+  type_team_cache
 };
 
 inline std::string GetNameOfType(int w)
@@ -89,6 +92,19 @@ inline std::string GetNameOfType(int w)
   case type_bot_blue_team:
 
 	s = "type_bot_blue_team"; break;
+
+  case type_bot_green_team:
+
+	  s = "type_bot_green_team"; break;
+
+  case type_bot_yellow_team:
+
+	  s = "type_bot_yellow_team"; break;
+
+  case type_team_cache:
+
+	  s = "type_team_cache"; break;
+
   default:
 
     s = "UNKNOWN OBJECT TYPE"; break;

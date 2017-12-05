@@ -39,7 +39,9 @@ Raven_Game::Raven_Game():m_pSelectedBot(NULL),
                          m_pMap(NULL),
                          m_pPathManager(NULL),
                          m_pGraveMarkers(NULL),
-						 teamMode(false)
+						 teamMode(false),
+						 teamNumber(2),
+						 nextTeamToAdd(type_bot_red_team)
 {
   //load in the default map
   LoadMap(script->GetString("StartMap"));
@@ -183,12 +185,26 @@ void Raven_Game::Update()
   { 
     if (!m_Bots.empty())
     {
-      Raven_Bot* pBot = m_Bots.back();
-      if (pBot == m_pSelectedBot)m_pSelectedBot=0;
-      NotifyAllBotsOfRemoval(pBot);
-      delete m_Bots.back();
-      m_Bots.remove(pBot);
-      pBot = 0;
+		if (teamMode) {
+			for (int i = 0; i < teamNumber; ++i) {
+				Raven_Bot* pBot = m_Bots.back();
+
+				if (pBot == m_pSelectedBot) m_pSelectedBot = 0;
+				NotifyAllBotsOfRemoval(pBot);
+				delete m_Bots.back();
+				m_Bots.remove(pBot);
+				pBot = 0;
+			}
+		}
+		else {
+			Raven_Bot* pBot = m_Bots.back();
+
+			if (pBot == m_pSelectedBot) m_pSelectedBot = 0;
+			NotifyAllBotsOfRemoval(pBot);
+			delete m_Bots.back();
+			m_Bots.remove(pBot);
+			pBot = 0;
+		}
     }
 
     m_bRemoveABot = false;
@@ -244,7 +260,7 @@ bool Raven_Game::AttemptToAddBot(Raven_Bot* pBot)
 //
 //  Adds a bot and switches on the default steering behavior
 //-----------------------------------------------------------------------------
-void Raven_Game::AddBots(unsigned int NumBotsToAdd, int entityType, bool isLeader)
+void Raven_Game::AddBots(unsigned int NumBotsToAdd, int entityType)
 { 
   while (NumBotsToAdd--)
   {
@@ -252,7 +268,9 @@ void Raven_Game::AddBots(unsigned int NumBotsToAdd, int entityType, bool isLeade
     //not be rendered until it is spawned)
 	Raven_Bot* rb = new Raven_Bot(this, Vector2D(), entityType);
 
-	rb->SetLeader(isLeader);
+	if (GetTeamMembers(entityType).empty()) {
+		rb->SetLeader(true);
+	}
 
     //switch the default steering behaviors on
     rb->GetSteering()->WallAvoidanceOn();
@@ -410,8 +428,9 @@ bool Raven_Game::LoadMap(const std::string& filename)
   { 
 	  int nbBots = script->GetInt("NumBots");
 
-	  AddBots(nbBots/2, type_bot_red_team,true);
-	  AddBots(nbBots/2, type_bot_blue_team,true);
+	  for (int i = type_bot_red_team; i < type_bot_red_team + teamNumber; ++i) {
+		  AddBots(1, i);
+	  }
     
       return true;
   }
@@ -560,6 +579,10 @@ void Raven_Game::ChangeWeaponOfPossessedBot(unsigned int weapon)const
     case type_rail_gun:
       
       PossessedBot()->ChangeWeapon(type_rail_gun); return;
+
+	case type_grenade:
+
+		PossessedBot()->ChangeWeapon(type_grenade); return;
 
     }
   }
@@ -831,4 +854,65 @@ void Raven_Game::Render()
       gdi->TextAtPos(GetClientCursorPosition(), "Queuing");
     }
   }
+}
+
+void Raven_Game::BalanceTeams() {
+	int maxSizeTeam = (int)GetTeamMembers(type_bot_red_team).size();
+	for (int i = type_bot_red_team + 1; i < type_bot_red_team + teamNumber; ++i) {
+		std::vector<Raven_Bot *> team = GetTeamMembers(i);
+
+		if ((int)team.size() > maxSizeTeam) {
+			maxSizeTeam = team.size();
+		}
+	}
+
+	for (int i = type_bot_red_team; i < type_bot_red_team + teamNumber; ++i) {
+		std::vector<Raven_Bot *> team = GetTeamMembers(i);
+		
+		if ((int) team.size() < maxSizeTeam) {
+			AddBots(maxSizeTeam - (int)team.size(), i);
+		}
+	}
+}
+
+void Raven_Game::ChangeGameMode() {
+	teamMode = !teamMode;
+	
+	if (teamMode) {
+		BalanceTeams();
+	}
+	else {
+		for (Trigger_WeaponCache *wc : m_pMap->GetWeaponCaches()) {
+			wc->Clear();
+		}
+	}
+}
+
+void Raven_Game::DecreaseTeamNumber() { 
+	if (teamMode) {
+		teamNumber = max(2, teamNumber - 1);
+
+		if (!m_Bots.empty())
+		{
+			for (Raven_Bot *member : GetTeamMembers(type_bot_red_team + teamNumber)) {
+				for (Raven_Bot *pBot : m_Bots) {
+					if (member == pBot) {
+						if (pBot == m_pSelectedBot) m_pSelectedBot = 0;
+						NotifyAllBotsOfRemoval(pBot);
+						delete pBot;
+						m_Bots.remove(pBot);
+
+						break;
+					}
+				}
+			}
+		}
+	}
+}
+void Raven_Game::IncreaseTeamNumber() { 
+	if (teamMode) {
+		teamNumber = min(4, teamNumber + 1);
+
+		BalanceTeams();
+	}
 }
