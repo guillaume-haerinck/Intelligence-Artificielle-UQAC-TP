@@ -171,6 +171,6 @@ void Grenade::Render()
 		m_pOwner->Scale());
 
 	gdi->DarkGreenPen();
-	gdi->GreenBrush();
+	gdi->DarkGreenBrush();
 	gdi->Circle(m_vecWeaponVBTrans[0], 4);
 }

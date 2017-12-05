@@ -186,14 +186,19 @@ void Raven_Game::Update()
     if (!m_Bots.empty())
     {
 		if (teamMode) {
-			for (int i = 0; i < teamNumber; ++i) {
-				Raven_Bot* pBot = m_Bots.back();
+			for (int i = type_bot_red_team; i < type_bot_red_team + teamNumber; ++i) {
+				Raven_Bot* member = GetTeamMembers(i).back();
 
-				if (pBot == m_pSelectedBot) m_pSelectedBot = 0;
-				NotifyAllBotsOfRemoval(pBot);
-				delete m_Bots.back();
-				m_Bots.remove(pBot);
-				pBot = 0;
+				for (auto pBot = m_Bots.crbegin(); pBot != m_Bots.rend(); ++pBot) {
+					if (member == *pBot) {
+						if (*pBot == m_pSelectedBot) m_pSelectedBot = 0;
+						NotifyAllBotsOfRemoval(*pBot);
+						delete *pBot;
+						m_Bots.remove(*pBot);
+
+						break;
+					}
+				}
 			}
 		}
 		else {

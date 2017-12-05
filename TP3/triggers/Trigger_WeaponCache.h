@@ -15,8 +15,6 @@ private:
 	int teamCache;
 	std::map<int, int> weapons;
 
-	bool activated;
-
 public:
 	Trigger_WeaponCache(Vector2D pos, int teamCache);
 	~Trigger_WeaponCache();
@@ -25,9 +23,10 @@ public:
 	void AddWeapon(int weapon);
 	void Clear();
 	void Render();
+	void Update();
 
 	int GetTeamCache() const { return teamCache; }
 
-	bool IsActivated() const { return activated; }
+	int GetNumberWeapons(int weapon) { return weapons[weapon]; }
 };
 

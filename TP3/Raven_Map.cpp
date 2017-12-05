@@ -163,7 +163,7 @@ void Raven_Map::AddWeapon_Giver(int type_of_weapon, std::ifstream& in)
   EntityMgr->RegisterEntity(wg);
 }
 
-//----------------------- AddWeapon__Weapon ----------------------------------
+//----------------------- AddWeapon__Cache ----------------------------------
 //-----------------------------------------------------------------------------
 void Raven_Map::AddWeapon_Cache(int entity_type)
 {
@@ -174,9 +174,8 @@ void Raven_Map::AddWeapon_Cache(int entity_type)
 	m_TriggerSystem.Register(wg);
 
 	//let the corresponding navgraph node point to this object
-	NavGraph::NodeType node(m_pNavGraph->GetNextFreeNodeIndex(), wg->Pos());
-	m_pNavGraph->AddNode(node);
-
+	NavGraph::NodeType& node = m_pNavGraph->GetNode(RandInt(0, m_pNavGraph->GetNextFreeNodeIndex() - 1));
+	wg->SetGraphNodeIndex(node.Index());
 	node.SetExtraInfo(wg);
 
 	//register the entity 
@@ -434,4 +433,12 @@ void Raven_Map::Render()
     gdi->GreyPen();
     gdi->Circle(*curSp, 7);
   }
+}
+
+Trigger_WeaponCache *Raven_Map::GetWeaponCache(int teamCache) const {
+	for (Trigger_WeaponCache *wc : weaponCaches) {
+		if (wc->GetTeamCache() == teamCache) {
+			return wc;
+		}
+	}
 }

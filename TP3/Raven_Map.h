@@ -127,6 +127,7 @@ public:
   int                                GetMaxDimension()const{return Maximum(m_iSizeX, m_iSizeY);}
   double                             GetCellSpaceNeighborhoodRange()const{return m_dCellSpaceNeighborhoodRange;}
   std::vector<Trigger_WeaponCache *> GetWeaponCaches() const { return weaponCaches; }
+  Trigger_WeaponCache *GetWeaponCache(int teamCache) const;
 
 };
 

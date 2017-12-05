@@ -93,7 +93,7 @@ void Grenade_Projectile::TestForImpact()
 			m_iShooterID,
 			hit->ID(),
 			Msg_TakeThatMF,
-			(void*)&m_iDamageInflicted);
+			NO_ADDITIONAL_INFO);
 	}
 
 	//test for impact with a wall
@@ -148,7 +148,7 @@ void Grenade_Projectile::Render()
 {
 
 	gdi->DarkGreenPen();
-	gdi->GreenBrush();
+	gdi->DarkGreenBrush();
 	gdi->Circle(Pos(), 4);
 
 	if (isExploded())

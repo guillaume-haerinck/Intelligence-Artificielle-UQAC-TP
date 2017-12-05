@@ -226,6 +226,7 @@
   <ItemGroup>
     <ClCompile Include="armory\Projectile_Grenade.cpp" />
     <ClCompile Include="armory\Weapon_Grenade.cpp" />
+    <ClCompile Include="goals\GetWeaponCacheGoal_Evaluator.cpp" />
     <ClCompile Include="goals\Goal_DodgeEdge.cpp" />
     <ClCompile Include="goals\Goal_DodgePath.cpp" />
     <ClCompile Include="main.cpp">
@@ -549,6 +550,7 @@
     <ClInclude Include="armory\Projectile_Grenade.h" />
     <ClInclude Include="armory\Weapon_Blaster.h" />
     <ClInclude Include="armory\Weapon_Grenade.h" />
+    <ClInclude Include="goals\GetWeaponCacheGoal_Evaluator.h" />
     <ClInclude Include="goals\Goal_DodgeEdge.h" />
     <ClInclude Include="goals\Goal_DodgePath.h" />
     <ClInclude Include="Raven_Bot.h" />

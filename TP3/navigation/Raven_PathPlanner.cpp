@@ -83,24 +83,40 @@ double Raven_PathPlanner::GetCostToClosestItem(unsigned int GiverType)const
 
   double ClosestSoFar = MaxDouble;
 
-  //iterate through all the triggers to find the closest *active* trigger of 
-  //type GiverType
-  const Raven_Map::TriggerSystem::TriggerList& triggers = m_pOwner->GetWorld()->GetMap()->GetTriggers();
+  if (GiverType != type_team_cache) {
+	  //iterate through all the triggers to find the closest *active* trigger of 
+	  //type GiverType
+	  const Raven_Map::TriggerSystem::TriggerList& triggers = m_pOwner->GetWorld()->GetMap()->GetTriggers();
 
-  Raven_Map::TriggerSystem::TriggerList::const_iterator it;
-  for (it = triggers.begin(); it != triggers.end(); ++it)
-  {
-    if ( ((*it)->EntityType() == GiverType) && (*it)->isActive())
-    {
-      double cost = 
-      m_pOwner->GetWorld()->GetMap()->CalculateCostToTravelBetweenNodes(nd,
-                                                      (*it)->GraphNodeIndex());
+	  Raven_Map::TriggerSystem::TriggerList::const_iterator it;
+	  for (it = triggers.begin(); it != triggers.end(); ++it)
+	  {
+		  if (((*it)->EntityType() == GiverType) && (*it)->isActive())
+		  {
+			  double cost =
+				  m_pOwner->GetWorld()->GetMap()->CalculateCostToTravelBetweenNodes(nd,
+				  (*it)->GraphNodeIndex());
 
-      if (cost < ClosestSoFar)
-      {
-        ClosestSoFar = cost;
-      }
-    }
+			  if (cost < ClosestSoFar)
+			  {
+				  ClosestSoFar = cost;
+			  }
+		  }
+	  }
+  }
+  else {
+	  Trigger_WeaponCache *wc = m_pOwner->GetWorld()->GetMap()->GetWeaponCache(m_pOwner->EntityType());
+
+	  if (wc->isActive()) {
+		  double cost =
+			  m_pOwner->GetWorld()->GetMap()->CalculateCostToTravelBetweenNodes(nd,
+			  wc->GraphNodeIndex());
+
+		  if (cost < ClosestSoFar)
+		  {
+			  ClosestSoFar = cost;
+		  }
+	  }
   }
 
   //return a negative value if no active trigger of the type found

@@ -39,8 +39,6 @@ private:
   int            m_iGraphNodeIndex;
 
 protected:
-  
-  void SetGraphNodeIndex(int idx){m_iGraphNodeIndex = idx;}
 
   void SetToBeRemovedFromGame(){m_bRemoveFromGame = true;}
   void SetInactive(){m_bActive = false;}
@@ -75,6 +73,7 @@ public:
   //state the trigger may have
   virtual void  Update() = 0;
 
+  void SetGraphNodeIndex(int idx) { m_iGraphNodeIndex = idx; }
   int  GraphNodeIndex()const{return m_iGraphNodeIndex;}
   bool isToBeRemoved()const{return m_bRemoveFromGame;}
   bool isActive(){return m_bActive;}

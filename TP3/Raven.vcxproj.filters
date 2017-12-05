@@ -283,6 +283,9 @@
     <ClCompile Include="triggers\Trigger_WeaponCache.cpp">
       <Filter>AI\Triggers</Filter>
     </ClCompile>
+    <ClCompile Include="goals\GetWeaponCacheGoal_Evaluator.cpp">
+      <Filter>AI\goals\goal evaluation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Raven_Bot.h">
@@ -635,6 +638,9 @@
     </ClInclude>
     <ClInclude Include="triggers\Trigger_WeaponCache.h">
       <Filter>AI\Triggers</Filter>
+    </ClInclude>
+    <ClInclude Include="goals\GetWeaponCacheGoal_Evaluator.h">
+      <Filter>AI\goals\goal evaluation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
