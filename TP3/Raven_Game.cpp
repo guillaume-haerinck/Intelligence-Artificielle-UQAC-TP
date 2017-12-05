@@ -267,30 +267,42 @@ bool Raven_Game::AttemptToAddBot(Raven_Bot* pBot)
 //  Adds a bot and switches on the default steering behavior
 //-----------------------------------------------------------------------------
 void Raven_Game::AddBots(unsigned int NumBotsToAdd, int entityType)
-{ 
-  while (NumBotsToAdd--)
-  {
-    //create a bot. (its position is irrelevant at this point because it will
-    //not be rendered until it is spawned)
-	Raven_Bot* rb = new Raven_Bot(this, Vector2D(), entityType);
+{
+	while (NumBotsToAdd--)
+	{
+		Vector2D leaderPos;
+		//create a bot. (its position is irrelevant at this point because it will
+		//not be rendered until it is spawned)
+		std::list<Raven_Bot*>::const_iterator curBot = m_Bots.begin();
+		for (curBot; curBot != m_Bots.end(); ++curBot)
+		{
+			if ((*curBot)->isLeader() && (*curBot)->EntityType() == entityType)
+			{
+				leaderPos = (*curBot)->Pos();
+			}
+		}
+		Raven_Bot* rb = new Raven_Bot(this, Vector2D(), entityType);
+		rb->GetSteering()->SetTarget(leaderPos);
+		rb->GetSteering()->SetSummingMethod(Raven_Steering::summing_method(1));
+		rb->GetSteering()->SeekOn();
 
-	if (GetTeamMembers(entityType).empty()) {
-		rb->SetLeader(true);
-	}
+		if (GetTeamMembers(entityType).empty()) {
+			rb->SetLeader(true);
+		}
 
-    //switch the default steering behaviors on
-    rb->GetSteering()->WallAvoidanceOn();
-    rb->GetSteering()->SeparationOn();
+		//switch the default steering behaviors on
+		rb->GetSteering()->WallAvoidanceOn();
+		rb->GetSteering()->SeparationOn();
 
-    m_Bots.push_back(rb);
+		m_Bots.push_back(rb);
 
-    //register the bot with the entity manager
-    EntityMgr->RegisterEntity(rb);
+		//register the bot with the entity manager
+		EntityMgr->RegisterEntity(rb);
 
 #ifdef LOG_CREATIONAL_STUFF
-  debug_con << "Adding bot with ID " << ttos(rb->ID()) << "";
+		debug_con << "Adding bot with ID " << ttos(rb->ID()) << "";
 #endif
-  }
+	}
 }
 
 //---------------------------- NotifyAllBotsOfRemoval -------------------------

@@ -167,7 +167,7 @@ bool Goal_DodgeEdge::isStuck()const
 void Goal_DodgeEdge::Terminate()
 {
   //turn off steering behaviors.
-  m_pOwner->GetSteering()->SeekOff();
+ // m_pOwner->GetSteering()->SeekOff();
   m_pOwner->GetSteering()->ArriveOff();
 
   //return max speed back to normal

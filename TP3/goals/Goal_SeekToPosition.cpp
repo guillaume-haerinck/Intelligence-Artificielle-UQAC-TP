@@ -96,7 +96,7 @@ bool Goal_SeekToPosition::isStuck()const
 //-----------------------------------------------------------------------------
 void Goal_SeekToPosition::Terminate()
 {
-  m_pOwner->GetSteering()->SeekOff();
+ // m_pOwner->GetSteering()->SeekOff();
   m_pOwner->GetSteering()->ArriveOff();
 
   m_iStatus = completed;

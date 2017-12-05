@@ -82,7 +82,7 @@ int Goal_DodgeSideToSide::Process()
 //-----------------------------------------------------------------------------
 void Goal_DodgeSideToSide::Terminate()
 {
-  m_pOwner->GetSteering()->SeekOff();
+  //m_pOwner->GetSteering()->SeekOff();
 }
 
 //---------------------------- Render -----------------------------------------
