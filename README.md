@@ -1,10 +1,10 @@
 # Intelligence-Artificielle-UQAC-TP
 
-Adaptation du code source de Mat Buckland tiré du livre "Programming game A.I by exemple" lors de 3 TP successifs. Les sujet de chaque TP sont disponibles à la racine de ce Repository.
+Adaptation du code source de Mat Buckland tiré du livre "Programming game A.I by exemple" lors de 3 TP successifs. Les sujets de chaque TP sont disponibles à la racine de ce Repository.
 
 ## TP1 : Machine à état finis
 
-Simulation textuelle d'une ville au Far West. Chaque agent dispose d'un certains nombre d'états et s'execute dans un thread différent, synchronisé entre eux.
+Simulation textuelle d'une ville au Far West. Chaque agent dispose d'un certain nombre d'états et s'exécute dans un Thread différent, synchronisé entre eux.
 
 ## TP2 : Steering Behaviors
 
