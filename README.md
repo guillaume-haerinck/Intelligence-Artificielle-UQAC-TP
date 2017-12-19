@@ -14,7 +14,7 @@ Mise en place de 3 comportements de groupe qu'il est possible de switcher dans l
 * Queue - Les agents sont en file indienne
 * V - Il s'agit de l'imitation d'un vol d'oiseaux migrateurs
 
-## TP3 : Comportement dirigés par buts
+## TP3 : Comportement dirigé par buts
 
 Simulation d'une partie de type Deathmatch par des agents.
 
