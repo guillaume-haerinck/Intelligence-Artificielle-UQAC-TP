@@ -22,7 +22,9 @@ Il existe de nombreuses armes, différents modes de jeux dont une simulation d'�
 
 ## Autheurs
 
+* **Ludovic Jozereau**
 * **Loic Jimenez**
 * **Guillaume Haerinck**
 * **Pierrick Humbert**
 * **Cédric Gazzano**
+* **Baptiste Boismorand**
