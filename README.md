@@ -20,7 +20,7 @@ Simulation d'une partie de type Deathmatch par des agents.
 
 Il existe de nombreuses armes, différents modes de jeux dont une simulation d'équipe avec un bot leader, différentes esquives selon que le bot attaque ou cherche à s'enfuir, un système de message en équipe ainsi que les contrôles par un joueur humain.
 
-## Autheurs
+## Auteurs
 
 * **Ludovic Jozereau**
 * **Loic Jimenez**
